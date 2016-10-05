@@ -1,0 +1,16 @@
+#list_tren{
+background: blue;
+width: 1000px;
+height: auto;
+}
+#tren{
+background: green;
+}
+#edittren{
+width: auto;
+height: auto;
+}
+#name_tren{
+width: 300px;
+height: auto;
+}
