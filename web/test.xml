@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<test>
+    <Tren>
+        <Title>Бицепс</Title>
+        <Upr>
+            <Title> Поднятие штанги</Title>
+            <Pod>
+                <ves>100</ves>
+                <pov>10</pov>
+            </Pod>
+<Pod>
+                <ves>100</ves>
+                <pov>10</pov>
+            </Pod>
+        </Upr>
+    </Tren>
+
+</test>
