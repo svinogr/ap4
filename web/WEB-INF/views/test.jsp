@@ -6,5 +6,8 @@
 </head>
 <body>
 <h1> Это тестовая JSP</h1>
+<a href="/login">Тест Залогиниться</a>
+<a href="/registration">Тест Зарегиться</a>
+
 </body>
 </html>

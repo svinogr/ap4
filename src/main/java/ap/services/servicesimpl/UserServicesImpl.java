@@ -36,7 +36,7 @@ public class UserServicesImpl implements UserServices {
         user.setPassword(password);
         UserRole userRole = new UserRole(user.getLogin(),Role.ROLE_USER);
         System.out.println(user.toString());
-       // userRoleDAO.add(userRole);
+        userRoleDAO.add(userRole);
         userDAO.add(user);
 
     }

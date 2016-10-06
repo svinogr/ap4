@@ -3,7 +3,7 @@ package ap.config;
 import ap.dao.BasicDAO;
 import ap.dao.UserDAO;
 import ap.dao.UserRoleDAO;
-import ap.dao.WorkoutContainerDAO;
+
 import ap.dao.daoimpl.BasicDAOImpl;
 import ap.dao.daoimpl.UserDAOImpl;
 /*import ap.dao.daoimpl.WorkoutContainerDAOImpl;*/
