@@ -27,6 +27,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+
     }
 
     @Bean(name = "passwordEncoder")
@@ -36,6 +37,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        //TODO не забыть убрать тест и поставить правильный URL(логин и логаут)
         http.authorizeRequests()
                 .antMatchers("/map/rest/hello/**").access("hasRole('ADMIN')")
                 .antMatchers("/confidential/**").access("hasRole('USER')")
@@ -45,7 +47,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().csrf().disable().
                 sessionManagement().maximumSessions(100).sessionRegistry(sessionRegistry()).and()
                 .and().logout().
-                logoutUrl("/logout").logoutSuccessUrl("/").
+                logoutUrl("/logout").logoutSuccessUrl("/test").
                 invalidateHttpSession(true).deleteCookies();
     }
 

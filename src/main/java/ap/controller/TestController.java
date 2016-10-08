@@ -1,21 +1,21 @@
 package ap.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.w3c.dom.Document;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
-import java.io.IOException;
 
 @Controller
 public class TestController {
+
+    @Autowired
+    UserDetailsService userDetailsService;
 
     @RequestMapping("/test")
     public ModelAndView getTestPage(){
@@ -28,6 +28,24 @@ public class TestController {
 
     public void creatTestXml()  {
         DocumentBuilder documentBuilder = null;
+
+    }
+    @RequestMapping(value = "/aut")
+    public  void aut(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        User user = (User) authentication.getPrincipal();
+
+           // System.out.println( userDetailsService.loadUserByUsername(user.getUsername() ));
+
+
+
+       /* System.out.println(authentication.getPrincipal().toString());
+        System.out.println(authentication.getAuthorities());
+        System.out.println(authentication.getCredentials());
+        System.out.println(authentication.getDetails());
+        System.out.println(authentication.isAuthenticated());*/
+
 
     }
 

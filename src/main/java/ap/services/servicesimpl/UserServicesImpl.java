@@ -10,6 +10,9 @@ import ap.services.UserServices;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 @Component
 @Import(HibernateConfig.class)
-public class UserServicesImpl implements UserServices {
+public class UserServicesImpl implements UserServices, UserDetailsService {
     @Autowired
     SessionFactory sessionFactory;
 
@@ -38,6 +41,14 @@ public class UserServicesImpl implements UserServices {
         System.out.println(user.toString());
         userRoleDAO.add(userRole);
         userDAO.add(user);
+
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userDAO.getUserByName(username);
+
+        return user;
 
     }
 }

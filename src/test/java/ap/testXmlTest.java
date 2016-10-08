@@ -36,9 +36,10 @@ public class testXmlTest {
     BasicDAO basicDAO;
 
     @Autowired
-    WorkoutContainerDAO workoutContainerDAO;
+   // WorkoutContainerDAO workoutContainerDAO;
 
-    @Test
+   */
+/* @Test
     public void test() {
         DocumentBuilder documentBuilder = null;
         try {
@@ -70,12 +71,14 @@ public class testXmlTest {
         }
 
     }
+*//*
 
-    @Test
+    */
+/*@Test
     public void testJBOnetoMany() {
-      WorkoutContainer workoutContainer =  workoutContainerDAO.getById(450);
-        System.out.println(workoutContainer.getWorkoutContainerId());
-    }
+     // WorkoutContainer workoutContainer =  workoutContainerDAO.getById(450);
+      //  System.out.println(workoutContainer.getWorkoutContainerId());
+    }*//*
 
 
     @Test
