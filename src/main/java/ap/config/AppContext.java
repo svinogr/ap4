@@ -1,13 +1,14 @@
 package ap.config;
 
-
+import ap.entity.CustomUserServiceDetailsExtJdbcDaoImpl;
+import ap.services.UserServices;
+import ap.services.servicesimpl.UserServicesImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 
 @Configuration
 @PropertySource("classpath:util.properties")
@@ -21,10 +22,15 @@ public class AppContext {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        JdbcDaoImpl jdbcImpl = new JdbcDaoImpl();
+       CustomUserServiceDetailsExtJdbcDaoImpl jdbcImpl = new CustomUserServiceDetailsExtJdbcDaoImpl();
         jdbcImpl.setDataSource(hibernateConfig.dataSource());
         jdbcImpl.setUsersByUsernameQuery(environment.getRequiredProperty("usersByQuery"));
         jdbcImpl.setAuthoritiesByUsernameQuery(environment.getRequiredProperty("rolesByQuery"));
         return jdbcImpl;
+          }
+    @Bean
+    public UserServices userServices(){
+        return new UserServicesImpl();
     }
+
 }

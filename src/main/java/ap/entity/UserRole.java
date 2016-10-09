@@ -16,7 +16,32 @@ public class UserRole {
     @Column(name = "role_name", nullable = false)
     private  String roleName;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
     public UserRole() {
+
     }
 
     public UserRole(String userName, Role role) {

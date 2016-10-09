@@ -27,7 +27,6 @@ public class BasicDAOImpl<T> implements BasicDAO<T> {
     }
 
     @Autowired
-
     SessionFactory sessionfactory;
 
     @Override

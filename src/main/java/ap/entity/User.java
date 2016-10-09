@@ -2,14 +2,13 @@ package ap.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
 
 @Entity
 @Table(name = "users")
-public class User implements UserDetails{
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -22,10 +21,24 @@ public class User implements UserDetails{
 
     @Column(name = "password")
     private String password;
+    @Column(name = "email")
+
+    private String email;
+
+    @Column(name = "date_registration")
+
+    private Date dateRegistration;
+
+    @Transient
+    private UserDetails userDetails;
+
+    public User() {
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+
+        return userDetails.getAuthorities();
     }
 
     public String getPassword() {
@@ -34,39 +47,37 @@ public class User implements UserDetails{
 
     @Override
     public String getUsername() {
-        return null;
+        return userDetails.getUsername();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return userDetails.isAccountNonExpired();
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return userDetails.isAccountNonLocked();
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return userDetails.isCredentialsNonExpired();
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
-    }
-
-    @Column(name = "email")
-    private String email;
-
-    @Column(name="date_registration")
-    private Date dateRegistration;
-
-    public User() {
+        return userDetails.isEnabled();
     }
 
 
+    public UserDetails getUserDetails() {
+        return userDetails;
+    }
+
+    public void setUserDetails(UserDetails userDetails) {
+        this.userDetails = userDetails;
+    }
 
     public String getName() {
         return name;

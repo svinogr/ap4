@@ -7,7 +7,11 @@ import ap.entity.Role;
 import ap.entity.User;
 import ap.entity.UserRole;
 import ap.services.UserServices;
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,9 +22,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+
 @Component
 @Import(HibernateConfig.class)
-public class UserServicesImpl implements UserServices, UserDetailsService {
+public class UserServicesImpl implements UserServices {
     @Autowired
     SessionFactory sessionFactory;
 
@@ -37,7 +42,7 @@ public class UserServicesImpl implements UserServices, UserDetailsService {
         user.setDateRegistration(date);
         String password = new BCryptPasswordEncoder().encode(user.getPassword());
         user.setPassword(password);
-        UserRole userRole = new UserRole(user.getLogin(),Role.ROLE_USER);
+        UserRole userRole = new UserRole(user.getLogin(), Role.ROLE_USER);
         System.out.println(user.toString());
         userRoleDAO.add(userRole);
         userDAO.add(user);
@@ -45,10 +50,9 @@ public class UserServicesImpl implements UserServices, UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDAO.getUserByName(username);
-
+    @Transactional
+    public User getUser(String login) {
+        User user = userDAO.getByLogin(login);
         return user;
-
     }
 }
