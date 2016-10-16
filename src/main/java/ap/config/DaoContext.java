@@ -1,13 +1,9 @@
 package ap.config;
 
-import ap.dao.BasicDAO;
-import ap.dao.UserDAO;
-import ap.dao.UserRoleDAO;
+import ap.dao.*;
 
-import ap.dao.daoimpl.BasicDAOImpl;
-import ap.dao.daoimpl.UserDAOImpl;
+import ap.dao.daoimpl.*;
 /*import ap.dao.daoimpl.WorkoutContainerDAOImpl;*/
-import ap.dao.daoimpl.UserRoleDAOImpl;
 import ap.entity.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -29,9 +25,6 @@ public class DaoContext {
     public BasicDAO basicDAO(){
         return new BasicDAOImpl();
     }
-/*
-    @Bean
-    public WorkoutContainerDAO workoutContainerDAO(){return  new WorkoutContainerDAOImpl();}*/
 
     @Bean
     public UserDAO userDAO(){
@@ -40,6 +33,17 @@ public class DaoContext {
 
     @Bean
     public UserRoleDAO userRoleDAO(){return new UserRoleDAOImpl();}
+
+    @Bean
+    public WorkoutDAO workoutDAO(){
+        return new WorkoutDAOImpl();
+    }
+
+    @Bean
+    public ExersiceDAO exersiceDAO(){return new ExerciseDAOImpl();}
+
+    @Bean
+    public  TryDAO tryDAO(){return new TryDAOImpl();}
 
 
 

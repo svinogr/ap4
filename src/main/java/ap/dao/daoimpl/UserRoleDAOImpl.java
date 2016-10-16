@@ -16,7 +16,7 @@ public class UserRoleDAOImpl extends BasicDAOImpl implements UserRoleDAO {
     public UserRole getRoleByUserLogin(String login){
        UserRole userRole=null;
         try {
-            Session session = sessionfactory.getCurrentSession();
+            Session session = sessionFactory.getCurrentSession();
             Criteria criteria = session.createCriteria(UserRole.class);
             criteria.add(Restrictions.eq("login", login));
             userRole = (UserRole) criteria.uniqueResult();

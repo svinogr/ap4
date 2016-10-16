@@ -12,30 +12,40 @@ import java.util.List;
 @XmlRootElement
 @Entity
 @Table(name = "workout")
-public class Workout implements Serializable {
-    int workoutId;
-    int position;
-    String name;
-    List<Exercise> list = new ArrayList<>(0);
-    WorkoutContainer workoutContainer;
+public class Workout implements Serializable, Xmlable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", unique = true, nullable = false)
+    private int workoutId;
+
+    @Column(name = "position")
+    private int position;
+
+    @Column(name = "name")
+    private String name;
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentid", cascade = CascadeType.ALL)
+    private List<Exercise> exerciseList = new ArrayList<>(0);
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parentid")
+    private User parentid;
 
     public Workout() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", unique = true, nullable = false)
+
     public int getWorkoutId() {
         return workoutId;
     }
 
-    @XmlTransient
+    @XmlElement(name = "id")
     public void setWorkoutId(int workoutId) {
         this.workoutId = workoutId;
     }
 
 
-    @Column(name = "position")
     public int getPosition() {
         return position;
     }
@@ -46,26 +56,23 @@ public class Workout implements Serializable {
     }
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "workoutContainer_ID")
-    public WorkoutContainer getWorkoutContainer() {
-        return this.workoutContainer;
+    public User getParentid() {
+        return this.parentid;
     }
 
     @XmlTransient
-    public void setWorkoutContainer(WorkoutContainer workoutContainer) {
-        this.workoutContainer = workoutContainer;
+    public void setParentid(User user) {
+        this.parentid = user;
     }
 
 
-    @Transient
-   // @OneToMany(fetch = FetchType.LAZY, mappedBy = "workoutID")
-    public List<Exercise> getList() {return this.list;
+    public List<Exercise> getExerciseList() {
+        return this.exerciseList;
     }
 
     @XmlElement(name = "exercise")
-    public void setList(List<Exercise> list) {
-        this.list = list;
+    public void setExerciseList(List<Exercise> exerciseList) {
+        this.exerciseList = exerciseList;
     }
 
 
@@ -77,4 +84,6 @@ public class Workout implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }

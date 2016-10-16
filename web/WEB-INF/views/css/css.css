@@ -1,16 +1,16 @@
-#list_tren{
+#list_workout{
 background: blue;
 width: 1000px;
 height: auto;
 }
-#tren{
+.workout{
 background: green;
 }
-#edittren{
+#edit_workout{
 width: auto;
 height: auto;
 }
-#name_tren{
+#name_workout{
 width: 300px;
 height: auto;
 }

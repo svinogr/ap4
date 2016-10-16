@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 
-
 @Component
 public class UserDAOImpl extends BasicDAOImpl<User> implements UserDAO  {
     @Autowired
@@ -24,14 +23,14 @@ public class UserDAOImpl extends BasicDAOImpl<User> implements UserDAO  {
 
 
     @Override
+    @Transactional
     public User getByLogin(String login) {
-        User user = new User();
+        User user=null;
         try {
             Session session = sessionfactory.getCurrentSession();
             Criteria criteria = session.createCriteria(User.class);
             criteria.add(Restrictions.eq("login", login));
             user = (User) criteria.uniqueResult();
-
         } catch (HibernateException e) {
             e.printStackTrace();
         }

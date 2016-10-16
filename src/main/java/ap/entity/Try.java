@@ -16,7 +16,7 @@ public class Try implements Serializable {
     private int position;
     private int weight;
     private int repeat;
-    private Exercise exerciseId;
+    private Exercise parentid;
 
     public Try(int id, int position, int weight, int repeat) {
         this.id = id;
@@ -31,13 +31,13 @@ public class Try implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "exercise_id", nullable = false)
-    public Exercise getExerciseId() {
-        return exerciseId;
+    public Exercise getParentid() {
+        return parentid;
     }
 
     @XmlTransient
-    public void setExerciseId(Exercise exerciseId) {
-        this.exerciseId = exerciseId;
+    public void setParentid(Exercise parentid) {
+        this.parentid = parentid;
     }
 
     @Id

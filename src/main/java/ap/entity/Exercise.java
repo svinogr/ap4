@@ -13,19 +13,28 @@ import java.util.List;
 @Entity
 @Table(name = "exercise")
 public class Exercise implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", unique = true)
+    private int id;
 
-    int id;
-    int position;
-    String name;
-    List<Try> tryList = new ArrayList<>(0);
-    Workout workoutID;
+    @Column(name = "position")
+    private int position;
+
+    @Column(name = "name")
+    private String name;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentid", cascade = CascadeType.ALL)
+    private List<Try> tryList = new ArrayList<>(0);
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parentid", nullable = false)
+    private Workout parentid;
 
     public Exercise() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", unique = true)
+
     public int getId() {
         return id;
     }
@@ -36,7 +45,6 @@ public class Exercise implements Serializable {
     }
 
 
-    @Column(name = "position")
     public int getPosition() {
         return position;
     }
@@ -47,7 +55,6 @@ public class Exercise implements Serializable {
     }
 
 
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -58,19 +65,16 @@ public class Exercise implements Serializable {
     }
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "workout_id", nullable = false)
-    public Workout getWorkoutID() {
-        return this.workoutID;
+    public Workout getParentid() {
+        return this.parentid;
     }
 
     @XmlTransient
-    public void setWorkoutID(Workout workoutID) {
-        this.workoutID = workoutID;
+    public void setParentid(Workout parentid) {
+        this.parentid = parentid;
     }
 
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "exerciseId")
     public List<Try> getTryList() {
         return tryList;
     }
