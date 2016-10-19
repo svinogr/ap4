@@ -6,25 +6,23 @@
     <link href="${pageContext.request.contextPath}/css/css.css" rel="stylesheet">
 </head>
 <body>
-<header>
-   List of Workout
-</header>
 <div id="main">
     <div id="loading"></div>
-    <div id="panel_button">
-        <button id="add_new_tren" class="add">Add</button>
+    <div id="title">
+        <span id="topTitle">List of Workouts</span>
+        <span id="middleTitle" class="hiden">Exercises</span>
+        <span id="bottomTitle" class="hiden">Repeats</span>
+        <div class="button"></div>
+        <button id="add" class="add">Add</button>
+        <button id="back" class="unhiden">Back</button>
     </div>
-    <div id="list_workout">
-
-
-    </div>
-
+    <div id="list"></div>
 </div>
 <script src="${pageContext.request.contextPath}/js/spin.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery-3.1.0.min.js"></script>
-
-<script src="${pageContext.request.contextPath}/js/getxml.js"></script>
 <script src="${pageContext.request.contextPath}/js/js.js"></script>
+<script src="${pageContext.request.contextPath}/js/getxml.js"></script>
+
 
 
 </body>

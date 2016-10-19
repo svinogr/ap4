@@ -70,7 +70,7 @@ public class BasicDAOImpl<T> implements BasicDAO<T> {
 
     @Override
     @Transactional
-    public T getById(int id) {
+    public T getById(int id) throws HibernateException {
         Session session = sessionFactory.getCurrentSession();
         return session.load(type, id);
     }
@@ -87,14 +87,12 @@ public class BasicDAOImpl<T> implements BasicDAO<T> {
 
 
     @Override
-    public void delete(T object) {
-        try {
+    public void delete(T object)throws HibernateException {
+
             Session session = sessionFactory.getCurrentSession();
             session.delete(object);
 
-        } catch (HibernateException e) {
-            System.out.println("didn't delete");
-        }
+
 
     }
 

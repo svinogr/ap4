@@ -12,7 +12,7 @@ import java.util.List;
 @XmlRootElement
 @Entity
 @Table(name = "exercise")
-public class Exercise implements Serializable {
+public class Exercise implements Serializable, Xmlable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", unique = true)
@@ -39,7 +39,7 @@ public class Exercise implements Serializable {
         return id;
     }
 
-    @XmlTransient
+    @XmlElement
     public void setId(int id) {
         this.id = id;
     }

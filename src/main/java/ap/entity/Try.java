@@ -47,7 +47,7 @@ public class Try implements Serializable {
         return id;
     }
 
-    @XmlTransient
+    @XmlElement(name = "id")
     public void setId(int id) {
         this.id = id;
     }

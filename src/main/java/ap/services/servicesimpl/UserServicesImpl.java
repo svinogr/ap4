@@ -6,6 +6,7 @@ import ap.dao.UserRoleDAO;
 import ap.entity.Role;
 import ap.entity.User;
 import ap.entity.UserRole;
+import ap.entity.Workout;
 import ap.services.UserServices;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

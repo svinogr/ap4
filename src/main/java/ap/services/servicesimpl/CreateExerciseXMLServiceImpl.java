@@ -1,29 +1,29 @@
 package ap.services.servicesimpl;
 
-import ap.entity.User;
+import ap.entity.Exercise;
+import ap.entity.Workout;
 import ap.entity.Xmlable;
-import ap.services.CreateXMLService;
+import ap.services.CreateExerciseXMLService;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import java.io.File;
 import java.io.StringWriter;
 
-public class CreateXMLServiceImpl implements CreateXMLService {
-
-
+public class CreateExerciseXMLServiceImpl implements CreateExerciseXMLService {
     @Override
-    public StringWriter  getXML(User user) {
+    @Transactional
+    public StringWriter  getXML(Xmlable xmlable) {
         StringWriter s=new StringWriter();
         try {
 
-            JAXBContext jaxbContext = JAXBContext.newInstance(User.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(Exercise.class);
             Marshaller marshaller = jaxbContext.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            marshaller.marshal(user, s);
+            marshaller.marshal(xmlable, s);
             System.out.println(s);
+            System.out.println("делаю XML");
 
 
         } catch (JAXBException e) {
@@ -31,7 +31,4 @@ public class CreateXMLServiceImpl implements CreateXMLService {
         }
         return s;
     }
-
-
-
 }

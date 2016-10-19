@@ -8,5 +8,5 @@ import java.io.StringWriter;
 
 public interface CreateXMLService {
 
-    public StringWriter getXML(Xmlable xmlable);
+    public StringWriter getXML(User user);
 }
