@@ -8,9 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView getLoginPage(){
-        ModelAndView modelAndView= new ModelAndView();
-        modelAndView.setViewName("login");
-        return modelAndView;
+    public String getLoginPage(){
+        return "login";
     }
 }

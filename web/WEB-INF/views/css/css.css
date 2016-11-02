@@ -1,10 +1,8 @@
 #list_workout{
-background: blue;
-width: 1000px;
+width:1000px;
 height: auto;
 }
 .workout{
-background: green;
 }
 #edit_workout{
 width: auto;

@@ -2,6 +2,7 @@ package ap.controller;
 
 import ap.entity.User;
 import ap.services.UserServices;
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 
 @Controller
@@ -31,12 +35,23 @@ public class UserController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registrationResponse(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("error", "error");
-            model.addAttribute("result", "форма заполнена с ошибкми");
+            model.addAttribute("result", "форма заполнена с ошибками");
             return "registrationForme";
         }
-        userServices.registrationUser(user);
+        System.out.println(user.getName());
+        System.out.println(user.getLogin());
+        System.out.println(user.getEmail());
+        System.out.println(user.getPassword());
+       try {
+           userServices.registrationUser(user);
+       }catch (Exception e){
+           System.out.println("такой Login или Email уже зарегистрирован");
+           model.addAttribute("result","такой Login или Email уже зарегистрирован");
+           return "registrationForme";
+       }
         model.addAttribute("result", "Пользователь " +user.getName()+" добавлен");
         return "registrationForme";
     }

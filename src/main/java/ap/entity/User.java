@@ -1,9 +1,12 @@
 package ap.entity;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -20,16 +23,23 @@ public class User implements UserDetails, Xmlable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
+    @NotEmpty(message = "Пожалуйста, введите имя")
     private String name;
 
-    @Column(name = "login")
+    @Column(name = "login", unique = true)
+    @NotEmpty(message = "Пожалуйста, введите логин")
+    @Size(min = 3, message = "Размер логина должен быть не менее 3 символов")
     private String login;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
+    @NotEmpty(message = "Пожалуйста, введите пароль")
+    @Size(min = 4, message = "Размер пароля должен быть минимум 4 символов")
     private String password;
-    @Column(name = "email")
 
+    @Column(name = "email", unique = true)
+    @Email(message = "Введенный адрес не является корректным адресом почты")
+    @NotEmpty(message = "Пожалуйста, введите почтовый адрес")
     private String email;
 
     @Column(name = "date_registration")

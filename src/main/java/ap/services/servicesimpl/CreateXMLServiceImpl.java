@@ -1,8 +1,10 @@
 package ap.services.servicesimpl;
 
 import ap.entity.User;
+import ap.entity.Workout;
 import ap.entity.Xmlable;
 import ap.services.CreateXMLService;
+import org.springframework.security.crypto.codec.Utf8;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.xml.bind.JAXBContext;
@@ -18,12 +20,18 @@ public class CreateXMLServiceImpl implements CreateXMLService {
     public StringWriter  getXML(User user) {
         StringWriter s=new StringWriter();
         try {
+            for (Workout i:user.getWorkoutList()
+                 ) {
+                System.out.println(i.getName());
+
+            }
 
             JAXBContext jaxbContext = JAXBContext.newInstance(User.class);
             Marshaller marshaller = jaxbContext.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_ENCODING,"Utf8");
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             marshaller.marshal(user, s);
-            System.out.println(s);
+            System.out.println(s.toString());
 
 
         } catch (JAXBException e) {

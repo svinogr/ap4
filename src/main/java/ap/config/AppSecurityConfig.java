@@ -37,17 +37,16 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //TODO не забыть убрать тест и поставить правильный URL(логин и логаут)
-        http.authorizeRequests()
+                http.authorizeRequests()
                 .antMatchers("/map/rest/hello/**").access("hasRole('ADMIN')")
                 .antMatchers("/confidential/**").access("hasRole('USER')")
                 .antMatchers("/superconfidential/**").access("hasRole('SUPERADMIN')")
                 .and().formLogin().loginPage("/login").permitAll().
-                defaultSuccessUrl("/test", false)
+                defaultSuccessUrl("/", false)
                 .and().csrf().disable().
                 sessionManagement().maximumSessions(100).sessionRegistry(sessionRegistry()).and()
                 .and().logout().
-                logoutUrl("/logout").logoutSuccessUrl("/test").
+                logoutUrl("/logout").logoutSuccessUrl("/").
                 invalidateHttpSession(true).deleteCookies();
     }
 

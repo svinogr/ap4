@@ -1,7 +1,6 @@
 package ap.dao.daoimpl;
 
 import ap.dao.BasicDAO;
-import ap.entity.Workout;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -64,8 +63,11 @@ public class BasicDAOImpl<T> implements BasicDAO<T> {
     @Override
     @Transactional
     public void add(T object) throws HibernateException {
+
             Session session = sessionFactory.getCurrentSession();
+
             session.save(object);
+
     }
 
     @Override

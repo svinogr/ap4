@@ -8,6 +8,7 @@ import ap.entity.User;
 import ap.entity.UserRole;
 import ap.entity.Workout;
 import ap.services.UserServices;
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
@@ -33,7 +34,7 @@ public class UserServicesImpl implements UserServices {
 
     @Override
     @Transactional
-    public void registrationUser(User user) {
+    public void registrationUser(User user) throws HibernateException{
         Date date = new Date();
         user.setDateRegistration(date);
         String password = new BCryptPasswordEncoder().encode(user.getPassword());
