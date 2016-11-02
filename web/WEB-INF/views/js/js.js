@@ -140,22 +140,26 @@ function addNewExercise() {
 function addNewRepeat() {
     var weight;
     var repeat;
+    var tries;
     $(".modal-body").empty();
     $("#modal-title").text("Введите параметры подхода");
     $(".modal-body").append("<span>вес:</span>");
     $(".modal-body").append("<input type='text'id='var'/>");
     $(".modal-body").append("<span>кол-во повторений:</span>");
     $(".modal-body").append("<input type='text' id='var2'/>");
-    
+    $(".modal-body").append("<span>кол-во подходов:</span>");
+    $(".modal-body").append("<input type='text'id='var3' value='1'/>");
+
     $("#myModalBox").modal('show');
     $("#save").unbind();
     $("#save").click(function () {
         weight = $("#var").val();
         repeat = $("#var2").val();
+        tries=$("#var3").val();
         $("#myModalBox").modal('hide');
         if (weight != "" && repeat != "") {
             var x = new XMLHttpRequest();
-            x.open("GET", "addNewTry?id=" + exerciseId + "&weight=" + weight + "&repeat=" + repeat, true);
+            x.open("GET", "addNewTry?id=" + exerciseId + "&weight=" + weight + "&repeat=" + repeat+"&tries="+tries, true);
             x.send();
             x.onreadystatechange = function () {
                 if (x.readyState == 4) {
