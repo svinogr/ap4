@@ -3,8 +3,13 @@ package ap.services;
 import ap.entity.User;
 
 public interface UserServices {
-     public void registrationUser(User user);
-     public User getUser(String login);
-     public void userUpdate(User user);
-     public User getById(int id);
+    void registrationUser(User user);
+
+    User getUser(String login);
+
+    void userUpdate(User user);
+
+    User getById(int id);
+
+    Boolean allow(int id);
 }

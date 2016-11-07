@@ -116,3 +116,76 @@
 .color-change{
     width: 80px;
 }
+.form-control {
+    width: 100%;
+    padding: .10rem .10rem;
+    font-size: 1rem;
+    line-height: 1.25;
+    color:white;
+    background-color: #fff;
+    background-image: none;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: .25rem
+}
+.form-control::-ms-expand {
+    background-color: transparent;
+    border: 0;
+}
+
+.form-control:focus {
+    color: white;
+    background-color: #66afe9;
+    border-color: #66afe9;
+    outline: 0
+}
+
+.form-control::-webkit-input-placeholder {
+    color: #fdfdfe;
+    opacity: 1
+}
+
+.form-control::-moz-placeholder {
+    color: #999;
+    opacity: 1
+}
+
+.form-control:-ms-input-placeholder {
+    color: #999;
+    opacity: 1
+}
+
+.form-control::placeholder {
+    color: #999;
+    opacity: 1
+}
+
+.form-control:disabled, .form-control[readonly] {
+    background-color: #eceeef;
+    opacity: 1
+}
+
+select.form-control:not([size]):not([multiple]) {
+    height: 2.5rem
+}
+
+select.form-control:focus::-ms-value {
+    color: #55595c;
+    background-color: #fff
+}
+input[type=date], input[type=login] input[type=datetime-local], input[type=email], input[type=number], input[type=password], input[type=search-md], input[type=search], input[type=tel], input[type=text], input[type=time], input[type=url], textarea.md-textarea {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #fff;
+    border-radius: 0;
+    outline: 0;
+    height: 2.1rem;
+    width: 100%;
+    font-size: 1rem;
+    box-shadow: none;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    transition: all .3s
+}
+

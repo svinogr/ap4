@@ -12,6 +12,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +35,7 @@ public class UserServicesImpl implements UserServices {
 
     @Override
     @Transactional
-    public void registrationUser(User user) throws HibernateException{
+    public void registrationUser(User user) throws HibernateException {
         Date date = new Date();
         user.setDateRegistration(date);
         String password = new BCryptPasswordEncoder().encode(user.getPassword());
@@ -65,5 +66,17 @@ public class UserServicesImpl implements UserServices {
         return userDAO.getById(id);
     }
 
-
+    @Override
+    public Boolean allow(int id) {
+        boolean flag = false;
+        User user = null;
+        try {
+            user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        } catch (ClassCastException e) {
+        }
+        if (user.getId() == id) {
+            flag = true;
+        } else System.err.println("данная оперция не доступна этому пользователю");
+        return flag;
+    }
 }

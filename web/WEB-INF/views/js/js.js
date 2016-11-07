@@ -47,6 +47,8 @@ function back() {
         workoutLevel = false;
         $("#add").text("Добавить новое упражнение");
         $("#topTitle").text("Нзвание тренировки: " + titleWorkout);
+        $("#middleTitle").removeClass("hiden");
+        $("#middleTitle").addClass("unhiden");
         $("#bottomTitle").removeClass("unhiden");
         $("#bottomTitle").addClass("hiden");
     }

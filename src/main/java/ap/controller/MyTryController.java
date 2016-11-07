@@ -3,6 +3,7 @@ package ap.controller;
 import ap.dao.TryDAO;
 import ap.entity.Exercise;
 import ap.entity.Try;
+import ap.services.UserServices;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 public class MyTryController {
     @Autowired
     TryDAO tryDAO;
+    @Autowired
+    UserServices userServices;
 
     @RequestMapping(value ="/confidential/addNewTry" , method = RequestMethod.GET, params = {"id","weight","repeat","tries"})
     @Transactional
@@ -48,8 +51,9 @@ public class MyTryController {
         System.out.println("номер подхода для удаления"+idTry);
         try {
             Try tries =tryDAO.getById(idTry);
-            tryDAO.delete(tries);
-
+            if(userServices.allow(tries.getParentid().getParentid().getParentid().getId())) {
+                tryDAO.delete(tries);
+            }
         }catch ( HibernateException e){
             response.setStatus(400);
         }
@@ -64,14 +68,15 @@ public class MyTryController {
         int updateVar = Integer.parseInt(request.getParameter("updateVar"));
         try {
             Try tries = tryDAO.getById(id);
-            switch (name){
-                case "weight":
-                    tries.setWeight(updateVar);
-                    break;
-                case "repeat":
-                    tries.setRepeat(updateVar);
+            if(userServices.allow(tries.getParentid().getParentid().getParentid().getId())) {
+                switch (name) {
+                    case "weight":
+                        tries.setWeight(updateVar);
+                        break;
+                    case "repeat":
+                        tries.setRepeat(updateVar);
+                }
             }
-
 
         }catch (HibernateException e){
             response.setStatus(400);

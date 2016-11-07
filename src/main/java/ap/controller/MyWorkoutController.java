@@ -97,11 +97,14 @@ public class MyWorkoutController {
     @RequestMapping(value = "/confidential/deleteWorkout", method = RequestMethod.GET, params = {"id"})
     @Transactional
     public void deleteWorkout(HttpServletRequest request, HttpServletResponse response) {
+
         int idWorkout = Integer.parseInt(request.getParameter("id"));
         System.out.println("номер тренировки на удаление" + idWorkout);
         Workout workout = workoutDAO.getById(idWorkout);
         try {
-            workoutDAO.delete(workout);
+            if(userServices.allow(workout.getParentid().getId())) {
+                workoutDAO.delete(workout);
+            }
         } catch (HibernateException e) {
             response.setStatus(400);
         }
@@ -116,13 +119,17 @@ public class MyWorkoutController {
         String updateVar = request.getParameter("updateVar");
         try {
             Workout workout = workoutDAO.getById(id);
-            workout.setName(updateVar);
+            if(userServices.allow(workout.getParentid().getId())) {
+                workout.setName(updateVar);
+            }
         }catch (HibernateException e){
             System.err.println("ошибка");
             response.setStatus(400);
         }
         response.setStatus(200);
     }
+
+    
 
     private int getLoginUserId() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

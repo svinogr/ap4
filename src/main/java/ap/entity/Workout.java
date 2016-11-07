@@ -31,6 +31,16 @@ public class Workout implements Serializable, Xmlable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parentid")
     private User parentid;
+    @Column(name = "rate")
+    private int rate=0;
+
+    public int getRate() {
+        return rate;
+    }
+    @XmlTransient
+    public void setRate(int rate) {
+        this.rate = rate;
+    }
 
     public Workout() {
     }

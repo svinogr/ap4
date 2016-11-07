@@ -4,6 +4,7 @@ import ap.dao.ExersiceDAO;
 import ap.dao.TryDAO;
 import ap.dao.WorkoutDAO;
 import ap.entity.Exercise;
+import ap.entity.User;
 import ap.entity.Workout;
 import ap.services.CreateExerciseXMLService;
 import ap.services.CreateWorkoutXMLService;
@@ -29,6 +30,8 @@ public class MyExerciseController {
     @Autowired
     ExersiceDAO exersiceDAO;
 
+    @Autowired
+    UserServices userServices;
 
     @Autowired
     CreateExerciseXMLService createExerciseXMLService;
@@ -76,7 +79,9 @@ public class MyExerciseController {
         System.out.println("номер упражнения для удаления"+idExercise);
         try {
             Exercise exercise =exersiceDAO.getById(idExercise);
-            exersiceDAO.delete(exercise);
+            if(userServices.allow(exercise.getParentid().getParentid().getId())) {
+                exersiceDAO.delete(exercise);
+            }
 
         }catch ( HibernateException e){
             response.setStatus(400);
@@ -92,7 +97,9 @@ public class MyExerciseController {
         String updateVar = request.getParameter("updateVar");
         try {
             Exercise exercise = exersiceDAO.getById(id);
-            exercise.setName(updateVar);
+            if(userServices.allow(exercise.getParentid().getParentid().getId())) {
+                exercise.setName(updateVar);
+            }
         }catch (HibernateException e){
             response.setStatus(400);
         }

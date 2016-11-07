@@ -27,9 +27,9 @@
                             <span style="background: white" style="color: white" class="icon-bar"></span>
                             <span style="background: white" style="color: white" class="icon-bar"></span>
                         </button>
-                        <a class="cta-contents navbar-brand" style="color: #fdfdfe" align="center" href="#">U-PUMP</a>
+                        <a class="cta-contents navbar-brand" style="color: #fdfdfe" align="center" href="#"><img src="${pageContext.request.contextPath}/jpg/logo.gif" alt="U-PUMP"/></a>
                     </div>
-                    <div class=" row collapse navbar-collapse navbar-width cta-button" id="responsive-menu">
+                    <div class="row collapse navbar-collapse navbar-width cta-button" id="responsive-menu">
 
 
                         <div class="">
@@ -43,14 +43,18 @@
                                        class="btn btn-primary">Мои тренировки</a>
                                 </li>
                                 <li>
-                                    <a href="${pageContext.request.contextPath}/"
+                                    <a href="${pageContext.request.contextPath}/best"
+                                       class="btn btn-primary">Лучшие</a>
+                                </li>
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/complete"
                                        class="btn btn-primary">Готовые</a>
                                 </li>
 
 
                             </ul>
                         </div>
-                        <div align="right">
+                        <div align="right" class="">
                             <div class="btn-group cta-button" role="group">
                                 <a href="${pageContext.request.contextPath}/login"
                                    class="btn btn-primary btn-xs">войти</a>

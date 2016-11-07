@@ -22,8 +22,8 @@
                         </c:if>
                     </p>
                     <p class="field">
-                        <form:input path="login" type="login" class="form-control" name="login" id="login"
-                                    placeholder="Login"/>
+                        <form:input path="login" type="text" class="form-control" name="login" id="login"
+                                    placeholder="Логин"/>
                         <c:if test="${error eq 'error'}">
                             <form:errors path="login"/>
                         </c:if>
@@ -31,7 +31,7 @@
                     <p class="field">
                         <form:input path="password" type="password" class="form-control" name="password"
                                     id="password"
-                                    placeholder="Password"/>
+                                    placeholder="Пароль"/>
                         <c:if test="${error eq 'error'}">
                             <form:errors path="password"/>
                         </c:if>
