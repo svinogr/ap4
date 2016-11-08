@@ -40,7 +40,7 @@ public class WorkoutDAOImpl extends BasicDAOImpl<Workout> implements WorkoutDAO 
         List<Workout> list = new ArrayList<>();
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Workout.class);
-        criteria.addOrder(Order.asc("rate"));
+        criteria.addOrder(Order.desc("rate"));
         criteria.setMaxResults(quantuty);
         list=criteria.list();
         return list;

@@ -7,6 +7,9 @@ import ap.entity.Try;
 import ap.entity.User;
 import ap.entity.Workout;
 import ap.services.UserServices;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.internal.util.SerializationHelper;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +20,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +42,8 @@ public class DaoTest {
     TryDAO tryDAO;
     @Autowired
     UserServices userServices;
+    @Autowired
+    SessionFactory sessionFactory;
 
 
     @Test
@@ -89,7 +97,7 @@ public class DaoTest {
                 exercise.setPosition(j);
                 exercise.setParentid(workout);
                 workout.getExerciseList().add(exercise);
-                for(int k=0; k<1; k++){
+                for (int k = 0; k < 1; k++) {
                     Try tri = new Try();
                     tri.setPosition(k);
                     tri.setRepeat(10);
@@ -108,13 +116,13 @@ public class DaoTest {
     @Transactional
     public void getById() {
         User user = userDAO.getById(1);
-        Assert.assertEquals("test1",user.getName());
+        Assert.assertEquals("test1", user.getName());
         Workout workout = workoutDAO.getById(2);
-        Assert.assertEquals("test1",workout.getName());
+        Assert.assertEquals("test1", workout.getName());
         Exercise exercise = exersiceDAO.getById(3);
-        Assert.assertEquals("test1",exercise.getName());
+        Assert.assertEquals("test1", exercise.getName());
         Try tri = tryDAO.getById(4);
-        Assert.assertEquals(3,tri.getParentid().getId());
+        Assert.assertEquals(3, tri.getParentid().getId());
     }
 
 
@@ -131,9 +139,26 @@ public class DaoTest {
 
 
     @Test
-        public void delete() {
+    public void delete() {
         User user = userDAO.getById(1);
         userDAO.delete(user);
+    }
+
+    @Test
+    @Transactional
+    @Rollback(false)
+    public void copyWorkout() {
+
+        User userCopy = userServices.getById(130);
+
+        EntityManagerFactory ent = Persistence.createEntityManagerFactory("");
+        EntityManager ent2 = ent.createEntityManager();
+        Workout workout1 = ent2.find(Workout.class,12);
+        ent2.detach(workout1);
+        workout1.setParentid(userCopy);
+        workoutDAO.add(workout1);
+        System.out.println(userCopy.getWorkoutList().size());
+
     }
 
 

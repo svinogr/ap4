@@ -38,7 +38,7 @@ function getXmlAllWorkoutsComplete() {
 
                     "<div tag='" + name + "'name ='workout' class='col-md-3 cta-button' id='" + id + "'name='" + name + "'>" +
                     "<button id='btnEdit' class='btnEdit btn btn-lg btn-block btn-primary'>Открыть</button>" +
-                   
+                    "<button id='btnCopy' class='btnCopy btn btn-lg btn-block btn-primary'>Скопировать</button>" +
                     "</div>" +
 
                     "</div>" +

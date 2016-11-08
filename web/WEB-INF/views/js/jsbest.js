@@ -10,7 +10,7 @@ function all() {
     exerciseLevel = false;
     workoutLevel = true;
     $("#back").addClass("hiden");
-    
+
 }
 $(document).ready(function () {
     $("#best").text("Готовые");
@@ -82,5 +82,18 @@ function edit() {
         $("#topTitle").text("Текущее упражнение: " + titleExercise);
     }
 }
+function rate() {
+    var typeRate = $(this).attr("id");
+    var idWorkout = $(this).parent().attr("id");
+    var x = new XMLHttpRequest();
+    x.open("GET", "rate?id=" + idWorkout + "&rate=" + typeRate, true);
+    x.send();
+    x.onreadystatechange = function () {
+        if (x.readyState == 4) {
+            if(x.status==401){
+            window.location.href = "/login";
+            } else getXmlAllWorkoutsBest();
+    }
+}}
 
 

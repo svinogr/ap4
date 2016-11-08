@@ -8,6 +8,7 @@ import ap.services.CreateWorkoutXMLService;
 import ap.services.CreateXMLService;
 import ap.services.UserServices;
 import org.hibernate.HibernateException;
+import org.hibernate.internal.util.SerializationHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.Serializable;
 import java.util.List;
 
 @Controller
@@ -102,7 +104,7 @@ public class MyWorkoutController {
         System.out.println("номер тренировки на удаление" + idWorkout);
         Workout workout = workoutDAO.getById(idWorkout);
         try {
-            if(userServices.allow(workout.getParentid().getId())) {
+            if (userServices.allow(workout.getParentid().getId())) {
                 workoutDAO.delete(workout);
             }
         } catch (HibernateException e) {
@@ -119,17 +121,60 @@ public class MyWorkoutController {
         String updateVar = request.getParameter("updateVar");
         try {
             Workout workout = workoutDAO.getById(id);
-            if(userServices.allow(workout.getParentid().getId())) {
+            if (userServices.allow(workout.getParentid().getId())) {
                 workout.setName(updateVar);
             }
-        }catch (HibernateException e){
+        } catch (HibernateException e) {
             System.err.println("ошибка");
             response.setStatus(400);
         }
         response.setStatus(200);
     }
 
-    
+    @RequestMapping(value = "/confidential/copyWorkout", method = RequestMethod.GET, produces = {"application/xml; charset=UTF-8"}, params = {"id"})
+    public
+    @ResponseBody
+    @Transactional
+    String copyWorkout(HttpServletRequest request, HttpServletResponse response) {
+        int idWorkout = Integer.parseInt(request.getParameter("id"));
+        Workout workout = workoutDAO.getById(idWorkout);
+        Workout copyWorkout = new Workout();
+        Workout workout1 = (Workout) SerializationHelper.clone(workout);
+        return null;
+
+    }
+
+    @RequestMapping(value = "/rate", method = RequestMethod.GET, params = {"id", "rate"})
+    @Transactional
+    public void rate(HttpServletRequest request, HttpServletResponse response) {
+        if (request.getUserPrincipal() == null) {
+            response.setStatus(401);
+        } else {
+            int idWorkout = Integer.parseInt(request.getParameter("id"));
+            int rate = Integer.parseInt(request.getParameter("rate"));
+
+            System.err.println(idWorkout + "  " + rate);
+            //TODO проверка на повтор
+            Workout workout = null;
+            try {
+
+                workout = workoutDAO.getById(idWorkout);
+                int oldRate = workout.getRate();
+                switch (rate) {
+                    case 0:
+                        workout.setRate(oldRate - 1);
+                        break;
+                    case 1:
+                        workout.setRate(oldRate + 1);
+                }
+
+            } catch (HibernateException e) {
+                response.setStatus(400);
+            }
+            response.setStatus(200);
+        }
+
+    }
 
     private int getLoginUserId() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

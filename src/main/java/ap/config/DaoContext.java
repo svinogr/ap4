@@ -22,30 +22,37 @@ public class DaoContext {
     HibernateConfig hibernateConfig;
 
     @Bean
-    public BasicDAO basicDAO(){
+    public BasicDAO basicDAO() {
         return new BasicDAOImpl();
     }
 
     @Bean
-    public UserDAO userDAO(){
+    public UserDAO userDAO() {
         return new UserDAOImpl();
     }
 
     @Bean
-    public UserRoleDAO userRoleDAO(){return new UserRoleDAOImpl();}
+    public UserRoleDAO userRoleDAO() {
+        return new UserRoleDAOImpl();
+    }
 
     @Bean
-    public WorkoutDAO workoutDAO(){
+    public WorkoutDAO workoutDAO() {
         return new WorkoutDAOImpl();
     }
 
     @Bean
-    public ExersiceDAO exersiceDAO(){return new ExerciseDAOImpl();}
+    public ExersiceDAO exersiceDAO() {
+        return new ExerciseDAOImpl();
+    }
 
     @Bean
-    public  TryDAO tryDAO(){return new TryDAOImpl();}
+    public TryDAO tryDAO() {
+        return new TryDAOImpl();
+    }
 
-
-
-
+    @Bean
+    public  WorkoutRatingDAO workoutRatingDAO(){
+        return new WorkoutRatingDAOImpl();
+    }
 }
