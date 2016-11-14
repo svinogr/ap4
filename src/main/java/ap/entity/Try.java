@@ -26,7 +26,6 @@ public class Try implements Serializable {
     }
 
     public Try() {
-
     }
 
     @ManyToOne(fetch = FetchType.LAZY)

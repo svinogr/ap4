@@ -51,6 +51,7 @@ function getXmlAllWorkoutsBest() {
             });
             $(".btnEdit").click(edit);
             $(".btnRate").click(rate);
+            $(".btnCopy").click(copy);
             spinner.stop();
         }
     });

@@ -1,13 +1,7 @@
 package ap.config;
 
-import ap.services.CreateExerciseXMLService;
-import ap.services.CreateWorkoutXMLService;
-import ap.services.CreateXMLService;
-import ap.services.UserServices;
-import ap.services.servicesimpl.CreateExerciseXMLServiceImpl;
-import ap.services.servicesimpl.CreateWorkoutXMLServiceImpl;
-import ap.services.servicesimpl.CreateXMLServiceImpl;
-import ap.services.servicesimpl.UserServicesImpl;
+import ap.services.*;
+import ap.services.servicesimpl.*;
 import org.glassfish.jersey.server.BackgroundScheduler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,6 +30,10 @@ public class ServicesContex {
     @Bean
     public CreateExerciseXMLService exerciseXMLService(){
         return new CreateExerciseXMLServiceImpl();
+    }
+    @Bean
+    public RateServices rateServices(){
+        return new RateServicesImpl();
     }
 
 }

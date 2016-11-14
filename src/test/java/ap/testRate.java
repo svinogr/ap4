@@ -28,16 +28,5 @@ public class testRate {
     WorkoutRatingDAO workoutRatingDAO;
 
 
-    @Test
-    @Transactional
-    @Rollback(false)
-    public void addNewRate() {
-        User user = userServices.getById(2);
-        Workout workout = workoutDAO.getById(12);
-        WorkoutRating workoutRating = new WorkoutRating();
-        workoutRating.setUserId(user.getId());
-        workoutRating.setWorkoutId(workout.getWorkoutId());
-        workoutRating.setRateMinus(false);
-        workoutRatingDAO.add(workoutRating);
-    }
+
 }

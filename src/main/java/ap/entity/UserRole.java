@@ -41,7 +41,6 @@ public class UserRole {
     }
 
     public UserRole() {
-
     }
 
     public UserRole(String userName, Role role) {

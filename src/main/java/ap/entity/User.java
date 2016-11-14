@@ -4,7 +4,6 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
@@ -53,8 +52,6 @@ public class User implements UserDetails, Xmlable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentid", cascade =CascadeType.ALL)
     private List<Workout> workoutList=new ArrayList<>();
 
-
-
     public List<Workout> getWorkoutList() {
         return workoutList;
     }
@@ -69,7 +66,6 @@ public class User implements UserDetails, Xmlable {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
         return userDetails.getAuthorities();
     }
 
@@ -154,5 +150,4 @@ public class User implements UserDetails, Xmlable {
     public void setDateRegistration(Date dateRegistration) {
         this.dateRegistration = dateRegistration;
     }
-
   }

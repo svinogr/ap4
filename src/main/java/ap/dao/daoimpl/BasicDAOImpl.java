@@ -9,7 +9,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,11 +62,8 @@ public class BasicDAOImpl<T> implements BasicDAO<T> {
     @Override
     @Transactional
     public void add(T object) throws HibernateException {
-
             Session session = sessionFactory.getCurrentSession();
-
             session.save(object);
-
     }
 
     @Override
@@ -90,13 +86,7 @@ public class BasicDAOImpl<T> implements BasicDAO<T> {
 
     @Override
     public void delete(T object)throws HibernateException {
-
             Session session = sessionFactory.getCurrentSession();
             session.delete(object);
-
-
-
     }
-
-
 }

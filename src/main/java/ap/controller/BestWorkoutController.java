@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.StringWriter;
@@ -43,6 +42,7 @@ public class BestWorkoutController {
         try {
             workoutList = workoutDAO.getListWorkout(limitWorkout);
             user.getWorkoutList().addAll(workoutList);
+            //TODO добавить критерию где тренировка не копия
         } catch (HibernateException e) {
             response.setStatus(400);
         }
@@ -57,16 +57,13 @@ public class BestWorkoutController {
     @Transactional
     String getXMLWorkout(HttpServletRequest request, HttpServletResponse response) {
         Workout workout = null;
-        System.out.println("номер тренровки " + Integer.parseInt(request.getParameter("id")));
+        System.out.println("номер тренировки " + Integer.parseInt(request.getParameter("id")));
         try {
             workout = workoutDAO.getById(Integer.parseInt(request.getParameter("id")));
-
-
         } catch (HibernateException e) {
             response.setStatus(400);
         }
         response.setStatus(200);
         return createWorkoutXMLService.getXML(workout).toString();
-
     }
 }

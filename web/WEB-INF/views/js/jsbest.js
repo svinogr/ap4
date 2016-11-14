@@ -90,10 +90,32 @@ function rate() {
     x.send();
     x.onreadystatechange = function () {
         if (x.readyState == 4) {
-            if(x.status==401){
-            window.location.href = "/login";
+            if (x.status == 401) {
+                window.location.href = "/login";
             } else getXmlAllWorkoutsBest();
+        }
     }
-}}
+}
+function copy() {
+    var idWorkout = $(this).parent().attr("id");
+    var x = new XMLHttpRequest();
+    x.open("GET", "copyWorkout?id=" + idWorkout, true);
+    x.send();
+    x.onreadystatechange = function () {
+        if (x.readyState == 4) {
+            if (x.status == 401) {
+                window.location.href = "/login";
+
+            }
+            if (x.status == 200) {
+                alert("скопировано");
+                //TODO сделать окно что тренировка скопирована        
+            }
+            if (x.status==400){
+                alert("no connection");
+            }
+        }
+    }
+}
 
 

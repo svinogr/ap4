@@ -6,7 +6,6 @@ import ap.dao.UserRoleDAO;
 import ap.entity.Role;
 import ap.entity.User;
 import ap.entity.UserRole;
-import ap.entity.Workout;
 import ap.services.UserServices;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -16,9 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.Date;
-import java.util.List;
 
 @Component
 @Import(HibernateConfig.class)
@@ -44,7 +41,6 @@ public class UserServicesImpl implements UserServices {
         System.out.println(user.toString());
         userRoleDAO.add(userRole);
         userDAO.add(user);
-
     }
 
     @Override
@@ -62,7 +58,6 @@ public class UserServicesImpl implements UserServices {
 
     @Override
     public User getById(int id) {
-
         return userDAO.getById(id);
     }
 

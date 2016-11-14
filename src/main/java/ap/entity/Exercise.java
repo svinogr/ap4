@@ -34,7 +34,6 @@ public class Exercise implements Serializable, Xmlable {
     public Exercise() {
     }
 
-
     public int getId() {
         return id;
     }
@@ -43,7 +42,6 @@ public class Exercise implements Serializable, Xmlable {
     public void setId(int id) {
         this.id = id;
     }
-
 
     public int getPosition() {
         return position;
@@ -54,7 +52,6 @@ public class Exercise implements Serializable, Xmlable {
         this.position = position;
     }
 
-
     public String getName() {
         return name;
     }
@@ -63,7 +60,6 @@ public class Exercise implements Serializable, Xmlable {
     public void setName(String name) {
         this.name = name;
     }
-
 
     public Workout getParentid() {
         return this.parentid;

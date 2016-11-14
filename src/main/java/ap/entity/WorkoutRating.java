@@ -2,10 +2,11 @@ package ap.entity;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "workoutRating")
-public class WorkoutRating {
+public class WorkoutRating implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
@@ -16,11 +17,8 @@ public class WorkoutRating {
     @Column(name = "userId")
     int userId;
 
-    @Column(name = "ratePlus")
-    boolean ratePlus;
-
-    @Column(name = "rateMinus")
-    boolean rateMinus;
+    @Column(name = "status")
+    int status;
 
     public WorkoutRating() {
     }
@@ -49,19 +47,21 @@ public class WorkoutRating {
         this.userId = userId;
     }
 
-    public boolean isRatePlus() {
-        return ratePlus;
+    public int getStatus() {
+        return status;
     }
 
-    public void setRatePlus(boolean ratePlus) {
-        this.ratePlus = ratePlus;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
-    public boolean isRateMinus() {
-        return rateMinus;
-    }
-
-    public void setRateMinus(boolean rateMinus) {
-        this.rateMinus = rateMinus;
+    @Override
+    public String toString() {
+        return "WorkoutRating{" +
+                "id=" + id +
+                ", workoutId=" + workoutId +
+                ", userId=" + userId +
+                ", status=" + status +
+                '}';
     }
 }

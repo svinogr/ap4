@@ -24,7 +24,6 @@ public class Workout implements Serializable, Xmlable {
     @Column(name = "name")
     private String name;
 
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentid", cascade = CascadeType.ALL)
     private List<Exercise> exerciseList = new ArrayList<>(0);
 
@@ -34,6 +33,17 @@ public class Workout implements Serializable, Xmlable {
 
     @Column(name = "rate")
     private int rate = 0;
+
+    @Column(name = "copy")
+    private boolean copy = false;
+
+    public boolean isCopy() {
+        return copy;
+    }
+    @XmlElement(name = "copy")
+    public void setCopy(boolean copy) {
+        this.copy = copy;
+    }
 
     public int getRate() {
         return rate;
@@ -46,7 +56,6 @@ public class Workout implements Serializable, Xmlable {
     public Workout() {
     }
 
-
     public int getWorkoutId() {
         return workoutId;
     }
@@ -56,7 +65,6 @@ public class Workout implements Serializable, Xmlable {
         this.workoutId = workoutId;
     }
 
-
     public int getPosition() {
         return position;
     }
@@ -65,7 +73,6 @@ public class Workout implements Serializable, Xmlable {
     public void setPosition(int position) {
         this.position = position;
     }
-
 
     public User getParentid() {
         return this.parentid;
@@ -86,7 +93,6 @@ public class Workout implements Serializable, Xmlable {
         this.exerciseList = exerciseList;
     }
 
-
     public String getName() {
         return name;
     }
@@ -95,6 +101,4 @@ public class Workout implements Serializable, Xmlable {
     public void setName(String name) {
         this.name = name;
     }
-
-
 }
