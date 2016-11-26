@@ -29,11 +29,13 @@ function getXmlAllWorkouts() {
             $(xml).find("workout").each(function () {
                 var name = $(this).find("name:last").text();
                 var id = $(this).find("id:last").text();
+                var author=$(this).find("author:first").text();
                 var element =
                     "<div class='bs-calltoaction bs-calltoaction-primary'>" +
                     "<div class='row'>" +
-                    "<div id='" + id + "'class='col-md-9 cta-contents'>" +
-                    "<h1 id='name' class='cta-title update'>" + name + "</h1>" +
+                    "<div id='" + id + "'class='col-md-9 cta-contents cta-button'>" +
+                    "<h1 id='name' class='cta-title update'>" + name + "</h1><button id='"+author+"' class='btnAuthor btn btn-xs btn-primary'>автор: "+author+
+                    "</button>" +
                     "</div>" +
 
                     "<div tag='" + name + "'name ='workout' class='col-md-3 cta-button' id='" + id + "'name='" + name + "'>" +
@@ -50,6 +52,7 @@ function getXmlAllWorkouts() {
             $(".btnEdit").click(edit);
             $(".delete").click(deleting);
             $(".update").click(update);
+            $(".btnAuthor").click(getAuthorWorkout);
             spinner.stop();
         }
 

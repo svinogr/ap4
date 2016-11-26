@@ -19,6 +19,7 @@ $(document).ready(function () {
     $("#all").click(all);
     $("#back").click(back);
     getXmlAllWorkoutsBest();
+    $(".pag").click(getXmlByPage);
 });
 var workoutLevel = true;
 var exerciseLevel = false;

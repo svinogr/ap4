@@ -7,6 +7,8 @@ public interface UserServices {
 
     User getUser(String login);
 
+    User getUserByName(String name);
+
     void userUpdate(User user);
 
     User getById(int id);

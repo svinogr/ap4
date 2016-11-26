@@ -47,6 +47,11 @@
                                        class="btn btn-primary">Лучшие</a>
                                 </li>
                                 <li>
+                                    <a href="${pageContext.request.contextPath}/allWorkouts"
+                                       class="btn btn-primary">Все тренировки</a>
+                                </li>
+
+                                <li>
                                     <a href="${pageContext.request.contextPath}/complete"
                                        class="btn btn-primary">Готовые</a>
                                 </li>

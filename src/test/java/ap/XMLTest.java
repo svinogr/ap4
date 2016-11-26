@@ -44,15 +44,4 @@ public class XMLTest {
 
     }
 
-    @Test
-    @Transactional
-    @Rollback(false)
-    public void getCopyWorkout(){
-        Workout byId = workoutDAO.getById(14);
-        System.out.println(byId.getName());
-        Workout workout =(Workout) createWorkoutXMLService.getWorkoutFromXML(byId);
-        System.out.println(workout.getName());
-        workout.setParentid(userDAO.getById(2));
-        workoutDAO.add(workout);
-    }
 }

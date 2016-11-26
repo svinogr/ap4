@@ -19,8 +19,10 @@ function getXmlAllWorkoutsBest() {
     };
     var target = document.getElementById("loading");
     var spinner = new Spinner(opts).spin(target);
+    var author = $("#nameAuthor").attr("name");
+    var url="getXmlAllWorkoutsCertain?id="+author;
     $.ajax({
-        url: "getXmlAllWorkoutsBest",
+        url: url,
         cache: false,
         scriptCharset: "UTF-8",
         dataType: "xml",
@@ -35,7 +37,7 @@ function getXmlAllWorkoutsBest() {
                     "<div class='bs-calltoaction bs-calltoaction-primary'>" +
                     "<div class='row'>" +
                     "<div id='" + id + "'class='col-md-9 cta-contents cta-button'>" +
-                    "<h1 id='name' class='cta-title update'>" + name + "</h1><button id='"+author+"' class='btnAuthor btn btn-xs btn-primary'>автор: "+author+
+                    "<h1 id='name' class='cta-title update'>" + name + "</h1><button id='' class='btn btn-xs btn-primary'>автор: "+author+
                     "</button>" +
                     "<h3 id='name' class='cta-title update'>Рейтинг: " + rate + "</h3>" +
                     "</div>" +
@@ -54,7 +56,6 @@ function getXmlAllWorkoutsBest() {
             $(".btnEdit").click(edit);
             $(".btnRate").click(rate);
             $(".btnCopy").click(copy);
-            $(".btnAuthor").click(getAuthorWorkout);
             spinner.stop();
         }
     });

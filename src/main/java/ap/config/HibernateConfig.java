@@ -30,6 +30,7 @@ public class HibernateConfig {
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan("ap.*");
         sessionFactory.setHibernateProperties(hibernateProperties());
+
         return sessionFactory;
     }
 
@@ -53,6 +54,7 @@ public class HibernateConfig {
         properties.put("hibernate.connection.CharSet","utf8");
         properties.put("hibernate.connection.characterEncoding","utf8");
         properties.put("hibernate.connection.useUnicode","true");
+        properties.put("hibernate.jdbc.batch_size",20);
         return properties;
     }
 

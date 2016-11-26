@@ -1,4 +1,9 @@
-function getXmlAllWorkoutsBest() {
+function getXmlAllWorkoutsBest(page) {
+    var pageNumber=0;
+    if(page!=null){
+        pageNumber=page;
+    }
+    alert(pageNumber);
     var opts = {
         lines: 13, // Число линий для рисования
         length: 0, // Длина каждой линии
@@ -7,7 +12,7 @@ function getXmlAllWorkoutsBest() {
         corners: 1, // Скругление углов (0..1)
         rotate: 0, // Смещение вращения
         direction: 1, // 1: по часовой стрелке, -1: против часовой стрелки
-        color: "#000", // #rgb или #rrggbb или массив цветов
+        color: "#337ab7", // #rgb или #rrggbb или массив цветов
         speed: 2.2, // Кругов в секунду
         trail: 17, // Послесвечение
         shadow: false, // Тень(true - да; false - нет)
@@ -20,7 +25,7 @@ function getXmlAllWorkoutsBest() {
     var target = document.getElementById("loading");
     var spinner = new Spinner(opts).spin(target);
     $.ajax({
-        url: "getXmlAllWorkoutsBest",
+        url: "/allWorkoutsXml?page="+pageNumber,
         cache: false,
         scriptCharset: "UTF-8",
         dataType: "xml",

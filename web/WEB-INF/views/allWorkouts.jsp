@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="btn-group btn-group-justified">
                     <div class="container btn-group">
-                        <button id="all" class="unhiden btn btn-primary">50 лучших</button>
+                        <button id="all" class="unhiden btn btn-primary">Все</button>
                     </div>
                 </div>
                 <div class="btn-group btn-group-justified">
@@ -30,9 +30,24 @@
 
     <div id="list"></div>
 </div>
+
+<div class="container">
+<div class="row" align="center">
+
+    <ul class="pagination">
+        <li><a href="#">&laquo;</a></li>
+        <li><a class="pag" href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">&raquo;</a></li>
+    </ul>
+
+</div>
+</div>
 <link href="${pageContext.request.contextPath}/css/css.css" rel="stylesheet">
 <script charset="utf-8" src="${pageContext.request.contextPath}/js/spin.js"></script>
-<script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/js/jsbest.js"></script>
-<script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/js/getxmlbest.js"></script>
-
+<script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/js/jsbestall.js"></script>
+<script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/js/getxmlbestall.js"></script>
 <jsp:include page="footer.jsp"/>

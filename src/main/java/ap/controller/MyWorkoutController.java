@@ -133,16 +133,14 @@ public class MyWorkoutController {
     public
     @ResponseBody
     @Transactional
-     void copyWorkout(HttpServletRequest request, HttpServletResponse response) {
+    void copyWorkout(HttpServletRequest request, HttpServletResponse response) {
         if (request.getUserPrincipal() == null) {
             response.setStatus(401);
         } else {
             int idWorkout = Integer.parseInt(request.getParameter("id"));
+            User user= getLoginUser();
             try {
-                Workout workout = workoutDAO.getById(idWorkout);
-                workout = createWorkoutXMLService.getWorkoutFromXML(workout);
-                workout.setParentid(getLoginUser());
-                workoutDAO.add(workout);
+               workoutDAO.copyWorkout(idWorkout, user);
             } catch (HibernateException e) {
                 response.setStatus(400);
             }

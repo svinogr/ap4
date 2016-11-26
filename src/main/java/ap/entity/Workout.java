@@ -15,7 +15,7 @@ import java.util.List;
 public class Workout implements Serializable, Xmlable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "id", unique = true)
     private int workoutId;
 
     @Column(name = "position")
@@ -53,11 +53,23 @@ public class Workout implements Serializable, Xmlable {
         this.rate = rate;
     }
 
+    @Column(name = "author")
+    private String author="";
+
     public Workout() {
     }
 
     public int getWorkoutId() {
         return workoutId;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    @XmlElement(name = "author")
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     @XmlElement(name = "id")
@@ -101,4 +113,6 @@ public class Workout implements Serializable, Xmlable {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }

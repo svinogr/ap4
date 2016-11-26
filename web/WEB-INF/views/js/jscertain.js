@@ -119,14 +119,14 @@ function copy() {
 }
 function getAuthorWorkout() {
     var nameAuthor=$(this).attr("id");
-  
+
     var x = new XMLHttpRequest();
     x.open("GET", "/curtainUserRequest", true);
     x.send();
     x.onreadystatechange = function () {
         if (x.readyState == 4) {
-           if(x.status == 200){
-               alert(nameAuthor);
+            if(x.status == 200){
+                alert(nameAuthor);
                 window.location.href = "/curtainUser?id=" + nameAuthor;
             }
             if(x.status==400){
