@@ -10,11 +10,14 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,6 +102,15 @@ public class WorkoutDAOImpl extends BasicDAOImpl<Workout> implements WorkoutDAO 
         criteria.setFirstResult(start);
         list.addAll(criteria.list());
         return list;
+    }
+
+    @Override
+    @Transactional
+    public int getCountAllWorkout() {
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Workout.class);
+        int count = Integer.parseInt(criteria.setProjection(Projections.rowCount()).uniqueResult().toString());
+        return count;
     }
 }
 

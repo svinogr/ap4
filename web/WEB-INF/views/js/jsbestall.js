@@ -1,3 +1,32 @@
+function createPagination() {
+   pages = Math.ceil($("#pagination").attr("count") / qantityRow);
+    
+    if (pages ==1) {
+        $("#firstPage").addClass("hiden")
+        $("#middle").addClass("hiden");
+        $("#right").addClass("hiden");
+        $("#lastPage").addClass("hiden");
+        $(".points").addClass("hiden");
+    }
+    if (pages == 2) {
+        $("#firstPage").addClass("hiden")
+        $("#right").addClass("hiden");
+        $("#lastPage").addClass("hiden");
+        $(".points").addClass("hiden");
+    }
+    if (pages > 3){
+        $("#firstPage").text(1);
+        $("#left").text(1);
+        $("#middle").text(2);
+        $("#right").text(3);
+        $("#lastPage").text(pages);
+    }
+
+
+
+
+        getXmlAllWorkoutsBest();
+}
 function best() {
     getXmlAllWorkoutsBest();
     tryLevel = false;
@@ -12,14 +41,37 @@ function all() {
     $("#back").addClass("hiden");
 
 }
+function getXmlBypage() {
+    var numberPage = $(this).text();
+    alert(numberPage);
+    getXmlAllWorkoutsBest(+numberPage - 1);
+    if (numberPage > 1 && numberPage<pages) {
+        $("#left").text(+numberPage - 1);
+
+        $("#middle").text(+numberPage);
+
+        $("#right").text(+numberPage + 1);
+
+    }
+    if (numberPage == pages && numberPage>3 ){
+        $("#left").text(+numberPage - 2);
+        $("#middle").text(+numberPage - 1);
+        $("#right").text(+numberPage);
+    }
+    if(numberPage==1){
+        createPagination();
+    }
+    
+    
+}
 $(document).ready(function () {
     $("#best").text("Готовые");
     $("#back").addClass("hiden")
     $("#best").click(best);
     $("#all").click(all);
     $("#back").click(back);
-    getXmlAllWorkoutsBest();
-    $(".pag").click(getXmlByPage);
+    createPagination()
+    $(".pag").click(getXmlBypage);
 });
 var workoutLevel = true;
 var exerciseLevel = false;
@@ -28,7 +80,8 @@ var workoutId;
 var exerciseId;
 var titleWorkout;
 var titleExercise;
-
+var qantityRow = 20;
+var pages;
 function back() {
     if (exerciseLevel) {
         getXmlAllWorkoutsBest();
@@ -112,25 +165,25 @@ function copy() {
                 alert("скопировано");
                 //TODO сделать окно что тренировка скопирована        
             }
-            if (x.status==400){
+            if (x.status == 400) {
                 alert("no connection");
             }
         }
     }
 }
 function getAuthorWorkout() {
-    var nameAuthor=$(this).attr("id");
-  
+    var nameAuthor = $(this).attr("id");
+
     var x = new XMLHttpRequest();
     x.open("GET", "/curtainUserRequest", true);
     x.send();
     x.onreadystatechange = function () {
         if (x.readyState == 4) {
-           if(x.status == 200){
-               alert(nameAuthor);
+            if (x.status == 200) {
+                alert(nameAuthor);
                 window.location.href = "/curtainUser?id=" + nameAuthor;
             }
-            if(x.status==400){
+            if (x.status == 400) {
                 alert("no connection");
             }
         }

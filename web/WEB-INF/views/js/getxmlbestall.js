@@ -3,8 +3,7 @@ function getXmlAllWorkoutsBest(page) {
     if(page!=null){
         pageNumber=page;
     }
-    alert(pageNumber);
-    var opts = {
+       var opts = {
         lines: 13, // Число линий для рисования
         length: 0, // Длина каждой линии
         width: 10, // Толщина линии

@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="btn-group btn-group-justified">
                     <div class="container btn-group">
-                        <button id="all" class="unhiden btn btn-primary">Все</button>
+                        <button id="all" count="${count}" class="unhiden btn btn-primary">Все</button>
                     </div>
                 </div>
                 <div class="btn-group btn-group-justified">
@@ -32,16 +32,16 @@
 </div>
 
 <div class="container">
-<div class="row" align="center">
+<div id="pagination"  count="${count}" class="row" align="center">
 
-    <ul class="pagination">
-        <li><a href="#">&laquo;</a></li>
-        <li><a class="pag" href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">&raquo;</a></li>
+    <ul  class="pagination">
+        <li><a id="firstPage" class="pag" href="#">&laquo;</a></li>
+        <li><a  class="points" >...</a></li>
+        <li><a id="left" class="pag" href="#">1</a></li>
+        <li><a id="middle" class="pag" href="#">2</a></li>
+        <li><a id="right"  class="pag" href="#">3</a></li>
+        <li><a  class="points" >...</a></li>
+        <li><a id="lastPage" class="pag" chref="#">&raquo;</a></li>
     </ul>
 
 </div>
