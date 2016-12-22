@@ -43,6 +43,10 @@ public class BestWorkoutController {
             workoutList = workoutDAO.getListWorkout(limitWorkout);
             user.getWorkoutList().addAll(workoutList);
             //TODO добавить критерию где тренировка не копия
+            //TODO добавить запрет на кол-во тренировок и упражнений
+            //TODO сделать футер запись
+            //TODO сделать защита регтсрации по почте
+
         } catch (HibernateException e) {
             response.setStatus(400);
         }

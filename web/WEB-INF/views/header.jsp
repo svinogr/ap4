@@ -9,9 +9,13 @@
     <title>U-PUMP</title>
     <link href="${pageContext.request.contextPath}/css/mdb.min.css" rel="stylesheet">
     <script src="${pageContext.request.contextPath}/js/jquery-3.1.0.min.js"></script>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
-    <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
+    <script src="${pageContext.request.contextPath}/js/loginstatus.js"></script>
+    <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
+
+
 </head>
 <body>
 <header>
@@ -27,11 +31,10 @@
                             <span style="background: white" style="color: white" class="icon-bar"></span>
                             <span style="background: white" style="color: white" class="icon-bar"></span>
                         </button>
-                        <a class="cta-contents navbar-brand" style="color: #fdfdfe" align="center" href="#"><img src="${pageContext.request.contextPath}/jpg/logo.gif" alt="U-PUMP"/></a>
+                        <a class="cta-contents navbar-brand" style="color: #fdfdfe" align="center" href="#"><img
+                                src="${pageContext.request.contextPath}/jpg/logo.gif" alt="U-PUMP"/></a>
                     </div>
                     <div class="row collapse navbar-collapse navbar-width cta-button" id="responsive-menu">
-
-
                         <div class="">
                             <ul class="nav navbar-nav btn-group">
                                 <li>
@@ -55,23 +58,23 @@
                                     <a href="${pageContext.request.contextPath}/complete"
                                        class="btn btn-primary">Готовые</a>
                                 </li>
-
-
                             </ul>
                         </div>
-                        <div align="right" class="">
-                            <div class="btn-group cta-button" role="group">
-                                <a href="${pageContext.request.contextPath}/login"
-                                   class="btn btn-primary btn-xs">войти</a>
-                                <a href="${pageContext.request.contextPath}/registration"
-                                   class="btn btn-primary btn-xs">зарегистрироваться</a>
-                                <a href="${pageContext.request.contextPath}/logout"
-                                   class="btn btn-primary btn-xs">выйти</a>
-                            </div>
-                        </div>
                     </div>
-
-
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div id="blocklogin" align="right">
+                <div class="btn-group cta-button" role="group">
+                    <a id="login" href="${pageContext.request.contextPath}/login"
+                       class="btn btn-primary btn-xs">войти</a>
+                    <a id="registration" href="${pageContext.request.contextPath}/registration"
+                       class="btn btn-primary btn-xs">зарегистрироваться</a>
+                    <a id="logout" href="${pageContext.request.contextPath}/logout"
+                       class="btn btn-primary btn-xs">выйти</a>
                 </div>
             </div>
         </div>

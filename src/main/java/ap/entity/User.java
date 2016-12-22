@@ -48,6 +48,17 @@ public class User implements UserDetails, Xmlable {
     @Transient
     private UserDetails userDetails;
 
+    @Column(name = "active")
+    public boolean isActive() {
+        return active;
+    }
+    @XmlTransient
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    private boolean active=false;
+
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentid", cascade =CascadeType.ALL)
     private List<Workout> workoutList=new ArrayList<>();

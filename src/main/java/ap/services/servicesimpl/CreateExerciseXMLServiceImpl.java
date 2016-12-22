@@ -3,6 +3,7 @@ package ap.services.servicesimpl;
 import ap.entity.Exercise;
 import ap.entity.Xmlable;
 import ap.services.CreateExerciseXMLService;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

@@ -5,11 +5,12 @@ import org.hibernate.HibernateException;
 import java.util.List;
 
 public interface BasicDAO<T> {
-    public List<T> getAll();
-    public List<T> getAllByParentKey(int id);
-    public void add(T object) throws HibernateException;
-    public void delete(T object);
-    public void update(T object);
-    public T getById(int id);
+     List<T> getAll();
+     List<T> getAllByParentKey(int id);
+     void add(T object) throws HibernateException;
+     void delete(T object);
+     void update(T object);
+     T getById(int id);
+
 
 }

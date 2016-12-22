@@ -10,12 +10,12 @@
             <span class="alert">${result}</span> <br/>
             <div class="">
                 <form:form class="form-signin" modelAttribute="user"
-                           action="${pageContext.request.contextPath}/registration"
+                           action="${pageContext.request.contextPath}/reset"
                            method="post"
                            acceptCharset="UTF-8">
 
                     <p class="field">
-                        <form:input path="name" type="text" class="form-control" name="name" id="name"
+                        <form:input path="name" type="text" class="form-control" name="login" id="name"
                                     placeholder="Имя"/>
                         <c:if test="${error eq 'error'}">
                             <form:errors path="name"/>
@@ -37,7 +37,7 @@
                         </c:if>
                     </p>
                     <p class="field">
-                        <form:input path="email" type="email" class="form-control" name="email" id="email"
+                        <form:input path="email" type="email" class="form-control" name="login" id="email"
                                     placeholder="E-mail"/>
                         <c:if test="${error eq 'error'}">
                             <form:errors path="email"/>

@@ -11,7 +11,7 @@ public class UserRole {
     private int id;
 
     @Column(name = "login", nullable = false)
-    private String userName;
+    private String login;
 
     @Column(name = "role_name", nullable = false)
     private  String roleName;
@@ -24,12 +24,12 @@ public class UserRole {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getLogin() {
+        return login;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getRoleName() {
@@ -43,8 +43,8 @@ public class UserRole {
     public UserRole() {
     }
 
-    public UserRole(String userName, Role role) {
-        this.userName = userName;
+    public UserRole(String login, Role role) {
+        this.login = login;
         this.roleName = role.toString();
     }
 }

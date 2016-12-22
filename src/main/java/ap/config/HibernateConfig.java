@@ -30,7 +30,6 @@ public class HibernateConfig {
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan("ap.*");
         sessionFactory.setHibernateProperties(hibernateProperties());
-
         return sessionFactory;
     }
 
@@ -39,9 +38,8 @@ public class HibernateConfig {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
         dataSource.setUrl(environment.getRequiredProperty("jdbc.url"));
-        dataSource.setUsername(environment.getRequiredProperty("jdbc.username"));
+        dataSource.setUsername(environment.getRequiredProperty("jdbc.login"));
         dataSource.setPassword(environment.getRequiredProperty("jdbc.password"));
-
         return dataSource;
     }
 
@@ -51,10 +49,10 @@ public class HibernateConfig {
         properties.put("hibernate.show_sql", environment.getRequiredProperty("hibernate.show_sql"));
         properties.put("hibernate.format_sql", environment.getRequiredProperty("hibernate.format_sql"));
         properties.put("hibernate.hbm2ddl.auto", environment.getRequiredProperty("hibernate.hbm2ddl.auto"));
-        properties.put("hibernate.connection.CharSet","utf8");
-        properties.put("hibernate.connection.characterEncoding","utf8");
-        properties.put("hibernate.connection.useUnicode","true");
-        properties.put("hibernate.jdbc.batch_size",20);
+        properties.put("hibernate.connection.CharSet", "utf8");
+        properties.put("hibernate.connection.characterEncoding", "utf8");
+        properties.put("hibernate.connection.useUnicode", "true");
+        properties.put("hibernate.jdbc.batch_size", 20);
         return properties;
     }
 

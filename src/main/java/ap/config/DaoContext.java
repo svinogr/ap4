@@ -3,8 +3,7 @@ package ap.config;
 import ap.dao.*;
 
 import ap.dao.daoimpl.*;
-/*import ap.dao.daoimpl.WorkoutContainerDAOImpl;*/
-import ap.entity.UserRole;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,7 +51,12 @@ public class DaoContext {
     }
 
     @Bean
-    public  WorkoutRatingDAO workoutRatingDAO(){
+    public WorkoutRatingDAO workoutRatingDAO() {
         return new WorkoutRatingDAOImpl();
+    }
+
+    @Bean
+    PersistentLoginsDAO persistentLoginsDAO() {
+        return new PersistentLoginsDAOImpl();
     }
 }

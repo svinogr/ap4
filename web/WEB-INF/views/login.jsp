@@ -24,6 +24,15 @@
 
         </div>
     </div>
+    <div class="row">
+        <div align="right">
+            <div class="btn-group cta-button" >
+                <a id="fogetlogin" href="${pageContext.request.contextPath}/forgetPass"
+                   class="btn btn-primary btn-xs">Востановить пароль</a>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 <link href="${pageContext.request.contextPath}/css/css.css" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">

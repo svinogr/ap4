@@ -6,4 +6,5 @@ public interface UserDAO extends BasicDAO<User> {
     User getByLogin(String login);
 
     User getByName(String name);
+    User getByEmail(String email);
 }

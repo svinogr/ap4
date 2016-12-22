@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 
 public class CustomUserServiceDetailsExtJdbcDaoImpl extends JdbcDaoImpl {
+
     @Autowired
     UserServices userServices;
     @Override

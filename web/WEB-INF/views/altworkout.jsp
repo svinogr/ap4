@@ -7,6 +7,7 @@
 <div class="container">
     <div id="main">
         <div id="loading"></div>
+        <a href="${pageContext.request.contextPath}/mail">mail</a>
         <div id="title" class="cta-contents">
             <h3 class="cta-title" id="topTitle">Спиcок тренировок:</h3>
             <h3 id="middleTitle" class="hiden">Список Упражнений:</h3>

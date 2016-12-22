@@ -51,4 +51,19 @@ public class UserDAOImpl extends BasicDAOImpl<User> implements UserDAO  {
         }
         return user;
     }
+
+    @Override
+    @Transactional
+    public User getByEmail(String email) {
+       User user=null;
+        try {
+            Session session = sessionfactory.getCurrentSession();
+            Criteria criteria = session.createCriteria(User.class);
+            criteria.add(Restrictions.eq("email", email));
+            user = (User) criteria.uniqueResult();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
 }

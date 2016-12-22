@@ -73,6 +73,8 @@ public class BasicDAOImpl<T> implements BasicDAO<T> {
         return session.load(type, id);
     }
 
+
+
     @Override
     @Transactional
     public void update(T object) {

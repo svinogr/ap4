@@ -97,12 +97,12 @@ function addNewWorkout() {
         if (nameWorkout != "") {
             var x = new XMLHttpRequest();
             x.open("GET", "addNewWorkout?name=" + encodeURIComponent(nameWorkout), true);
-            x.send();
-            x.onreadystatechange = function () {
-                if (x.readyState == 4) {
-                    if (x.status == 200) {
-                        getXmlAllWorkouts();
-                    } else alert("no connection");
+                    x.send();
+                    x.onreadystatechange = function () {
+                        if (x.readyState == 4) {
+                            if (x.status == 200) {
+                                getXmlAllWorkouts();
+                            } else alert("no connection");
                 }
             }
         }
