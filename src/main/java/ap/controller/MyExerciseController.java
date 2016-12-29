@@ -36,7 +36,6 @@ public class MyExerciseController {
     @Transactional
     String getXMLExercise(HttpServletRequest request, HttpServletResponse response) {
         Exercise exercise = null;
-        System.out.println("номер упражнения " + Integer.parseInt(request.getParameter("id")));
         try {
             exercise = exersiceDAO.getById(Integer.parseInt(request.getParameter("id")));
         } catch (HibernateException e) {
@@ -50,8 +49,6 @@ public class MyExerciseController {
     public void addNewExercise(HttpServletRequest request, HttpServletResponse response) {
         int idWorkout = Integer.parseInt(request.getParameter("id"));
         String nameofNewExercise = request.getParameter("name");
-        System.out.println("запрос на с оздание упржнение для  тренировки " + idWorkout);
-        System.out.println("запрос на с оздание упржнение c названием " + nameofNewExercise);
         if (nameofNewExercise != null) {
             try {
                 Workout workout = workoutDAO.getById(Integer.parseInt(request.getParameter("id")));
@@ -66,7 +63,6 @@ public class MyExerciseController {
     @Transactional
     public void deleteExercise(HttpServletRequest request, HttpServletResponse response) {
         int idExercise = Integer.parseInt(request.getParameter("id"));
-        System.out.println("номер упражнения для удаления"+idExercise);
         try {
             Exercise exercise =exersiceDAO.getById(idExercise);
             if(userServices.allow(exercise.getParentid().getParentid().getId())) {

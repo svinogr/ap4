@@ -16,6 +16,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -103,52 +104,50 @@ public class UserController {
         if (user != null) {
             String login = user.getLogin();
             String token = tokenService.createToken(login);
-            // mailService.sendForgetPass(email,"token="+token);
+            mailService.sendForgetPass(email, "token=" + token);
             response.setStatus(200);
         } else response.setStatus(400);
     }
 
-    @RequestMapping(value = "acceptRememberPass", method = RequestMethod.GET, params = {"pass", "email"})
+    @RequestMapping(value = "acceptRememberPass", method = RequestMethod.GET, params = {"token"})
     @Transactional
     public ModelAndView changePass(HttpServletRequest request, HttpServletResponse response) {
+        String token = request.getParameter("token");
+        String login = tokenService.loginUserByToken(token);
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("changePass");
-        String password = request.getParameter("pass");
-        System.out.println(password);
-        String email = request.getParameter("email");
-        System.out.println(email);
-        User user = userServices.getByEmail(email);
-        if (user.getPassword().equals(password)) {
-            modelAndView.addObject("user", user);
-        }
-        return modelAndView;
-    }
-
-
-    @RequestMapping(value = "/reset", method = RequestMethod.GET)
-    @Transactional
-    public ModelAndView pageChangePassword(HttpServletRequest request, HttpServletResponse response) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("token", request.getParameter("token"));
-        UserDetails userDetails = userDetailsService.loadUserByUsername("test");
-
-        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        modelAndView.addObject("user", new User());
+        User user = new User();
+        modelAndView.addObject("user", user);
         modelAndView.setViewName("changePassword");
-        return modelAndView;
+        if (login != null) {
+            UserDetails userDetails = userDetailsService.loadUserByUsername(login);
+            Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            user.setLogin(login);
+            modelAndView.addObject("result", "введите новый пароль");
+            tokenService.deleteToken(token);
+            return modelAndView;
+
+        } else {
+            modelAndView.addObject("result", "такой пользователь не найден, попробйте зарегистрироваться или востановить пароль");
+            return modelAndView;
+        }
+
     }
 
-    @RequestMapping(value = "/reset", method = RequestMethod.POST)
-    public String changePassword(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(request.getParameter("token"));
+
+    @RequestMapping(value = "/confidential/reset", method = RequestMethod.POST)
+    @Transactional
+    public ModelAndView pageChangePassword(@ModelAttribute("user") User user, HttpServletRequest request, HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("user", new User());
+        String password = user.getPassword();
+        String login = user.getLogin();
+        if(userServices.changePassword(login, password)){
+        modelAndView.addObject("result","пароль изменен");
 
-        return "lf";
-
+        } else modelAndView.addObject("result","пароль не изменен, попробуйте еще раз");
+        modelAndView.setViewName("changePassword");
+        SecurityContextHolder.clearContext();
+        return modelAndView;
     }
 
 

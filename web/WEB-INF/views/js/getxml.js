@@ -1,24 +1,6 @@
 function getXmlAllWorkouts() {
-    var opts = {
-        lines: 13, // Число линий для рисования
-        length: 0, // Длина каждой линии
-        width: 10, // Толщина линии
-        radius: 30, // Радиус внутреннего круга
-        corners: 1, // Скругление углов (0..1)
-        rotate: 0, // Смещение вращения
-        direction: 1, // 1: по часовой стрелке, -1: против часовой стрелки
-        color: "#000", // #rgb или #rrggbb или массив цветов
-        speed: 2.2, // Кругов в секунду
-        trail: 17, // Послесвечение
-        shadow: false, // Тень(true - да; false - нет)
-        hwaccel: false, // Аппаратное ускорение
-        className: "spinner", // CSS класс
-        zIndex: 2e9, // z-index (по-умолчанию 2000000000)
-        top: "50%", // Положение сверху относительно родителя
-        left: "50%" // Положение слева относительно родителя
-    };
     var target = document.getElementById("loading");
-    var spinner = new Spinner(opts).spin(target);
+    var spinner = new Spinner().spin(target);
     $.ajax({
         url: "getXmlAllWorkouts",
         cache: false,
@@ -29,12 +11,12 @@ function getXmlAllWorkouts() {
             $(xml).find("workout").each(function () {
                 var name = $(this).find("name:last").text();
                 var id = $(this).find("id:last").text();
-                var author=$(this).find("author:first").text();
+                var author = $(this).find("author:first").text();
                 var element =
                     "<div class='bs-calltoaction bs-calltoaction-primary'>" +
                     "<div class='row'>" +
                     "<div id='" + id + "'class='col-md-9 cta-contents cta-button'>" +
-                    "<h1 id='name' class='cta-title update'>" + name + "</h1><button id='"+author+"' class='btnAuthor btn btn-xs btn-primary'>автор: "+author+
+                    "<h1 id='name' class='cta-title update'>" + name + "</h1><button id='" + author + "' class='btnAuthor btn btn-xs btn-primary'>автор: " + author +
                     "</button>" +
                     "</div>" +
 
@@ -60,26 +42,9 @@ function getXmlAllWorkouts() {
 }
 
 function getXmlThisWorkout(id) {
-    var opts = {
-        lines: 13, // Число линий для рисования
-        length: 0, // Длина каждой линии
-        width: 10, // Толщина линии
-        radius: 30, // Радиус внутреннего круга
-        corners: 1, // Скругление углов (0..1)
-        rotate: 0, // Смещение вращения
-        direction: 1, // 1: по часовой стрелке, -1: против часовой стрелки
-        color: "#000", // #rgb или #rrggbb или массив цветов
-        speed: 2.2, // Кругов в секунду
-        trail: 17, // Послесвечение
-        shadow: false, // Тень(true - да; false - нет)
-        hwaccel: false, // Аппаратное ускорение
-        className: "spinner", // CSS класс
-        zIndex: 2e9, // z-index (по-умолчанию 2000000000)
-        top: "50%", // Положение сверху относительно родителя
-        left: "50%" // Положение слева относительно родителя
-    };
+
     var target = document.getElementById("loading");
-    var spinner = new Spinner(opts).spin(target);
+    var spinner = new Spinner().spin(target);
     $.ajax({
         url: "getXmlWorkout?id=" + id,
         cache: false,
@@ -117,26 +82,8 @@ function getXmlThisWorkout(id) {
     });
 }
 function getXmlThisWorkoutOriginal(id) {
-    var opts = {
-        lines: 13, // Число линий для рисования
-        length: 0, // Длина каждой линии
-        width: 10, // Толщина линии
-        radius: 30, // Радиус внутреннего круга
-        corners: 1, // Скругление углов (0..1)
-        rotate: 0, // Смещение вращения
-        direction: 1, // 1: по часовой стрелке, -1: против часовой стрелки
-        color: "#000", // #rgb или #rrggbb или массив цветов
-        speed: 2.2, // Кругов в секунду
-        trail: 17, // Послесвечение
-        shadow: false, // Тень(true - да; false - нет)
-        hwaccel: false, // Аппаратное ускорение
-        className: "spinner", // CSS класс
-        zIndex: 2e9, // z-index (по-умолчанию 2000000000)
-        top: "50%", // Положение сверху относительно родителя
-        left: "50%" // Положение слева относительно родителя
-    };
     var target = document.getElementById("loading");
-    var spinner = new Spinner(opts).spin(target);
+    var spinner = new Spinner().spin(target);
     $.ajax({
         url: "getXmlWorkout?id=" + id,
         cache: false,
@@ -175,26 +122,8 @@ function getXmlThisWorkoutOriginal(id) {
     });
 }
 function getXmlThisExercise(id) {
-    var opts = {
-        lines: 13, // Число линий для рисования
-        length: 0, // Длина каждой линии
-        width: 10, // Толщина линии
-        radius: 30, // Радиус внутреннего круга
-        corners: 1, // Скругление углов (0..1)
-        rotate: 0, // Смещение вращения
-        direction: 1, // 1: по часовой стрелке, -1: против часовой стрелки
-        color: "#000", // #rgb или #rrggbb или массив цветов
-        speed: 2.2, // Кругов в секунду
-        trail: 17, // Послесвечение
-        shadow: false, // Тень(true - да; false - нет)
-        hwaccel: false, // Аппаратное ускорение
-        className: "spinner", // CSS класс
-        zIndex: 2e9, // z-index (по-умолчанию 2000000000)
-        top: "50%", // Положение сверху относительно родителя
-        left: "50%" // Положение слева относительно родителя
-    };
     var target = document.getElementById("loading");
-    var spinner = new Spinner(opts).spin(target);
+    var spinner = new Spinner().spin(target);
     $.ajax({
         url: "getXmlExercise?id=" + id,
         cache: false,
@@ -218,11 +147,11 @@ function getXmlThisExercise(id) {
                     "</div>";
                 $("#list").append(element);
             });
-           // var buttonReset = "'<div class='row'><div class='btn-group btn-group-justified'><div class='container btn-group'>"
-           //     + " <button id='reset' class='reset btn btn-danger'>Сбросить подходы</button></div></div></div>";
-           // $("#list").append(buttonReset);
-           // $(".reset").click(resetRepeat);
-           // $(".color-change").click(changeColorRepeat);
+            // var buttonReset = "'<div class='row'><div class='btn-group btn-group-justified'><div class='container btn-group'>"
+            //     + " <button id='reset' class='reset btn btn-danger'>Сбросить подходы</button></div></div></div>";
+            // $("#list").append(buttonReset);
+            // $(".reset").click(resetRepeat);
+            // $(".color-change").click(changeColorRepeat);
             $(".btnEdit").click(edit);
             $(".delete").click(deleting);
             $(".update").click(update);
@@ -234,8 +163,8 @@ function getXmlThisExercise(id) {
 
 }
 function changeColorRepeat() {
-    var color =$(this).attr("class");
-    if(color=="color-change btn btn-primary"){
+    var color = $(this).attr("class");
+    if (color == "color-change btn btn-primary") {
         $(this).removeClass("btn-primary");
         $(this).addClass("btn-danger");
     } else {

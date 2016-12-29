@@ -4,6 +4,7 @@ import ap.entity.User;
 
 public interface UserServices {
     void registrationUser(User user);
+
     String acceptRegistration(String token);
 
     User getUser(String login);
@@ -17,5 +18,7 @@ public interface UserServices {
     Boolean allow(int id);
 
     User getByEmail(String email);
+
+    Boolean changePassword(String login, String paswword);
 
 }

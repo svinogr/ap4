@@ -3,7 +3,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <jsp:include page="header.jsp"/>
 <div class="container">
-
     <div class="row">
         <div class=" bs-calltoaction bs-calltoaction-primary">
 

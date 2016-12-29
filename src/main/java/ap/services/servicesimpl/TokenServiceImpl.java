@@ -1,6 +1,5 @@
 package ap.services.servicesimpl;
 
-
 import ap.dao.PersistentLoginsDAO;
 import ap.entity.PersistentLogins;
 import ap.services.TokenService;
@@ -8,13 +7,11 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.MacProvider;
 import org.hibernate.HibernateException;
-
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.security.Key;
 import java.sql.Date;
 
@@ -66,7 +63,6 @@ public class TokenServiceImpl implements TokenService {
     @Transactional
     public void deleteToken(String token) {
         PersistentLogins persistentLogins = persistentLoginsDAO.getByToken(token);
-        System.err.println("ffffffffffffffffffffffff"+persistentLogins);
         if (persistentLogins!=null){
         persistentLoginsDAO.delete(persistentLogins);}
 

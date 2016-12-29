@@ -14,11 +14,11 @@ public class Try implements Serializable {
 
     private int id;
     private int position;
-    private int weight;
+    private double weight;
     private int repeat;
     private Exercise parentid;
 
-    public Try(int id, int position, int weight, int repeat) {
+    public Try(int id, int position, double weight, int repeat) {
         this.id = id;
         this.position = position;
         this.weight = weight;
@@ -62,12 +62,12 @@ public class Try implements Serializable {
     }
 
     @Column(name = "weight")
-    public int getWeight() {
+    public double getWeight() {
         return this.weight;
     }
 
     @XmlElement
-    public void setWeight(int weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 

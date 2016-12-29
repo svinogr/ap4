@@ -9,9 +9,6 @@ import ap.entity.UserRole;
 import ap.services.MailService;
 import ap.services.TokenService;
 import ap.services.UserServices;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.impl.crypto.MacProvider;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +18,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.security.Key;
 import java.util.Date;
 
 @Component
@@ -131,5 +126,18 @@ public class UserServicesImpl implements UserServices {
     public User getByEmail(String email) {
         return userDAO.getByEmail(email);
 
+    }
+
+    @Override
+    @Transactional
+    public Boolean changePassword(String login, String password) {
+
+        User user = this.getUser(login);
+        if(user != null){
+            user.setPassword( new BCryptPasswordEncoder().encode(password));
+            this.userUpdate(user);
+            return true;
+        }
+        return false;
     }
 }

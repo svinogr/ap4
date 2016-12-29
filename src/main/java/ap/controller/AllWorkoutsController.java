@@ -35,7 +35,6 @@ public class AllWorkoutsController {
     @ResponseBody
     public String getAllWorkoutXml(HttpServletRequest request, HttpServletResponse response) {
         int numberPage = Integer.parseInt(request.getParameter("page"))*20;
-        System.out.println("страница: "+Integer.parseInt(request.getParameter("page")));
         User user = new User();
         user. getWorkoutList().addAll(workoutDAO.getListAllWorkout(numberPage));
         return  createXMLService.getXML(user).toString();

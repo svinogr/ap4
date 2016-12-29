@@ -47,7 +47,6 @@ public class CompleteWorkoutController {
     @Transactional
     String getXMLWorkout(HttpServletRequest request, HttpServletResponse response) {
         Workout workout = null;
-        System.out.println("номер тренровки " + Integer.parseInt(request.getParameter("id")));
         try {
             workout = workoutDAO.getById(Integer.parseInt(request.getParameter("id")));
         } catch (HibernateException e) {

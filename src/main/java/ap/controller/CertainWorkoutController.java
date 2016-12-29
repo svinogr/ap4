@@ -40,7 +40,6 @@ public class CertainWorkoutController {
 
     @RequestMapping(value = "/curtainUser", method = RequestMethod.GET, params = {"id"})
     public String getPageWithWorkoutCurtainUser(Model model, HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("id: " + (String) request.getParameter("id"));
         model.addAttribute("author", request.getParameter("id"));
         return "certainUser";
     }
@@ -51,9 +50,7 @@ public class CertainWorkoutController {
     @ResponseBody
     String getXML(HttpServletRequest request, HttpServletResponse response) {
         String nameUser = request.getParameter("id");
-        System.out.println(nameUser);
         User user = userServices.getUserByName(nameUser);
-        System.out.println(user);
         return createXMLService.getXML(user).toString();
     }
 

@@ -148,19 +148,19 @@
   // Built-in defaults
 
   var defaults = {
-    lines: 12             // The number of lines to draw
-  , length: 7             // The length of each line
-  , width: 5              // The line thickness
-  , radius: 10            // The radius of the inner circle
+    lines: 13             // The number of lines to draw
+  , length: 0             // The length of each line
+  , width: 10              // The line thickness
+  , radius: 30            // The radius of the inner circle
   , scale: 1.0            // Scales overall size of the spinner
   , corners: 1            // Roundness (0..1)
-  , color: '#000'         // #rgb or #rrggbb
+  , color: '#337ab7'         // #rgb or #rrggbb
   , opacity: 1/4          // Opacity of the lines
   , rotate: 0             // Rotation offset
   , direction: 1          // 1: clockwise, -1: counterclockwise
-  , speed: 1              // Rounds per second
-  , trail: 100            // Afterglow percentage
-  , fps: 20               // Frames per second when using setTimeout()
+  , speed: 2.2              // Rounds per second
+  , trail: 17            // Afterglow percentage
+  , fps: 30               // Frames per second when using setTimeout()
   , zIndex: 2e9           // Use a high z-index by default
   , className: 'spinner'  // CSS class to assign to the element
   , top: '50%'            // center vertically

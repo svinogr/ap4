@@ -1,3 +1,33 @@
+
+@media (min-width: 768px) {
+    .navbar-toggle {
+        display: none;
+    }
+}
+.navbar-nav {
+    margin: 7.5px -15px;
+}
+.navbar-nav > li > a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 20px;
+}
+@media (max-width: 767px) {
+    .navbar-nav .open .dropdown-menu {
+        position: static;
+        float: none;
+        width: auto;
+        margin-top: 0;
+        background-color: transparent;
+        border: 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+}
+
+
+
+
 .navbar-width{
     width:inherit;
 }
@@ -66,8 +96,8 @@
     .cta-contents{
         text-align: center;
     }
-}
 
+}
 
 
 .bs-calltoaction.bs-calltoaction-default{
@@ -188,4 +218,5 @@ input[type=date], input[type=login] input[type=datetime-local], input[type=email
     box-sizing: content-box;
     transition: all .3s
 }
+
 

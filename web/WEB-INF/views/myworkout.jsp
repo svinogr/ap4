@@ -1,9 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="header.jsp"/>
-<div id="test2" class="container">
-    <h1 id="test">U-PUMP v.0.1.</h1>
-</div>
 <div id="myModalBox" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content bs-calltoaction bs-calltoaction-primary">

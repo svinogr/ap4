@@ -31,6 +31,17 @@ public class Exercise implements Serializable, Xmlable {
     @JoinColumn(name = "parentid", nullable = false)
     private Workout parentid;
 
+    @Column(name = "description")
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+    @XmlElement(name = "description")
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Exercise() {
     }
 

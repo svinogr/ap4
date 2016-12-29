@@ -2,8 +2,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="header.jsp"/>
 <div class="container">
-    <div class="row"> подтверждение регистрации</div>
+    <div class="row">
+        <div class=" bs-calltoaction bs-calltoaction-primary">
+
+            <span class="alert">${result}</span> <br/>
+        </div>
+    </div>
 
 </div>
-<h1>${result}</h1>
+
 <jsp:include page="footer.jsp"/>

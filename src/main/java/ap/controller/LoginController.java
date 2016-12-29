@@ -20,8 +20,6 @@ public class LoginController {
     public void getStatus(HttpServletRequest request, HttpServletResponse response){
        if(SecurityContextHolder.getContext().getAuthentication().getPrincipal()!= "anonymousUser"){
            response.setStatus(200);
-           System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-
        } else {response.setStatus(401);
        }
    }

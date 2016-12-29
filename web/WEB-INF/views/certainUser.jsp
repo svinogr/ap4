@@ -1,9 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="header.jsp"/>
-<div id="test2" class="container">
-    <h1 id="test">U-PUMP v.0.1.</h1>
-</div>
 <div class="container">
     <div id="main">
         <div><h1 id="nameAuthor" name="${author}">автор: ${author}</h1></div>

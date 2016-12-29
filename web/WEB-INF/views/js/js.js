@@ -1,12 +1,9 @@
 $(document).ready(function () {
-    $("#add").text("Добавить новую тренировку");
+     $("#add").text("Добавить новую тренировку");
     $("#back").addClass("hiden")
     $("#add").click(add);
     $("#back").click(back);
     getXmlAllWorkouts();
-    function hello() {
-        alert("hello")
-    }
 });
 var workoutLevel = true;
 var exerciseLevel = false;
@@ -94,7 +91,7 @@ function addNewWorkout() {
     $("#save").unbind();
     $("#save").click(function () {
         var nameWorkout = save();
-        if (nameWorkout != "") {
+        if ($.trim(nameWorkout)) {
             var x = new XMLHttpRequest();
             x.open("GET", "addNewWorkout?name=" + encodeURIComponent(nameWorkout), true);
                     x.send();
@@ -123,7 +120,7 @@ function addNewExercise() {
     $("#save").unbind();
     $("#save").click(function () {
         var name = save();
-        if (name != "") {
+        if ($.trim(name)) {
             var x = new XMLHttpRequest();
             x.open("GET", "addNewExercise?id=" + workoutId + "&name=" + encodeURIComponent(name), true);
             x.send();
@@ -159,7 +156,7 @@ function addNewRepeat() {
         repeat = $("#var2").val();
         tries=$("#var3").val();
         $("#myModalBox").modal('hide');
-        if (weight != "" && repeat != "") {
+        if ($.trim(weight) && $.trim(repeat)) {
             var x = new XMLHttpRequest();
             x.open("GET", "addNewTry?id=" + exerciseId + "&weight=" + weight + "&repeat=" + repeat+"&tries="+tries, true);
             x.send();

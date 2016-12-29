@@ -5,33 +5,32 @@
 <html lang="ru">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>U-PUMP</title>
     <link href="${pageContext.request.contextPath}/css/mdb.min.css" rel="stylesheet">
     <script src="${pageContext.request.contextPath}/js/jquery-3.1.0.min.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
     <script src="${pageContext.request.contextPath}/js/loginstatus.js"></script>
+    <script src="${pageContext.request.contextPath}/js/device.js"></script>
     <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
-
-
 </head>
 <body>
 <header>
     <div class="container">
         <div class="row">
-            <div class="navbar navbar-default bs-calltoaction bs-calltoaction-primary">
+            <div class="navbar navbar-default bs-calltoaction bs-calltoaction-primary ">
                 <div class="row">
                     <div class="navbar-header">
                         <button type="button" style="background-color: #337ab7" class="btn navbar-toggle"
                                 data-toggle="collapse"
                                 data-target="#responsive-menu">
                             <span style="background: white" class="icon-bar"></span>
-                            <span style="background: white" style="color: white" class="icon-bar"></span>
-                            <span style="background: white" style="color: white" class="icon-bar"></span>
+                            <span style="background: white; color: white" class="icon-bar"></span>
+                            <span style="background: white; color: white" class="icon-bar"></span>
                         </button>
-                        <a class="cta-contents navbar-brand" style="color: #fdfdfe" align="center" href="#"><img
+                        <a class="cta-contents navbar-brand" style="color: #fdfdfe" href="#"><img
                                 src="${pageContext.request.contextPath}/jpg/logo.gif" alt="U-PUMP"/></a>
                     </div>
                     <div class="row collapse navbar-collapse navbar-width cta-button" id="responsive-menu">

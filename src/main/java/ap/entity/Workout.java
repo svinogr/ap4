@@ -56,6 +56,17 @@ public class Workout implements Serializable, Xmlable {
     @Column(name = "author")
     private String author="";
 
+    @Column(name = "description")
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+    @XmlElement(name = "description")
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Workout() {
     }
 

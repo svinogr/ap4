@@ -1,20 +1,16 @@
 package ap.services.servicesimpl;
 
 import ap.dao.WorkoutDAO;
-import ap.entity.Exercise;
-import ap.entity.Try;
 import ap.entity.Workout;
 import ap.entity.Xmlable;
 import ap.services.CreateWorkoutXMLService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import java.io.StringWriter;
-import java.util.List;
 
 @Component
 public class CreateWorkoutXMLServiceImpl implements CreateWorkoutXMLService {

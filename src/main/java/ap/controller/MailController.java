@@ -1,20 +1,13 @@
 package ap.controller;
 
-import ap.entity.User;
+import ap.entity.MailForm;
 import ap.services.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
-import org.springframework.security.authentication.RememberMeAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
-import org.springframework.security.web.authentication.rememberme.PersistentRememberMeToken;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.Date;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
@@ -23,20 +16,21 @@ public class MailController {
     @Autowired
     MailService mailService;
 
-  /* *//* // для токнов
-    @Autowired
-    PersistentTokenRepository persistentTokenRepository;*//*
+    @RequestMapping(value = "/mailto", method = RequestMethod.GET)
+    public ModelAndView mailToDeveloper(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("form", new MailForm());
+        modelAndView.setViewName("mailto");
+        return modelAndView;
+    }
+    @RequestMapping(value = "/mailto", method = RequestMethod.POST)
+    public ModelAndView sendMailToDeveloper(@ModelAttribute("form") MailForm mailForm){
 
-    @Autowired
-    UserDetailsService userDetailsService;
-
-    @RequestMapping(value = "/mail")
-    public void sendMailTest(){
-        Date date = new Date();
-       persistentTokenRepository.createNewToken(new PersistentRememberMeToken("dsd","1","dwd",date));
-        mailService.sendSMTPforRegistration("3294747@mail.ru",persistentTokenRepository.getTokenForSeries("1").getTokenValue());
-        SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println("это токен"+persistentTokenRepository.getTokenForSeries("1").toString());
-
-    }*/
+        mailService.sendMailToDeveloper(mailForm.getFrom(),mailForm.getBody());
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("form", new MailForm());
+        modelAndView.addObject("result", "сообщение отправлено");
+        modelAndView.setViewName("mailto");
+        return modelAndView;
+    }
 }

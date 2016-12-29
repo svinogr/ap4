@@ -24,7 +24,7 @@ public class MyTryController {
     @Transactional
     public void addNewTry(HttpServletRequest request, HttpServletResponse response){
         int idExercise = Integer.parseInt(request.getParameter("id"));
-        int weight =Integer.parseInt(request.getParameter("weight"));
+        double weight =Double.parseDouble(request.getParameter("weight"));
         int repeat =Integer.parseInt(request.getParameter("repeat"));
         int quantityTries=Integer.parseInt(request.getParameter("tries"));
         Exercise exercise = new Exercise();
@@ -48,7 +48,6 @@ public class MyTryController {
     @Transactional
     public void deleteTry(HttpServletRequest request, HttpServletResponse response) {
         int idTry = Integer.parseInt(request.getParameter("id"));
-        System.out.println("номер подхода для удаления"+idTry);
         try {
             Try tries =tryDAO.getById(idTry);
             if(userServices.allow(tries.getParentid().getParentid().getParentid().getId())) {
@@ -62,7 +61,6 @@ public class MyTryController {
     @RequestMapping(value = "/confidential/updateTry", method = RequestMethod.GET, params = {"id", "name", "updateVar"})
     @Transactional
     public void update(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("update try");
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         int updateVar = Integer.parseInt(request.getParameter("updateVar"));
@@ -77,13 +75,9 @@ public class MyTryController {
                         tries.setRepeat(updateVar);
                 }
             }
-
         }catch (HibernateException e){
             response.setStatus(400);
         }
-
         response.setStatus(200);
-
     }
-
 }
