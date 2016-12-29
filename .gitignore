@@ -2,3 +2,5 @@
 /lib/
 /out/
 /target/
+/test/
+hs_err_pid14788.log
