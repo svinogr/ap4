@@ -14,7 +14,7 @@
                            acceptCharset="UTF-8">
 
                     <p class="field">
-                        <form:input path="from" type="text" class="form-control" name="from" id="from"
+                        <form:input path="from" type="email" class="form-control" name="from" id="from"
                                     placeholder="Адрес электронной почты для ответа"/>
                         <c:if test="${error eq 'error'}">
                             <form:errors path="from"/>

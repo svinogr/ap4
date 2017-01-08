@@ -1,7 +1,9 @@
 package ap.controller;
 
+import ap.dao.UserInfoDAO;
 import ap.dao.WorkoutDAO;
 import ap.entity.User;
+import ap.entity.UserInfo;
 import ap.entity.Workout;
 import ap.services.CreateWorkoutXMLService;
 import ap.services.CreateXMLService;
@@ -31,6 +33,9 @@ public class CertainWorkoutController {
     CreateWorkoutXMLService createWorkoutXMLService;
 
     @Autowired
+    UserInfoDAO userInfoDAO;
+
+    @Autowired
     UserServices userServices;
 
     @RequestMapping(value = "/curtainUserRequest")
@@ -39,10 +44,24 @@ public class CertainWorkoutController {
     }
 
     @RequestMapping(value = "/curtainUser", method = RequestMethod.GET, params = {"id"})
+    @Transactional
     public String getPageWithWorkoutCurtainUser(Model model, HttpServletRequest request, HttpServletResponse response) {
-        model.addAttribute("author", request.getParameter("id"));
+
+        UserInfo userInfo = userInfoDAO.getByLogin(request.getParameter("id"));
+        model.addAttribute("author", userInfo);
         return "certainUser";
     }
+    @RequestMapping(value = "/infoUser", method = RequestMethod.GET, params = {"id"})
+    @Transactional
+    public String getInfoUser(Model model, HttpServletRequest request, HttpServletResponse response) {
+        UserInfo userInfo = userInfoDAO.getByLogin(request.getParameter("id"));
+        model.addAttribute("author", userInfo);
+        return "infoStats";
+    }
+
+
+
+
 
     @RequestMapping(value = "/getXmlAllWorkoutsCertain", method = RequestMethod.GET, produces = {"application/xml; charset=UTF-8"}, params = {"id"})
     @Transactional

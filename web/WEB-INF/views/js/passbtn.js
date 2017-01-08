@@ -7,9 +7,9 @@ function forgetPass() {
         x.onreadystatechange = function () {
             if (x.readyState == 4) {
                 if (x.status == 200) {
-                    $("#alert").text("пароль отправлен на Ваш электронный адрес");
+                    $("#alert").text("Информайия отправлена на Ваш электронный адрес");
                     /*window.location.href="/rememberPassRequest"*/
-                } else $("#alert").text("пользователя с таким электронным адресом не найдено")
+                } else $("#alert").text("Пользователя с таким электронным адресом не найдено")
             }
         }
     }

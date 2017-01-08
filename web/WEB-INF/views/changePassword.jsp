@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row">
         <div class=" bs-calltoaction bs-calltoaction-primary">
-            <span class="alert">Логин: ${user.login}</span> <br/>
+            <span class="alert">Ваш логин: ${user.login}</span> <br/>
             <span class="alert">${result}</span> <br/>
 
             <c:if test="${user.login != null}">

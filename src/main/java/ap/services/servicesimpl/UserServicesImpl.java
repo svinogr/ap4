@@ -2,9 +2,11 @@ package ap.services.servicesimpl;
 
 import ap.config.HibernateConfig;
 import ap.dao.UserDAO;
+import ap.dao.UserInfoDAO;
 import ap.dao.UserRoleDAO;
 import ap.entity.Role;
 import ap.entity.User;
+import ap.entity.UserInfo;
 import ap.entity.UserRole;
 import ap.services.MailService;
 import ap.services.TokenService;
@@ -26,6 +28,9 @@ public class UserServicesImpl implements UserServices {
 
     @Autowired
     SessionFactory sessionFactory;
+
+    @Autowired
+    UserInfoDAO userInfoDAO;
 
     @Autowired
     UserDAO userDAO;
@@ -55,6 +60,9 @@ public class UserServicesImpl implements UserServices {
         String mail = user.getEmail();
         userRoleDAO.add(userRole);
         userDAO.add(user);
+        UserInfo userInfo = new UserInfo();
+        userInfo.setLogin(user.getLogin());
+        userInfoDAO.add(userInfo);
         String token = tokenService.createToken(userLogin);
         mailService.sendSMTPforRegistration(mail, environment.getRequiredProperty("mail.linkregistration") + "token=" +
                 token);
@@ -139,5 +147,15 @@ public class UserServicesImpl implements UserServices {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public User getLoggedUser() {
+        User user = null;
+        try {
+            user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        } catch (ClassCastException e) {
+        }
+        return user;
     }
 }

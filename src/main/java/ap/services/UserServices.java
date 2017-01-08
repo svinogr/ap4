@@ -21,4 +21,6 @@ public interface UserServices {
 
     Boolean changePassword(String login, String paswword);
 
+    User getLoggedUser();
+
 }

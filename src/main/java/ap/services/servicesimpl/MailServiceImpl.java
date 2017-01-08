@@ -8,6 +8,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.awt.image.BufferedImage;
 
 @Component
 public class MailServiceImpl implements MailService {
@@ -23,7 +24,8 @@ public class MailServiceImpl implements MailService {
         try {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(simpleMailMessage, true, "UTF-8");
             mimeMessageHelper.setTo(to);
-            mimeMessageHelper.setText(body);
+            String message="Здравствуйте, для завершения регистрации проидите по ссылке ";
+            mimeMessageHelper.setText(message+" "+body);
             mimeMessageHelper.setSubject("Регистрация на сервисе U-Pump");
         } catch (MessagingException e) {
             e.printStackTrace();
@@ -39,8 +41,9 @@ public class MailServiceImpl implements MailService {
         try {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(simpleMailMessage, true, "UTF-8");
             mimeMessageHelper.setTo(to);
-            mimeMessageHelper.setText(environment.getRequiredProperty("mail.linkrememberpass")+body);
-            mimeMessageHelper.setSubject("Востановление пароля");
+            String message="Здравствуйте, для смены пароля пройдите по ссылке ";
+            mimeMessageHelper.setText(message+environment.getRequiredProperty("mail.linkrememberpass")+body);
+            mimeMessageHelper.setSubject("Востановление пароля  U-Pump");
         } catch (MessagingException e) {
             e.printStackTrace();
         }

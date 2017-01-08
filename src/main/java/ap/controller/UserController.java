@@ -1,7 +1,9 @@
 package ap.controller;
 
+import ap.dao.UserInfoDAO;
 import ap.dao.WorkoutDAO;
 import ap.entity.User;
+import ap.entity.UserInfo;
 import ap.entity.Workout;
 import ap.services.MailService;
 import ap.services.TokenService;
@@ -42,6 +44,9 @@ public class UserController {
     UserServices userServices;
     @Autowired
     WorkoutDAO workoutDAO;
+
+    @Autowired
+    UserInfoDAO userInfoDAO;
     @Autowired
     MailService mailService;
     @Autowired
@@ -62,7 +67,7 @@ public class UserController {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("error", "error");
-            model.addAttribute("result", "форма заполнена с ошибками");
+            model.addAttribute("result", "Форма заполнена с ошибками");
             return "registrationForme";
         }
 
@@ -70,10 +75,10 @@ public class UserController {
             userServices.registrationUser(user);
 
         } catch (Exception e) {
-            model.addAttribute("result", "такой Login или Email уже зарегистрирован");
+            model.addAttribute("result", "Такой Login или Email уже используется, если вы забыли пароль воспользуйтесь востановление пароля");
             return "registrationForme";
         }
-        model.addAttribute("result", "Пользователь " + user.getName() + " для завершения регистрации на указанную Вами" +
+        model.addAttribute("result", "Пользователь " + user.getName() + " добавлен, для завершения регистрации на указанную Вами" +
                 " почту отправлена ссылка для активации учетной записи");
         return "registrationForme";
     }
@@ -123,12 +128,12 @@ public class UserController {
             Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
             user.setLogin(login);
-            modelAndView.addObject("result", "введите новый пароль");
+            modelAndView.addObject("result", "Введите новый пароль");
             tokenService.deleteToken(token);
             return modelAndView;
 
         } else {
-            modelAndView.addObject("result", "такой пользователь не найден, попробйте зарегистрироваться или востановить пароль");
+            modelAndView.addObject("result", "Пользователь с указнным email не найден, попробуйте зарегистрироваться или востановить пароль");
             return modelAndView;
         }
 
@@ -142,13 +147,45 @@ public class UserController {
         String password = user.getPassword();
         String login = user.getLogin();
         if(userServices.changePassword(login, password)){
-        modelAndView.addObject("result","пароль изменен");
+        modelAndView.addObject("result","Пароль успешно изменен");
 
-        } else modelAndView.addObject("result","пароль не изменен, попробуйте еще раз");
+        } else modelAndView.addObject("result","Пароль не может быть изменен, выберите востановление пароля повторно");
         modelAndView.setViewName("changePassword");
         SecurityContextHolder.clearContext();
         return modelAndView;
     }
+    @RequestMapping(value = "confidential/myInfo", method = RequestMethod.GET)
+    @Transactional
+    public String getInfoUser(Model model, HttpServletRequest request, HttpServletResponse response) {
+        String loggedLogin = userServices.getLoggedUser().getLogin();
+        UserInfo userInfo = userInfoDAO.getByLogin(loggedLogin);
 
+        if(loggedLogin!=null) {
+            model.addAttribute("author", userInfo);
+        }
+        return "myInfoStats";
+    }
+
+    @RequestMapping(value = "confidential/myInfo", method = RequestMethod.POST)
+    @Transactional
+    public String changeStats(@Valid @ModelAttribute("author") UserInfo userInfo, BindingResult bindingResult, Model model, HttpServletRequest request, HttpServletResponse response) {
+        System.err.println(userInfo.toString());
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("error", "error");
+            model.addAttribute("result", "Форма заполнена с ошибками");
+            return "myInfoStats";
+        }
+        if(userInfo!=null) {
+            UserInfo updateUserInfo= userInfoDAO.getByLogin(userInfo.getLogin());
+            updateUserInfo.setAge(userInfo.getAge());
+            updateUserInfo.setWeight(userInfo.getWeight());
+            updateUserInfo.setHeight(userInfo.getHeight());
+            updateUserInfo.setExperience(userInfo.getExperience());
+           userInfoDAO.update(updateUserInfo);
+            model.addAttribute("author",userInfo);
+            model.addAttribute("result", "Изменение внесены");
+        }
+        return "myInfoStats";
+    }
 
 }

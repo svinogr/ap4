@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 @Configuration
 @PropertySource("classpath:util.properties")
@@ -59,4 +60,17 @@ public class DaoContext {
     PersistentLoginsDAO persistentLoginsDAO() {
         return new PersistentLoginsDAOImpl();
     }
+
+    @Bean(name = "multipartResolver")
+     CommonsMultipartResolver multipartResolver() {
+        CommonsMultipartResolver multipartResolver= new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(100000);
+        return multipartResolver;
+    }
+
+    @Bean
+    UserInfoDAO userInfoDAO(){
+        return new UserInfoDAOImpl();
+    }
+
 }

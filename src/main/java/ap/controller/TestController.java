@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -80,6 +81,18 @@ public class TestController {
     @RequestMapping(value = "/confidential/modal")
     public String modal() {
         return "modal";
+    }
+
+    @RequestMapping(value = "/image", method = RequestMethod.GET)
+    public String image() {
+        return "image";
+    }
+
+    @RequestMapping(value = "/image", method = RequestMethod.POST)
+    public String imageSave(@RequestParam( value = "file", required = false)MultipartFile file) {
+        System.err.println(file.getSize());
+
+        return "image";
     }
 
 

@@ -74,6 +74,8 @@
                        class="btn btn-primary btn-xs">зарегистрироваться</a>
                     <a id="logout" href="${pageContext.request.contextPath}/logout"
                        class="btn btn-primary btn-xs">выйти</a>
+                    <a id="info" href="${pageContext.request.contextPath}/confidential/myInfo"
+                       class="btn btn-primary btn-xs">обо мне</a>
                 </div>
             </div>
         </div>

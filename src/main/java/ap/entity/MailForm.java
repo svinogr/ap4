@@ -1,9 +1,14 @@
 package ap.entity;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class MailForm {
-    String from;
-    String to;
-    String body;
+    @NotEmpty (message = "пожалуйста, введите правильный email")
+    private String from;
+    private String to;
+    @NotEmpty(message = "пожалуйста, введите текст сообщения ")
+    private String body;
 
     public MailForm(String from, String to, String body) {
         this.from = from;
