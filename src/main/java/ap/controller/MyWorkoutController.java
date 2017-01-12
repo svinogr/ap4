@@ -87,7 +87,7 @@ public class MyWorkoutController {
             User user = userServices.getById(idLoginUser);
             int positionNewWorkout = getPosition(user.getWorkoutList());
             try {
-                workoutDAO.createNewWorkout(nameOfNewWorkout, positionNewWorkout, user);
+                workoutDAO.createNewWorkout(nameOfNewWorkout.toLowerCase(), positionNewWorkout, user);
                 response.setStatus(200);
             } catch (HibernateException e) {
                 response.setStatus(400);
@@ -120,7 +120,7 @@ public class MyWorkoutController {
         try {
             Workout workout = workoutDAO.getById(id);
             if (userServices.allow(workout.getParentid().getId())) {
-                workout.setName(updateVar);
+                workout.setName(updateVar.toLowerCase());
             }
         } catch (HibernateException e) {
             System.err.println("ошибка");

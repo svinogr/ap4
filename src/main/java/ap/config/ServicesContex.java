@@ -28,12 +28,17 @@ public class ServicesContex {
     }
 
     @Bean
-    public CreateExerciseXMLService exerciseXMLService(){
+    public CreateExerciseXMLService exerciseXMLService() {
         return new CreateExerciseXMLServiceImpl();
     }
+
     @Bean
-    public RateServices rateServices(){
+    public RateServices rateServices() {
         return new RateServicesImpl();
     }
 
+    @Bean
+    public InfoUserService infoUserService() {
+        return new InfoUserServiceImpl();
+    }
 }

@@ -52,7 +52,7 @@ public class MyExerciseController {
         if (nameofNewExercise != null) {
             try {
                 Workout workout = workoutDAO.getById(Integer.parseInt(request.getParameter("id")));
-                exersiceDAO.createNewExercise(nameofNewExercise, workout);
+                exersiceDAO.createNewExercise(nameofNewExercise.toLowerCase(), workout);
                 response.setStatus(200);
             } catch (HibernateException e) {
                 response.setStatus(400);
@@ -83,7 +83,7 @@ public class MyExerciseController {
         try {
             Exercise exercise = exersiceDAO.getById(id);
             if(userServices.allow(exercise.getParentid().getParentid().getId())) {
-                exercise.setName(updateVar);
+                exercise.setName(updateVar.toLowerCase());
             }
         }catch (HibernateException e){
             response.setStatus(400);

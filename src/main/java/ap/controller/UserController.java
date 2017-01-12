@@ -2,40 +2,31 @@ package ap.controller;
 
 import ap.dao.UserInfoDAO;
 import ap.dao.WorkoutDAO;
+import ap.entity.UploadImageException;
 import ap.entity.User;
 import ap.entity.UserInfo;
-import ap.entity.Workout;
+import ap.services.InfoUserService;
 import ap.services.MailService;
 import ap.services.TokenService;
 import ap.services.UserServices;
-import org.hibernate.HibernateException;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-
+import java.io.IOException;
 
 @Controller
 public class UserController {
@@ -53,6 +44,8 @@ public class UserController {
     UserDetailsService userDetailsService;
     @Autowired
     TokenService tokenService;
+    @Autowired
+    InfoUserService infoUserService;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public ModelAndView Userregistration() {
@@ -168,8 +161,9 @@ public class UserController {
 
     @RequestMapping(value = "confidential/myInfo", method = RequestMethod.POST)
     @Transactional
-    public String changeStats(@Valid @ModelAttribute("author") UserInfo userInfo, BindingResult bindingResult, Model model, HttpServletRequest request, HttpServletResponse response) {
+    public String changeStats(@Valid @ModelAttribute("author") UserInfo userInfo, BindingResult bindingResult, @RequestParam(value = "file", required = false) MultipartFile image, Model model, HttpServletRequest request, HttpServletResponse response) {
         System.err.println(userInfo.toString());
+        System.err.println(image.getSize());
         if (bindingResult.hasErrors()) {
             model.addAttribute("error", "error");
             model.addAttribute("result", "Форма заполнена с ошибками");
@@ -181,8 +175,23 @@ public class UserController {
             updateUserInfo.setWeight(userInfo.getWeight());
             updateUserInfo.setHeight(userInfo.getHeight());
             updateUserInfo.setExperience(userInfo.getExperience());
-           userInfoDAO.update(updateUserInfo);
-            model.addAttribute("author",userInfo);
+            try {
+                if(!image.isEmpty()){
+                    System.err.println("контроллер" +image.getSize());
+                    byte[] base= Base64.encodeBase64(image.getBytes());
+
+                    updateUserInfo.setImage(new String(base,"UTF-8"));
+                  //  updateUserInfo.setImage(image.getBytes());
+                }
+            }catch (UploadImageException e){
+                bindingResult.reject(e.getMessage());
+                return "myInfoStats";
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            userInfoDAO.update(updateUserInfo);
+            model.addAttribute("author",updateUserInfo);
             model.addAttribute("result", "Изменение внесены");
         }
         return "myInfoStats";

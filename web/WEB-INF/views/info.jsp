@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row bs-calltoaction bs-calltoaction-primary">
             <div class=" col-md-6">
-                <img src="${pageContext.request.contextPath}/jpg/logo.gif"/>
+                <img class="avatar btn btn-primary" src="data:image/jpeg;base64,${author.image}"/>
 
                 <h1 id="nameAuthor" name="${author.login}"> Автор: ${author.login}</h1>
             </div>

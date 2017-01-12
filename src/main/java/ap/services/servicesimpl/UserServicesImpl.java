@@ -62,6 +62,8 @@ public class UserServicesImpl implements UserServices {
         userDAO.add(user);
         UserInfo userInfo = new UserInfo();
         userInfo.setLogin(user.getLogin());
+      /*  userInfo.setDescription("");
+        userInfo.setImage(new byte[0]);*/
         userInfoDAO.add(userInfo);
         String token = tokenService.createToken(userLogin);
         mailService.sendSMTPforRegistration(mail, environment.getRequiredProperty("mail.linkregistration") + "token=" +
