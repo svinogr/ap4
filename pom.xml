@@ -229,7 +229,7 @@
             <version>2.3.9</version>
         </dependency>
 
-    </dependencies>
+          </dependencies>
     <build>
         <finalName>ap4</finalName>
         <sourceDirectory>src/main/java</sourceDirectory>

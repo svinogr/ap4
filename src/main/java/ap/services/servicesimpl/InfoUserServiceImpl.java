@@ -2,6 +2,7 @@ package ap.services.servicesimpl;
 
 import ap.entity.UploadImageException;
 import ap.services.InfoUserService;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -10,34 +11,17 @@ import java.io.*;
 import java.util.UUID;
 
 public class InfoUserServiceImpl implements InfoUserService {
-    @Autowired
-    ServletContext context;
+
     @Override
-    public byte[] upload(MultipartFile file) throws UploadImageException, IOException {
+    public String upload(MultipartFile file) throws UploadImageException, IOException {
         validateImage(file);
-       // UUID id = UUID.randomUUID();
-        byte[] name =file.getBytes();
-        System.err.println(name+"|"+file.getSize());
-       // File saveFile = new File(name);
-      /*  try {
-            name = context.getRealPath("\\")+"\\images\\"+id.toString();
-            System.err.println(name+"|"+file.getSize());
-            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(saveFile));
-            bufferedOutputStream.write(file.getBytes());
-            bufferedOutputStream.flush();
-            bufferedOutputStream.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-
-        }*/
-
+        byte[] base= Base64.encodeBase64(file.getBytes());
+        String name = new String(base,"UTF-8");
         return name;
     }
 
     private void validateImage(MultipartFile file) {
-        if (!file.getContentType().equals("image/jpeg")) {
+        if (!file.getContentType().equals("image/jpeg") && !file.getContentType().equals("image/jpg") && !file.getContentType().equals("image/gif") && !file.getContentType().equals("image/png")){
             throw new UploadImageException("not supported MyFormat fille");
         }
     }

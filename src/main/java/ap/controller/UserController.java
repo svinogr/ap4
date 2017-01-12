@@ -23,6 +23,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -139,62 +140,79 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
         String password = user.getPassword();
         String login = user.getLogin();
-        if(userServices.changePassword(login, password)){
-        modelAndView.addObject("result","Пароль успешно изменен");
+        if (userServices.changePassword(login, password)) {
+            modelAndView.addObject("result", "Пароль успешно изменен");
 
-        } else modelAndView.addObject("result","Пароль не может быть изменен, выберите востановление пароля повторно");
+        } else modelAndView.addObject("result", "Пароль не может быть изменен, выберите востановление пароля повторно");
         modelAndView.setViewName("changePassword");
         SecurityContextHolder.clearContext();
         return modelAndView;
     }
-    @RequestMapping(value = "confidential/myInfo", method = RequestMethod.GET)
+    @RequestMapping(value = "/infoUser", method = RequestMethod.GET, params = {"id"})
     @Transactional
     public String getInfoUser(Model model, HttpServletRequest request, HttpServletResponse response) {
+        UserInfo userInfo = userInfoDAO.getByLogin(request.getParameter("id"));
+        model.addAttribute("author", userInfo);
+        return "infoStats";
+    }
+
+    @RequestMapping(value = "confidential/myInfo", method = RequestMethod.GET)
+    @Transactional
+    public String getInfoLoginUser(Model model, HttpServletRequest request, HttpServletResponse response) {
         String loggedLogin = userServices.getLoggedUser().getLogin();
         UserInfo userInfo = userInfoDAO.getByLogin(loggedLogin);
 
-        if(loggedLogin!=null) {
+        if (loggedLogin != null) {
             model.addAttribute("author", userInfo);
         }
         return "myInfoStats";
     }
-
-    @RequestMapping(value = "confidential/myInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "confidential/myInfoForChange", method = RequestMethod.GET )
     @Transactional
-    public String changeStats(@Valid @ModelAttribute("author") UserInfo userInfo, BindingResult bindingResult, @RequestParam(value = "file", required = false) MultipartFile image, Model model, HttpServletRequest request, HttpServletResponse response) {
+    public String changeLoginUserStats(Model model, HttpServletRequest request, HttpServletResponse response) {
+    String loggedLogin = userServices.getLoggedUser().getLogin();
+    UserInfo userInfo = userInfoDAO.getByLogin(loggedLogin);
+
+    if (loggedLogin != null) {
+        model.addAttribute("author", userInfo);
+    }
+    return "myInfoForChange";
+}
+
+
+
+    @RequestMapping(value = "confidential/myInfoForChange", method = RequestMethod.POST )
+    @Transactional
+    public String changeLoginUserStats(@Valid @ModelAttribute("author") UserInfo userInfo, BindingResult bindingResult, @RequestParam(value = "file", required = false) MultipartFile image, Model model, HttpServletRequest request, HttpServletResponse response) {
         System.err.println(userInfo.toString());
         System.err.println(image.getSize());
         if (bindingResult.hasErrors()) {
             model.addAttribute("error", "error");
             model.addAttribute("result", "Форма заполнена с ошибками");
-            return "myInfoStats";
+            return "myInfoForChange";
         }
-        if(userInfo!=null) {
-            UserInfo updateUserInfo= userInfoDAO.getByLogin(userInfo.getLogin());
+        if (userInfo != null) {
+            UserInfo updateUserInfo = userInfoDAO.getByLogin(userInfo.getLogin());
             updateUserInfo.setAge(userInfo.getAge());
             updateUserInfo.setWeight(userInfo.getWeight());
             updateUserInfo.setHeight(userInfo.getHeight());
             updateUserInfo.setExperience(userInfo.getExperience());
             try {
-                if(!image.isEmpty()){
-                    System.err.println("контроллер" +image.getSize());
-                    byte[] base= Base64.encodeBase64(image.getBytes());
-
-                    updateUserInfo.setImage(new String(base,"UTF-8"));
-                  //  updateUserInfo.setImage(image.getBytes());
+                if (!image.isEmpty()) {
+                   String imageForBD= infoUserService.upload(image);
+                    updateUserInfo.setImage(imageForBD);
                 }
-            }catch (UploadImageException e){
+            } catch (UploadImageException e) {
                 bindingResult.reject(e.getMessage());
-                return "myInfoStats";
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
             userInfoDAO.update(updateUserInfo);
-            model.addAttribute("author",updateUserInfo);
+            model.addAttribute("author", updateUserInfo);
             model.addAttribute("result", "Изменение внесены");
         }
-        return "myInfoStats";
+        return "myInfoForChange";
     }
 
 }

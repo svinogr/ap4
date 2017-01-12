@@ -51,13 +51,7 @@ public class CertainWorkoutController {
         model.addAttribute("author", userInfo);
         return "certainUser";
     }
-    @RequestMapping(value = "/infoUser", method = RequestMethod.GET, params = {"id"})
-    @Transactional
-    public String getInfoUser(Model model, HttpServletRequest request, HttpServletResponse response) {
-        UserInfo userInfo = userInfoDAO.getByLogin(request.getParameter("id"));
-        model.addAttribute("author", userInfo);
-        return "infoStats";
-    }
+
 
 
 

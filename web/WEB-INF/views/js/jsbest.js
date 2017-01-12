@@ -109,8 +109,8 @@ function copy() {
             }
             if (x.status == 200) {
                 
-                alert("скопировано");
-                //TODO сделать окно что тренировка скопирована        
+               /* alert("скопировано");
+                //TODO сделать окно что тренировка скопирована   */
             }
             if (x.status==400){
                 alert("no connection");
@@ -127,7 +127,7 @@ function getAuthorWorkout() {
     x.onreadystatechange = function () {
         if (x.readyState == 4) {
            if(x.status == 200){
-               alert(nameAuthor);
+               /*alert(nameAuthor);*/
                 window.location.href = "/curtainUser?id=" + nameAuthor;
             }
             if(x.status==400){
