@@ -81,17 +81,19 @@ public class MyWorkoutController {
     @Transactional
     public void addNewWorkout(HttpServletRequest request, HttpServletResponse response) {
         String nameOfNewWorkout = request.getParameter("name");
-        System.out.println(nameOfNewWorkout);
+
         if (nameOfNewWorkout != null) {
             int idLoginUser = getLoginUserId();
             User user = userServices.getById(idLoginUser);
-            int positionNewWorkout = getPosition(user.getWorkoutList());
-            try {
-                workoutDAO.createNewWorkout(nameOfNewWorkout.toLowerCase(), positionNewWorkout, user);
-                response.setStatus(200);
-            } catch (HibernateException e) {
-                response.setStatus(400);
-            }
+            if(user.getWorkoutList().size()<5) {
+                int positionNewWorkout = getPosition(user.getWorkoutList());
+                try {
+                    workoutDAO.createNewWorkout(nameOfNewWorkout.toLowerCase(), positionNewWorkout, user);
+                    response.setStatus(200);
+                } catch (HibernateException e) {
+                    response.setStatus(400);
+                }
+            } else response.setStatus(400);
         }
     }
 

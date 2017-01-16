@@ -184,11 +184,11 @@ public class UserController {
     @RequestMapping(value = "confidential/myInfoForChange", method = RequestMethod.POST )
     @Transactional
     public String changeLoginUserStats(@Valid @ModelAttribute("author") UserInfo userInfo, BindingResult bindingResult, @RequestParam(value = "file", required = false) MultipartFile image, Model model, HttpServletRequest request, HttpServletResponse response) {
-        System.err.println(userInfo.toString());
-        System.err.println(image.getSize());
         if (bindingResult.hasErrors()) {
             model.addAttribute("error", "error");
             model.addAttribute("result", "Форма заполнена с ошибками");
+            UserInfo updateUserInfo = userInfoDAO.getByLogin(userInfo.getLogin());
+            model.addAttribute("author", updateUserInfo);
             return "myInfoForChange";
         }
         if (userInfo != null) {
@@ -197,6 +197,7 @@ public class UserController {
             updateUserInfo.setWeight(userInfo.getWeight());
             updateUserInfo.setHeight(userInfo.getHeight());
             updateUserInfo.setExperience(userInfo.getExperience());
+            updateUserInfo.setDescription(userInfo.getDescription());
             try {
                 if (!image.isEmpty()) {
                    String imageForBD= infoUserService.upload(image);
@@ -213,6 +214,11 @@ public class UserController {
             model.addAttribute("result", "Изменение внесены");
         }
         return "myInfoForChange";
+    }
+
+    @RequestMapping(value = "/instruction")
+    public String getInstructionPage(){
+        return "instruction";
     }
 
 }

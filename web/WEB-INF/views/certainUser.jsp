@@ -3,7 +3,7 @@
 <jsp:include page="header.jsp"/>
 <div class="container">
     <div id="main">
-        <div><h1 id="nameAuthor" name="${author.login}">Автор: ${author.login}</h1>
+        <div><h1 id="nameAuthor" name="${author.login}">${author.login}</h1>
             <a class="cta-contents btn-primary btn-xs" style="color: #fdfdfe"  href="${pageContext.request.contextPath}/infoUser?id=${author.login}">подробнее</a>
         </div>
         <div id="loading"></div>

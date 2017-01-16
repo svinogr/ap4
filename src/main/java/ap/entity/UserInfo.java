@@ -1,8 +1,13 @@
 package ap.entity;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Arrays;
 
 @Entity()
@@ -13,6 +18,7 @@ public class UserInfo {
     private int id;
     @Column(name = "login", nullable = false)
     private String login;
+
     @Column(name = "age")
     private int age;
     @Column(name = "weight")

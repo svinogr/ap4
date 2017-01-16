@@ -7,14 +7,10 @@ $(document).ready(function () {
             if (x.status == 200) {
                 $("#login").remove();
                 $("#registration").remove();
-                
-            
             }
            else {
                $("#logout").remove();
                $("#info").remove();
-              
-               
             }
         }
     } 

@@ -30,30 +30,30 @@
                             <span style="background: white; color: white" class="icon-bar"></span>
                             <span style="background: white; color: white" class="icon-bar"></span>
                         </button>
-                        <a class="cta-contents navbar-brand" style="color: #fdfdfe" href="#"><img
-                                src="${pageContext.request.contextPath}/jpg/logo.gif" alt="U-PUMP"/></a>
+                        <a class="btn logo" style="color: #fdfdfe" href="${pageContext.request.contextPath}/instruction"><img class="logo"
+                                 src="${pageContext.request.contextPath}/jpg/logo.gif" alt="U-PUMP"/></a>
                     </div>
                     <div class="row collapse navbar-collapse navbar-width cta-button" id="responsive-menu">
-                        <div class="">
-                            <ul class="nav navbar-nav btn-group">
-                                <li>
+                        <div class="navbarmini">
+                            <ul class="nav navbar-nav btn-group navbarmini">
+                                <li class="navbarmini" >
                                     <a href="${pageContext.request.contextPath}/"
                                        class="btn btn-primary">Главная</a>
                                 </li>
-                                <li>
+                                <li class="navbarmini">
                                     <a href="${pageContext.request.contextPath}/confidential/myworkout"
-                                       class="btn btn-primary">Мои тренировки</a>
+                                       class="btn btn-primary ">Мои тренировки</a>
                                 </li>
-                                <li>
+                                <li class="navbarmini">
                                     <a href="${pageContext.request.contextPath}/best"
                                        class="btn btn-primary">Лучшие</a>
                                 </li>
-                                <li>
+                                <li class="navbarmini">
                                     <a href="${pageContext.request.contextPath}/allWorkouts"
                                        class="btn btn-primary">Все тренировки</a>
                                 </li>
 
-                                <li>
+                                <li class="navbarmini">
                                     <a href="${pageContext.request.contextPath}/complete"
                                        class="btn btn-primary">Готовые</a>
                                 </li>
@@ -72,10 +72,11 @@
                        class="btn btn-primary btn-xs">войти</a>
                     <a id="registration" href="${pageContext.request.contextPath}/registration"
                        class="btn btn-primary btn-xs">зарегистрироваться</a>
-                    <a id="logout" href="${pageContext.request.contextPath}/logout"
-                       class="btn btn-primary btn-xs">выйти</a>
                     <a id="info" href="${pageContext.request.contextPath}/confidential/myInfo"
                        class="btn btn-primary btn-xs">обо мне</a>
+                    <a id="logout" href="${pageContext.request.contextPath}/logout"
+                       class="btn btn-primary btn-xs">выйти</a>
+
                 </div>
             </div>
         </div>

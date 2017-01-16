@@ -16,13 +16,23 @@ public class Try implements Serializable {
     private int position;
     private double weight;
     private int repeat;
+    private boolean done;
     private Exercise parentid;
 
-    public Try(int id, int position, double weight, int repeat) {
+    public Try(int id, int position, double weight, int repeat, boolean done) {
         this.id = id;
         this.position = position;
         this.weight = weight;
         this.repeat = repeat;
+        this.done = done;
+    }
+    @Column(name = "done")
+    public boolean isDone() {
+        return done;
+    }
+    @XmlAttribute
+    public void setDone(boolean done) {
+        this.done = done;
     }
 
     public Try() {

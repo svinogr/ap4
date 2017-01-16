@@ -81,6 +81,27 @@ function edit() {
         $("#topTitle").text("Текущее упражнение: " + titleExercise);
     }
 }
+
+function limitWorkout() {
+    $(".modal-body").empty();
+    $("#modal-title").text("Количество тренировок ограничено");
+    $("#myModalBox").modal('show');
+}
+function limitExercise() {
+    $(".modal-body").empty();
+    $("#modal-title").text("Количество упражнений ограничено");
+    $("#myModalBox").modal('show');
+}
+
+function limitTry() {
+    $(".modal-body").empty();
+    $("#modal-title").text("Количество упражнений ограничено");
+    $("#myModalBox").modal('show');
+}
+
+
+
+
 function addNewWorkout() {
     $(".modal-title").empty();
     $(".modal-title").text("Введите имя новой тренировки");
@@ -99,16 +120,18 @@ function addNewWorkout() {
                         if (x.readyState == 4) {
                             if (x.status == 200) {
                                 getXmlAllWorkouts();
-                            } else alert("no connection");
+
+                                
+                            } else limitWorkout()
                 }
             }
         }
     });
 }
 function save() {
-    var name = $("#var").val();
+    var name = ($("#var").val());
     $("#myModalBox").modal('hide');
-    return name;
+    return name.trim();
 }
 
 function addNewExercise() {
@@ -129,7 +152,7 @@ function addNewExercise() {
                     if (x.status == 200) {
                         getXmlThisWorkout(workoutId);
 
-                    } else alert("no connection");
+                    } else limitExercise();
                 }
             }
         }
@@ -143,11 +166,11 @@ function addNewRepeat() {
     $(".modal-body").empty();
     $("#modal-title").text("Введите параметры подхода");
     $(".modal-body").append("<span>вес:</span>");
-    $(".modal-body").append("<input type='text'id='var'/>");
+    $(".modal-body").append("<input type='number'id='var'/>");
     $(".modal-body").append("<span>кол-во повторений:</span>");
-    $(".modal-body").append("<input type='text' id='var2'/>");
+    $(".modal-body").append("<input type='number' id='var2'/>");
     $(".modal-body").append("<span>кол-во подходов:</span>");
-    $(".modal-body").append("<input type='text'id='var3' value='1'/>");
+    $(".modal-body").append("<input type='number'id='var3' value='1'/>");
 
     $("#myModalBox").modal('show');
     $("#save").unbind();
@@ -164,7 +187,7 @@ function addNewRepeat() {
                 if (x.readyState == 4) {
                     if (x.status == 200) {
                         getXmlThisExercise(exerciseId);
-                    } else alert("no connection");
+                    } else limitTry();
                 }
             }
         }
@@ -297,7 +320,7 @@ function updatingTry(name, id) {
     $("#modal-title").text("Введите новое значение");
     $(".modal-body").empty();
     $(".modal-body").append("<span>новое значение:</span>");
-    $(".modal-body").append("<input type='text'id='var'/>");
+    $(".modal-body").append("<input type='number'id='var'/>");
     $("#myModalBox").modal('show');
     $("#save").unbind();
     $("#save").click(function () {

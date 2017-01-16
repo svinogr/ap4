@@ -16,8 +16,8 @@ function getXmlAllWorkouts() {
                     "<div class='bs-calltoaction bs-calltoaction-primary'>" +
                     "<div class='row'>" +
                     "<div id='" + id + "'class='col-md-9 cta-contents cta-button'>" +
-                    "<h1 id='name' class='cta-title update'>" + name + "</h1><button id='" + author + "' class='btnAuthor btn btn-xs btn-primary'>автор: " + author +
-                    "</button>" +
+                    "<div><h1 id='name' class='update btn btn-primary'>" + name + "</h1></div><div><button id='" + author + "' class='btnAuthor btn btn-xs btn-primary'>автор: " + author +
+                    "</button></div>" +
                     "</div>" +
 
                     "<div tag='" + name + "'name ='workout' class='col-md-3 cta-button' id='" + id + "'name='" + name + "'>" +
@@ -52,7 +52,7 @@ function getXmlThisWorkout(id) {
         success: function (xml) {
             $("#list").empty();
             $(xml).find("exercise").each(function () {
-                var elementRepeat = "<div class='row'><div class='cta-button'>";
+                var elementRepeat = "<div class=''><div class='cta-button'>";
                 var name = $(this).find("name:first").text();
                 var id = $(this).find("id:first").text();
                 $(this).find("tryes").each(function () {
@@ -64,8 +64,8 @@ function getXmlThisWorkout(id) {
                 elementRepeat += "</div></div>";
                 var element = "<div class='bs-calltoaction bs-calltoaction-primary'>" +
                     "<div class='row'>" +
-                    "<div  id='" + id + "' class='col-md-9 cta-contents'>" +
-                    "<h1 id='name' class='cta-title update'>" + name + "</h1>" + elementRepeat + "</div>" +
+                    "<div  id='" + id + "' class='col-md-9 cta-contents cta-button'>" +
+                    "<h1 id='name' class='update btn btn-primary'>" + name + "</h1>" + elementRepeat + "</div>" +
                     "<div tag='" + name + "'name ='exercise'class='col-md-3 cta-button' id='" + id + "'name='" + name + "'>" +
                     "<button id='btnEdit' class='btnEdit btn btn-lg btn-block btn-primary'>Редактировать подходы</button>" +
                     "<button class='delete btn btn-lg btn-block btn-primary'>Удалить</button>" +
@@ -81,6 +81,7 @@ function getXmlThisWorkout(id) {
         }
     });
 }
+/* не используется
 function getXmlThisWorkoutOriginal(id) {
     var target = document.getElementById("loading");
     var spinner = new Spinner().spin(target);
@@ -97,7 +98,7 @@ function getXmlThisWorkoutOriginal(id) {
                     var weight = $(this).find("weight:first").text();
                     var repeat = $(this).find("repeat:first").text();
                 });
-                var elementRepeat = "<div class='container'><div class='row'></div></div>";
+               // var elementRepeat = "<div class='container'><div class='row'></div></div>";
                 var element = "<div class='bs-calltoaction bs-calltoaction-primary'>" +
                     "<div class='row'>" +
                     "<div  id='" + id + "' class='col-md-9 cta-contents'>" +
@@ -120,7 +121,7 @@ function getXmlThisWorkoutOriginal(id) {
             spinner.stop();
         }
     });
-}
+}*/
 function getXmlThisExercise(id) {
     var target = document.getElementById("loading");
     var spinner = new Spinner().spin(target);
@@ -136,9 +137,9 @@ function getXmlThisExercise(id) {
                 var repeat = $(this).find("repeat:first").text();
                 var element = "<div class='bs-calltoaction bs-calltoaction-primary'>" +
                     "<div class='row'>" +
-                    "<div id='" + id + "' name ='try' class='col-md-9 cta-contents'>" +
-                    "<h2 id='weight' class=' update cta-title'> Вес: " + weight + "</h2>" +
-                    "<h2 id='repeat' class='update cta-title'> Повторений: " + repeat + "</h2>" +
+                    "<div id='" + id + "' name ='try' class='col-md-9 cta-contents cta-button'>" +
+                    "<h2 id='weight' class=' update update btn btn-primary'> Вес: " + weight + "</h2>" +
+                    "<h2 id='repeat' class='update update btn btn-primary'> Повторений: " + repeat + "</h2>" +
                     "</div>" +
                     "<div id='" + id + "' name ='try' class='try col-md-3 cta-button'>" +
                     "<button class='delete btn btn-lg btn-block btn-primary'>Удалить</button>" +
