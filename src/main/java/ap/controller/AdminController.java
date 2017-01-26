@@ -11,13 +11,13 @@ public class AdminController {
         return "administration";
     }
 
-    @RequestMapping(value = "/administration/user/")
+    @RequestMapping(value = "/administration/user")
     public String getAdminUserPage(){
         return "adminuser";
     }
 
 
-    @RequestMapping(value = "/administration/post/")
+    @RequestMapping(value = "/administration/post")
     public String getAdminPostPage(){
         return "adminpost";
     }

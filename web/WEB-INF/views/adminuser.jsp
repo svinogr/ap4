@@ -24,17 +24,21 @@
     <div id="row">
 
         <div class="bs-calltoaction bs-calltoaction-primary">
-            <div> <input id="search" type="text" class="form-control"/></div>
+            <div><input id="search" type="text" class="form-control"/></div>
             <div><input id="searchsubmit" type="submit" class="btn btn-lg btn-primary btn-block" value="поиск"/></div>
-            <div class="cta-contents"><label><input name="searchType" value="login" class="searchType" type="radio"> по логину <input value="email" class="searchType" name="searchType" type="radio"> по логину</label></div>
+            <div class="cta-contents"><label><input name="searchType" checked value="login" class="searchType"
+                                                    type="radio"> по email <input value="email" class="searchType"
+                                                                                   name="searchType" type="radio"> по
+                логину</label></div>
 
         </div>
     </div>
     <div id="title" class="cta-contents">
-        <h3 class="cta-title" id="topTitle">Спиcок пользователей:</h3>
+        <h3 class="cta-title" id="topTitle">Найдено:</h3>
     </div>
 </div>
-<div id="list"></div>
+<div class="container">
+    <div id="list"></div>
 </div>
 <link href="${pageContext.request.contextPath}/css/css.css" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">

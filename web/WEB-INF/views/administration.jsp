@@ -6,10 +6,10 @@
     <div class="row">
         <div class="btn-group cta-button">
             <a class="btn btn-primary btn-xs" style="color: #fdfdfe"
-               href="${pageContext.request.contextPath}/administration/user/">пользователи</a>
+               href="${pageContext.request.contextPath}/administration/user">пользователи</a>
 
             <a class="btn btn-primary btn-xs" style="color: #fdfdfe"
-               href="${pageContext.request.contextPath}/administration/post/">посты</a>
+               href="${pageContext.request.contextPath}/administration/post">посты</a>
         </div>
     </div>
 </div>

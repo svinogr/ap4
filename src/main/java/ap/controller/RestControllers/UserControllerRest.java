@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("*/user")
 public class UserControllerRest {
     @Autowired
     UserServices userServices;
@@ -59,25 +59,32 @@ public class UserControllerRest {
         response.setHeader("Location", "/user/1");
         return "создан";
     }
+
     @RequestMapping(value = "/search", method = RequestMethod.GET, produces = {"application/xml; charset=UTF-8"})
     @ResponseStatus(HttpStatus.OK)
     @Transactional
     public
     @ResponseBody
-    String getResultSearch(@RequestParam Map<String, String> searchParams){
-        StringWriter xml= new StringWriter();
-        for (Map.Entry<String,String> p:searchParams.entrySet()){
-            System.err.println(p.getKey()+" "+p.getValue());
+    String getResultSearch(@RequestParam Map<String, String> searchParams) {
+        StringWriter xml = new StringWriter();
+        searchParams.remove("_");
+        for (Map.Entry<String, String> p : searchParams.entrySet()) {
+            System.err.println(p.getKey() + " " + p.getValue());
         }
-        if(searchParams.size()<2) {
+        if (searchParams.size() < 2) {
 
-            List list =userServices.getSearchUser(searchParams);
-            try {
+            List list = userServices.getSearchUser(searchParams);
+            if (list.size() == 0) {
+                return null;
+            } else {
+
                 User user = (User) list.get(0);
                 xml = createXMLService.getUserXML(user);
-            }catch (NullPointerException e){}
-        }
-            return xml.toString();
-    }
+            }
 
+            return xml.toString();
+        }
+        return null;
+
+    }
 }
