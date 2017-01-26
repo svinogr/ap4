@@ -227,6 +227,7 @@ img.avatar {
     width: 30%;
     height: auto;
     border: 1px solid white;
+    margin-bottom: 10px;
 }
 
 img.logo {

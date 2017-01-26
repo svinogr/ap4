@@ -1,3 +1,22 @@
+var workoutLevel = true;
+var exerciseLevel = false;
+var tryLevel = false;
+var workoutId;
+var exerciseId;
+var titleWorkout;
+var titleExercise;
+var qantityRow = 20;
+var pages;
+$(document).ready(function () {
+    $("#best").text("Готовые");
+    $("#back").addClass("hiden");
+    $("#best").click(best);
+    $("#all").click(all);
+    $("#back").click(back);
+    createPagination();
+    $(".pag").click(getXmlBypage);
+});
+
 function createPagination() {
    pages = Math.ceil($("#pagination").attr("count") / qantityRow);
     
@@ -39,7 +58,7 @@ function all() {
 }
 function getXmlBypage() {
     var numberPage = $(this).text();
-    alert(numberPage);
+    pageNumber=numberPage;
     getXmlAllWorkoutsBest(+numberPage - 1);
     if (numberPage > 1 && numberPage<pages) {
         $("#left").text(+numberPage - 1);
@@ -60,27 +79,12 @@ function getXmlBypage() {
     
     
 }
-$(document).ready(function () {
-    $("#best").text("Готовые");
-    $("#back").addClass("hiden")
-    $("#best").click(best);
-    $("#all").click(all);
-    $("#back").click(back);
-    createPagination()
-    $(".pag").click(getXmlBypage);
-});
-var workoutLevel = true;
-var exerciseLevel = false;
-var tryLevel = false;
-var workoutId;
-var exerciseId;
-var titleWorkout;
-var titleExercise;
-var qantityRow = 20;
-var pages;
+
 function back() {
+    
     if (exerciseLevel) {
-        getXmlAllWorkoutsBest();
+        
+        getXmlAllWorkoutsBest(pageNumber);
         tryLevel = false;
         exerciseLevel = false;
         workoutLevel = true;

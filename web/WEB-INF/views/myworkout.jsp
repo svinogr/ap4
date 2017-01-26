@@ -23,8 +23,8 @@
         <div id="loading"></div>
         <div id="title" class="cta-contents">
             <h3 class="cta-title" id="topTitle">Спиcок тренировок:</h3>
-            <h3 id="middleTitle" class="hiden">Список Упражнений:</h3>
-            <h3 id="bottomTitle" class="hiden">Список подходов:</h3>
+            <h3 id="middleTitle" class="hiden cta-title">Список Упражнений:</h3>
+            <h3 id="bottomTitle" class="hiden cta-title">Список подходов:</h3>
             <div class="row">
                 <div class="btn-group btn-group-justified">
                     <div class="container btn-group">

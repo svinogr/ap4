@@ -1,12 +1,22 @@
 package ap.services;
 
+import ap.entity.EntityForXML.UserXML;
+import ap.entity.EntityForXML.WorkoutXML;
+import ap.entity.Exercise;
+import ap.entity.Try;
 import ap.entity.User;
-import ap.entity.Xmlable;
+import ap.entity.Workout;
 
-import java.io.File;
 import java.io.StringWriter;
 
-public interface CreateXMLService {
+public interface CreateXMLService<T> {
 
-    StringWriter getXML(User user);
+
+    StringWriter getUserXML(User user);
+
+    StringWriter getWorkoutXML(Workout workout);
+
+    StringWriter getExerciseXML(Exercise exercise);
+
+    StringWriter getTryXML(Try tries);
 }

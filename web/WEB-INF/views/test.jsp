@@ -11,6 +11,12 @@
 <p/><a href="/logout">Разлогиниться</a>
 <p/><a href="/aut">вывод в консоль айтентификации</a>
 <p/><a href="/XML">проверка парсинга хмл</a>
+<form  method="post" action="${pageContext.request.contextPath}/user" >
+    <input type="submit" value="ГО">
+
+</form>
+
+
 
 </body>
 </html>

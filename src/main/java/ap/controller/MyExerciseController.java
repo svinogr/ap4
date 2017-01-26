@@ -4,7 +4,7 @@ import ap.dao.ExersiceDAO;
 import ap.dao.WorkoutDAO;
 import ap.entity.Exercise;
 import ap.entity.Workout;
-import ap.services.CreateExerciseXMLService;
+import ap.services.CreateXMLService;
 import ap.services.UserServices;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class MyExerciseController {
     UserServices userServices;
 
     @Autowired
-    CreateExerciseXMLService createExerciseXMLService;
+    CreateXMLService createXMLService;
 
     @RequestMapping(value = "/confidential/getXmlExercise", method = RequestMethod.GET, produces = {"application/xml; charset=UTF-8"}, params = {"id"})
     public
@@ -41,7 +41,7 @@ public class MyExerciseController {
         } catch (HibernateException e) {
             response.setStatus(400);
         }
-        return createExerciseXMLService.getXML(exercise).toString();
+        return createXMLService.getExerciseXML(exercise).toString();
 
     }
     @RequestMapping(value = "/confidential/addNewExercise", method = RequestMethod.GET, params = {"id", "name"})
@@ -51,9 +51,11 @@ public class MyExerciseController {
         String nameofNewExercise = request.getParameter("name");
         if (nameofNewExercise != null) {
             try {
-                Workout workout = workoutDAO.getById(Integer.parseInt(request.getParameter("id")));
-                exersiceDAO.createNewExercise(nameofNewExercise.toLowerCase(), workout);
-                response.setStatus(200);
+                Workout workout = workoutDAO.getById(idWorkout);
+              if(userServices.allow(workout.getParentid().getId())) {
+                  exersiceDAO.createNewExercise(nameofNewExercise.toLowerCase(), workout);
+                  response.setStatus(200);
+              }
             } catch (HibernateException e) {
                 response.setStatus(400);
             }

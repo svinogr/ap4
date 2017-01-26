@@ -45,8 +45,6 @@ public class UserController {
     UserDetailsService userDetailsService;
     @Autowired
     TokenService tokenService;
-    @Autowired
-    InfoUserService infoUserService;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public ModelAndView Userregistration() {
@@ -72,7 +70,7 @@ public class UserController {
             model.addAttribute("result", "Такой Login или Email уже используется, если вы забыли пароль воспользуйтесь востановление пароля");
             return "registrationForme";
         }
-        model.addAttribute("result", "Пользователь " + user.getName() + " добавлен, для завершения регистрации на указанную Вами" +
+        model.addAttribute("result", "Пользователь " + user.getLogin() + " добавлен, для завершения регистрации на указанную Вами" +
                 " почту отправлена ссылка для активации учетной записи");
         return "registrationForme";
     }
@@ -148,73 +146,8 @@ public class UserController {
         SecurityContextHolder.clearContext();
         return modelAndView;
     }
-    @RequestMapping(value = "/infoUser", method = RequestMethod.GET, params = {"id"})
-    @Transactional
-    public String getInfoUser(Model model, HttpServletRequest request, HttpServletResponse response) {
-        UserInfo userInfo = userInfoDAO.getByLogin(request.getParameter("id"));
-        model.addAttribute("author", userInfo);
-        return "infoStats";
-    }
-
-    @RequestMapping(value = "confidential/myInfo", method = RequestMethod.GET)
-    @Transactional
-    public String getInfoLoginUser(Model model, HttpServletRequest request, HttpServletResponse response) {
-        String loggedLogin = userServices.getLoggedUser().getLogin();
-        UserInfo userInfo = userInfoDAO.getByLogin(loggedLogin);
-
-        if (loggedLogin != null) {
-            model.addAttribute("author", userInfo);
-        }
-        return "myInfoStats";
-    }
-    @RequestMapping(value = "confidential/myInfoForChange", method = RequestMethod.GET )
-    @Transactional
-    public String changeLoginUserStats(Model model, HttpServletRequest request, HttpServletResponse response) {
-    String loggedLogin = userServices.getLoggedUser().getLogin();
-    UserInfo userInfo = userInfoDAO.getByLogin(loggedLogin);
-
-    if (loggedLogin != null) {
-        model.addAttribute("author", userInfo);
-    }
-    return "myInfoForChange";
-}
 
 
-
-    @RequestMapping(value = "confidential/myInfoForChange", method = RequestMethod.POST )
-    @Transactional
-    public String changeLoginUserStats(@Valid @ModelAttribute("author") UserInfo userInfo, BindingResult bindingResult, @RequestParam(value = "file", required = false) MultipartFile image, Model model, HttpServletRequest request, HttpServletResponse response) {
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("error", "error");
-            model.addAttribute("result", "Форма заполнена с ошибками");
-            UserInfo updateUserInfo = userInfoDAO.getByLogin(userInfo.getLogin());
-            model.addAttribute("author", updateUserInfo);
-            return "myInfoForChange";
-        }
-        if (userInfo != null) {
-            UserInfo updateUserInfo = userInfoDAO.getByLogin(userInfo.getLogin());
-            updateUserInfo.setAge(userInfo.getAge());
-            updateUserInfo.setWeight(userInfo.getWeight());
-            updateUserInfo.setHeight(userInfo.getHeight());
-            updateUserInfo.setExperience(userInfo.getExperience());
-            updateUserInfo.setDescription(userInfo.getDescription());
-            try {
-                if (!image.isEmpty()) {
-                   String imageForBD= infoUserService.upload(image);
-                    updateUserInfo.setImage(imageForBD);
-                }
-            } catch (UploadImageException e) {
-                bindingResult.reject(e.getMessage());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            userInfoDAO.update(updateUserInfo);
-            model.addAttribute("author", updateUserInfo);
-            model.addAttribute("result", "Изменение внесены");
-        }
-        return "myInfoForChange";
-    }
 
     @RequestMapping(value = "/instruction")
     public String getInstructionPage(){

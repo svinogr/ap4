@@ -38,7 +38,7 @@
                             <ul class="nav navbar-nav btn-group navbarmini">
                                 <li class="navbarmini" >
                                     <a href="${pageContext.request.contextPath}/"
-                                       class="btn btn-primary">Главная</a>
+                                       class="btn btn-primary">Новости</a>
                                 </li>
                                 <li class="navbarmini">
                                     <a href="${pageContext.request.contextPath}/confidential/myworkout"
@@ -52,11 +52,11 @@
                                     <a href="${pageContext.request.contextPath}/allWorkouts"
                                        class="btn btn-primary">Все тренировки</a>
                                 </li>
-
+<%--
                                 <li class="navbarmini">
                                     <a href="${pageContext.request.contextPath}/complete"
                                        class="btn btn-primary">Готовые</a>
-                                </li>
+                                </li>--%>
                             </ul>
                         </div>
                     </div>
@@ -76,7 +76,6 @@
                        class="btn btn-primary btn-xs">обо мне</a>
                     <a id="logout" href="${pageContext.request.contextPath}/logout"
                        class="btn btn-primary btn-xs">выйти</a>
-
                 </div>
             </div>
         </div>

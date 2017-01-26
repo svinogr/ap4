@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -29,14 +28,13 @@ public class AllWorkoutsController {
         model.addAttribute("count", workoutDAO.getCountAllWorkout());
         return "allWorkouts";
     }
-
     @RequestMapping(value = "/allWorkoutsXml", method = RequestMethod.GET, produces = {"application/xml; charset=UTF-8"}, params = {"page"})
     @Transactional
     @ResponseBody
     public String getAllWorkoutXml(HttpServletRequest request, HttpServletResponse response) {
         int numberPage = Integer.parseInt(request.getParameter("page"))*20;
         User user = new User();
-        user. getWorkoutList().addAll(workoutDAO.getListAllWorkout(numberPage));
-        return  createXMLService.getXML(user).toString();
+        user. setWorkoutList(workoutDAO.getListAllWorkout(numberPage));
+        return  createXMLService.getUserXML(user).toString();
     }
 }

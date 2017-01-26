@@ -7,21 +7,21 @@
     <div class="container">
         <div class="row bs-calltoaction bs-calltoaction-primary">
             <span class="alert">${result}</span> <br/>
-            <form:form class="form-signin" modelAttribute="author"
+            <form:form class="form-signin" modelAttribute="userInfo"
                        action="${pageContext.request.contextPath}/confidential/myInfoForChange"
                        method="post"
                        acceptCharset="UTF-8"
                        enctype="multipart/form-data">
                 <div class="col-md-6">
-                    <img class="avatar btn btn-primary" src="data:image/jpeg;base64,${author.image}"/>
-                    <form:input class="btn btn-lg btn-primary" cssStyle="width: 250px" path="" type="file"
+                    <img class="avatar btn btn-primary" src="data:image/jpeg;base64,${userInfo.image}"/>
+                    <form:input   class="btn btn-lg btn-primary" cssStyle="width: 250px" path="" type="file"
                                 name="file"/>
-                    <h1 id="nameAuthor" class="btn btn-lg btn-primary"
-                        name="${author.login}">${author.login}</h1>
+                    <h1 id="loginAuthor" style="margin-bottom:10px; margin-top: 10px" class="btn btn-lg btn-primary"
+                        name="${userInfo.login}">${userInfo.login}</h1>
                     <p class="field">
-                        <form:textarea maxlenght="20" rows="5" path="description" class="btn  btn-primary form-control "
+                        <form:textarea  style="margin-bottom:10px" maxlenght="20" rows="5" path="description" class="btn  btn-primary form-control "
                                        name="description" id="description"
-                                       placeholder="Рааскажите о себе"/>
+                                       placeholder=""/>
                         <c:if test="${error eq 'error'}">
                             <form:errors path="description"/>
                         </c:if>
@@ -29,6 +29,15 @@
                 </div>
 
                 <div class="col-md-6">
+                    <p class="field">
+                        <label>Имя: </label>
+                        <form:input path="name" type="text" class="btn btn-lg btn-primary btn-block" name="name"
+                                    id="name"
+                                    placeholder=""/>
+                        <c:if test="${error eq 'error'}">
+                            <form:errors path="name"/>
+                        </c:if>
+                    </p>
                     <p class="field">
                         <form:input path="login" type="hidden" class="form-control " name="login" id="login"
                                     placeholder="Логин"/>
@@ -43,6 +52,14 @@
                             <form:errors path="image"/>
                         </c:if>
                     </p>
+                    <p class="field">
+                    <form:input  path="id" type="hidden" class="form-control" name="id" id="id"
+                                placeholder=""/>
+                    <c:if test="${error eq 'error'}">
+                        <form:errors path="id"/>
+                    </c:if>
+                    </p>
+
 
                     <p class="field">
                         <label>Возраст: </label>
@@ -83,7 +100,7 @@
 
                 </div>
                 <p class="submit cta-button">
-                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Сохранить"
+                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Cохранить"
                            name="submit"/>
                 </p>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

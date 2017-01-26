@@ -45,7 +45,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
                 http.authorizeRequests()
-               /* .antMatchers("/edite").access("hasRole('EDITE')")*/
+                .antMatchers("/administration/**").access("hasRole('ADMIN')")
                 .antMatchers("/confidential/**").access("hasRole('USER')")
                 .antMatchers("/superconfidential/**").access("hasRole('SUPERADMIN')")
                 .and().formLogin().loginPage("/login").permitAll().

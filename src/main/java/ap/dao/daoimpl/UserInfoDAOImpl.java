@@ -14,6 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserInfoDAOImpl extends BasicDAOImpl<UserInfo> implements UserInfoDAO {
     @Autowired
     SessionFactory sessionfactory;
+
+    public UserInfoDAOImpl() {
+        super(UserInfo.class);
+    }
+
     @Override
     @Transactional
     public UserInfo getByLogin(String login) {
@@ -28,4 +33,4 @@ public class UserInfoDAOImpl extends BasicDAOImpl<UserInfo> implements UserInfoD
         }
         return userInfo;
     }
-}
+    }

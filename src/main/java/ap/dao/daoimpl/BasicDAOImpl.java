@@ -9,8 +9,10 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class BasicDAOImpl<T> implements BasicDAO<T> {
@@ -62,8 +64,8 @@ public class BasicDAOImpl<T> implements BasicDAO<T> {
     @Override
     @Transactional
     public void add(T object) throws HibernateException {
-            Session session = sessionFactory.getCurrentSession();
-            session.save(object);
+        Session session = sessionFactory.getCurrentSession();
+        session.save(object);
     }
 
     @Override
@@ -73,6 +75,25 @@ public class BasicDAOImpl<T> implements BasicDAO<T> {
         return session.load(type, id);
     }
 
+    @Override
+    @Transactional
+    public List<T> getSearchResultOneParameter(Map<String, String> map) {
+        List<T> list = new ArrayList<>();
+        String key = null;
+        String value = null;
+        for (Map.Entry<String, String> pair : map.entrySet()) {
+            key = pair.getKey();
+            value = pair.getValue();
+        }
+        try {
+            Session session = sessionFactory.getCurrentSession();
+            Criteria criteria = session.createCriteria(type);
+            criteria.add(Restrictions.eq(key, value));
+            list = criteria.list();
+        } catch (HibernateException e) {
+        }
+        return list;
+    }
 
 
     @Override
@@ -82,13 +103,15 @@ public class BasicDAOImpl<T> implements BasicDAO<T> {
             Session session = sessionFactory.getCurrentSession();
             session.update(object);
         } catch (HibernateException e) {
-            System.out.println("не обновилось");}
+            System.out.println("не обновилось");
+        }
     }
 
 
     @Override
-    public void delete(T object)throws HibernateException {
-            Session session = sessionFactory.getCurrentSession();
-            session.delete(object);
+    public void delete(T object) throws HibernateException {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(object);
     }
+
 }

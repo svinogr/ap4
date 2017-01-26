@@ -248,18 +248,21 @@ function deletingTry(id) {
 }
 
 function update() {
-    var id = $(this).parent().attr("id");
+   
     var name = $(this).attr("id");
     if (workoutLevel) {
         var type = "workout"
+        var id = $(this).parent().parent().attr("id");
         updatingWorkout(name, id);
     }
     if (exerciseLevel) {
+        var id = $(this).parent().attr("id");
         var type = "exercise";
         updatingexercise(name, id);
     }
     if (tryLevel) {
         var type = "try";
+        var id = $(this).parent().attr("id");
         updatingTry(name, id);
     }
 }
@@ -357,6 +360,15 @@ function getAuthorWorkout() {
             }
         }
     }
+    
+    
+}
+function setStatusDoneForTry(id){
+    var x = new XMLHttpRequest();
+    x.open("GET","/confidential/updateColorTry?id="+id)
+    x.send();
+
+    
 }
 
 

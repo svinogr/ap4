@@ -3,27 +3,24 @@ package ap.controller;
 import ap.dao.WorkoutDAO;
 import ap.entity.User;
 import ap.entity.Workout;
-import ap.services.CreateWorkoutXMLService;
-import ap.services.CreateXMLService;
-import ap.services.RateServices;
-import ap.services.UserServices;
+import ap.services.*;
 import org.hibernate.HibernateException;
-import org.hibernate.internal.util.SerializationHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.StringWriter;
-import java.util.List;
 
 @Controller
 public class MyWorkoutController {
+
+    @Autowired
+    Environment environment;
 
     @Autowired
     CreateXMLService createXMLService;
@@ -34,9 +31,6 @@ public class MyWorkoutController {
     @Autowired
     WorkoutDAO workoutDAO;
 
-
-    @Autowired
-    CreateWorkoutXMLService createWorkoutXMLService;
 
     @Autowired
     RateServices rateServices;
@@ -53,12 +47,11 @@ public class MyWorkoutController {
 
     @RequestMapping(value = "/confidential/getXmlAllWorkouts", method = RequestMethod.GET, produces = {"application/xml; charset=UTF-8"})
     @Transactional
-    public
     @ResponseBody
-    String getXML() {
+    public String getXML() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         user = userServices.getById(user.getId());
-        return createXMLService.getXML(user).toString();
+        return createXMLService.getUserXML(user).toString();
     }
 
     @RequestMapping(value = "/confidential/getXmlWorkout", method = RequestMethod.GET, produces = {"application/xml; charset=UTF-8"}, params = {"id"})
@@ -67,28 +60,26 @@ public class MyWorkoutController {
     @Transactional
     String getXMLWorkout(HttpServletRequest request, HttpServletResponse response) {
         Workout workout = null;
-        System.out.println("номер тренровки " + Integer.parseInt(request.getParameter("id")));
         try {
             workout = workoutDAO.getById(Integer.parseInt(request.getParameter("id")));
 
         } catch (HibernateException e) {
             response.setStatus(400);
         }
-        return createWorkoutXMLService.getXML(workout).toString();
+        return createXMLService.getWorkoutXML(workout).toString();
     }
 
     @RequestMapping(value = "/confidential/addNewWorkout", method = RequestMethod.GET, params = {"name"})
     @Transactional
     public void addNewWorkout(HttpServletRequest request, HttpServletResponse response) {
         String nameOfNewWorkout = request.getParameter("name");
-
         if (nameOfNewWorkout != null) {
-            int idLoginUser = getLoginUserId();
+            int idLoginUser = userServices.getLoggedUser().getId();
             User user = userServices.getById(idLoginUser);
-            if(user.getWorkoutList().size()<5) {
-                int positionNewWorkout = getPosition(user.getWorkoutList());
+            if (user.getWorkoutList().size() < 10) {
+                int positionNewWorkout = user.getWorkoutList().size();
                 try {
-                    workoutDAO.createNewWorkout(nameOfNewWorkout.toLowerCase(), positionNewWorkout, user);
+                    workoutDAO.createNewWorkout(nameOfNewWorkout, positionNewWorkout, user);
                     response.setStatus(200);
                 } catch (HibernateException e) {
                     response.setStatus(400);
@@ -140,9 +131,9 @@ public class MyWorkoutController {
             response.setStatus(401);
         } else {
             int idWorkout = Integer.parseInt(request.getParameter("id"));
-            User user= getLoginUser();
+            User user = getLoginUser();
             try {
-               workoutDAO.copyWorkout(idWorkout, user);
+                workoutDAO.copyWorkout(idWorkout, user);
             } catch (HibernateException e) {
                 response.setStatus(400);
             }
@@ -180,7 +171,5 @@ public class MyWorkoutController {
         return user;
     }
 
-    private int getPosition(List list) {
-        return list.size();
-    }
+
 }

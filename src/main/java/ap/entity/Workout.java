@@ -12,30 +12,30 @@ import java.util.List;
 @XmlRootElement
 @Entity
 @Table(name = "workout")
-public class Workout implements Serializable, Xmlable {
+public class Workout implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", unique = true)
-    private int workoutId;
+    protected int workoutId;
 
     @Column(name = "position")
-    private int position;
+    protected int position;
 
     @Column(name = "name")
-    private String name;
+    protected String name;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentid", cascade = CascadeType.ALL)
-    private List<Exercise> exerciseList = new ArrayList<>(0);
+    protected List<Exercise> exerciseList = new ArrayList<>(0);
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parentid")
-    private User parentid;
+    protected User parentid;
 
     @Column(name = "rate")
-    private int rate = 0;
+    protected int rate = 0;
 
     @Column(name = "copy")
-    private boolean copy = false;
+    protected boolean copy = false;
 
     public boolean isCopy() {
         return copy;
@@ -54,10 +54,10 @@ public class Workout implements Serializable, Xmlable {
     }
 
     @Column(name = "author")
-    private String author="";
+    protected String author="";
 
     @Column(name = "description")
-    private String description;
+    protected String description;
 
     public String getDescription() {
         return description;
@@ -68,6 +68,17 @@ public class Workout implements Serializable, Xmlable {
     }
 
     public Workout() {
+    }
+
+    public Workout(Workout workout) {
+        this.position = workout.getPosition();
+        this.name = workout.getName();
+        this.exerciseList = workout.getExerciseList();
+        this.rate = workout.getRate();
+        this.copy = workout.isCopy();
+        this.author = workout.getAuthor();
+        this.description = workout.getDescription();
+        this.workoutId = workout.getWorkoutId();
     }
 
     public int getWorkoutId() {

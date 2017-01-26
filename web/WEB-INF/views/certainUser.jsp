@@ -2,9 +2,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="header.jsp"/>
 <div class="container">
-    <div id="main">
-        <div><h1 id="nameAuthor" name="${author.login}">${author.login}</h1>
-            <a class="cta-contents btn-primary btn-xs" style="color: #fdfdfe"  href="${pageContext.request.contextPath}/infoUser?id=${author.login}">подробнее</a>
+    <div id="${userInfoXML.userId}" class="userId" >
+        <div><h1 id="nameAuthor" name="${userInfoXML.id}">${userInfoXML.name}</h1>
+            <a class="cta-contents btn-primary btn-xs" style="color: #fdfdfe"  href="${pageContext.request.contextPath}/infoUser?id=${userInfoXML.id}">подробнее</a>
         </div>
         <div id="loading"></div>
         <div id="title" class="cta-contents">
@@ -21,8 +21,6 @@
 
         </div>
     </div>
-
-
     <div id="list"></div>
 </div>
 <link href="${pageContext.request.contextPath}/css/css.css" rel="stylesheet">

@@ -30,12 +30,21 @@ public class Try implements Serializable {
     public boolean isDone() {
         return done;
     }
-    @XmlAttribute
+    @XmlElement(name = "done")
     public void setDone(boolean done) {
         this.done = done;
     }
 
     public Try() {
+    }
+
+    public Try(Try tries) {
+        this.id = tries.getId();
+        this.position = tries.getPosition();
+        this.weight = tries.getWeight();
+        this.repeat = tries.getRepeat();
+        this.parentid = tries.getParentid();
+        this.done = tries.isDone();
     }
 
     @ManyToOne(fetch = FetchType.LAZY)

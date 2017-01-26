@@ -12,7 +12,7 @@ import java.util.List;
 @XmlRootElement
 @Entity
 @Table(name = "exercise")
-public class Exercise implements Serializable, Xmlable {
+public class Exercise implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", unique = true)
@@ -43,6 +43,15 @@ public class Exercise implements Serializable, Xmlable {
     }
 
     public Exercise() {
+    }
+
+    public Exercise(Exercise exercise) {
+        this.position = exercise.getPosition();
+        this.name = exercise.getName();
+        this.tryList = exercise.getTryList();
+        this.parentid = exercise.getParentid();
+        this.description = exercise.getDescription();
+        this.id = exercise.getId();
     }
 
     public int getId() {

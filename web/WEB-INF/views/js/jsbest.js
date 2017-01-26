@@ -119,8 +119,7 @@ function copy() {
     }
 }
 function getAuthorWorkout() {
-    var nameAuthor=$(this).attr("id");
-  
+    var authorId=$(this).attr("id");
     var x = new XMLHttpRequest();
     x.open("GET", "/curtainUserRequest", true);
     x.send();
@@ -128,7 +127,7 @@ function getAuthorWorkout() {
         if (x.readyState == 4) {
            if(x.status == 200){
                /*alert(nameAuthor);*/
-                window.location.href = "/curtainUser?id=" + nameAuthor;
+                window.location.href = "/curtainUser?id=" + authorId;
             }
             if(x.status==400){
                 alert("no connection");

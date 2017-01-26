@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
@@ -17,14 +18,10 @@ import java.util.List;
 @XmlRootElement
 @Entity
 @Table(name = "users")
-public class User implements UserDetails, Xmlable {
+public class User implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
-    @Column(name = "name", nullable = false)
-    @NotEmpty(message = "Пожалуйста, введите имя")
-    private String name;
 
     @Column(name = "login", unique = true)
     @NotEmpty(message = "Пожалуйста, введите логин")
@@ -42,12 +39,16 @@ public class User implements UserDetails, Xmlable {
     private String email;
 
     @Column(name = "date_registration")
-
     private Date dateRegistration;
 
     @Transient
     private UserDetails userDetails;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentid", cascade = CascadeType.ALL)
+    private List<Workout> workoutList = new ArrayList<>(0);
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentid", cascade = CascadeType.ALL)
+    private List<Post> postList = new ArrayList<>(0);
 
     @Column(name = "active")
     public boolean isActive() {
@@ -59,13 +60,31 @@ public class User implements UserDetails, Xmlable {
         this.active = active;
     }
 
-    private boolean active=false;
+    private boolean active = false;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "parentid", cascade = CascadeType.ALL)
+    private UserInfo userInfo;
 
 
+    public List<Post> getPostList() {
+        return postList;
+    }
+
+    @XmlTransient
+    public void setPostList(List<Post> postList) {
+        this.postList = postList;
+    }
 
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentid", cascade =CascadeType.ALL)
-    private List<Workout> workoutList=new ArrayList<>();
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    @XmlTransient
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
+    }
+
 
     public List<Workout> getWorkoutList() {
         return workoutList;
@@ -91,7 +110,7 @@ public class User implements UserDetails, Xmlable {
     @Override
     public String getUsername() {
         return userDetails.getUsername();
-    }
+    }//здесь что то
 
     @Override
     public boolean isAccountNonExpired() {
@@ -113,27 +132,21 @@ public class User implements UserDetails, Xmlable {
         return userDetails.isEnabled();
     }
 
-
     public UserDetails getUserDetails() {
         return userDetails;
     }
+
     @XmlTransient
     public void setUserDetails(UserDetails userDetails) {
         this.userDetails = userDetails;
     }
 
-    public String getName() {
-        return name;
-    }
-    @XmlTransient
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public int getId() {
         return id;
     }
-    @XmlTransient
+
+    @XmlElement(name = "userid")
     public void setId(int id) {
         this.id = id;
     }
@@ -141,10 +154,12 @@ public class User implements UserDetails, Xmlable {
     public String getEmail() {
         return email;
     }
+
     @XmlTransient
     public void setEmail(String email) {
         this.email = email;
     }
+
     @XmlTransient
     public void setPassword(String password) {
         this.password = password;
@@ -153,6 +168,7 @@ public class User implements UserDetails, Xmlable {
     public String getLogin() {
         return login;
     }
+
     @XmlTransient
     public void setLogin(String login) {
         this.login = login;
@@ -161,8 +177,9 @@ public class User implements UserDetails, Xmlable {
     public Date getDateRegistration() {
         return dateRegistration;
     }
+
     @XmlTransient
     public void setDateRegistration(Date dateRegistration) {
         this.dateRegistration = dateRegistration;
     }
-  }
+}

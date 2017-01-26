@@ -1,9 +1,9 @@
 package ap.controller;
 
 import ap.dao.WorkoutDAO;
+import ap.entity.EntityForXML.UserXML;
 import ap.entity.User;
 import ap.entity.Workout;
-import ap.services.CreateWorkoutXMLService;
 import ap.services.CreateXMLService;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +23,7 @@ public class BestWorkoutController {
     WorkoutDAO workoutDAO;
     @Autowired
     CreateXMLService createXMLService;
-    @Autowired
-    CreateWorkoutXMLService createWorkoutXMLService;
+
 
     @RequestMapping(value = "best")
     public String getMyWorkoutPage() {
@@ -41,12 +40,12 @@ public class BestWorkoutController {
         List<Workout> workoutList;
         try {
             workoutList = workoutDAO.getListWorkout(limitWorkout);
-            user.getWorkoutList().addAll(workoutList);
+            user.setWorkoutList(workoutList);
         } catch (HibernateException e) {
             response.setStatus(400);
         }
-        StringWriter xml = createXMLService.getXML(user);
-        System.out.println(xml.toString());
+
+        StringWriter xml = createXMLService.getUserXML(user);
         response.setStatus(200);
         return xml.toString();
     }
@@ -62,6 +61,6 @@ public class BestWorkoutController {
             response.setStatus(400);
         }
         response.setStatus(200);
-        return createWorkoutXMLService.getXML(workout).toString();
+        return createXMLService.getWorkoutXML(workout).toString();
     }
 }

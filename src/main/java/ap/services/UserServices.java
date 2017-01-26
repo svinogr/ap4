@@ -2,6 +2,9 @@ package ap.services;
 
 import ap.entity.User;
 
+import java.util.List;
+import java.util.Map;
+
 public interface UserServices {
     void registrationUser(User user);
 
@@ -22,5 +25,8 @@ public interface UserServices {
     Boolean changePassword(String login, String paswword);
 
     User getLoggedUser();
+
+    List<User> getSearchUser(Map<String, String> map);
+
 
 }

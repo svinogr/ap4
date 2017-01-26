@@ -23,16 +23,6 @@ public class ServicesContex {
     }
 
     @Bean
-    public CreateWorkoutXMLService createWorkoutXMLService() {
-        return new CreateWorkoutXMLServiceImpl();
-    }
-
-    @Bean
-    public CreateExerciseXMLService exerciseXMLService() {
-        return new CreateExerciseXMLServiceImpl();
-    }
-
-    @Bean
     public RateServices rateServices() {
         return new RateServicesImpl();
     }
@@ -41,4 +31,5 @@ public class ServicesContex {
     public InfoUserService infoUserService() {
         return new InfoUserServiceImpl();
     }
+
 }

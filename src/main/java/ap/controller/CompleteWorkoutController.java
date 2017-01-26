@@ -1,9 +1,7 @@
 package ap.controller;
 
 import ap.dao.WorkoutDAO;
-import ap.entity.User;
 import ap.entity.Workout;
-import ap.services.CreateWorkoutXMLService;
 import ap.services.CreateXMLService;
 import ap.services.UserServices;
 import org.hibernate.HibernateException;
@@ -21,13 +19,11 @@ public class CompleteWorkoutController {
     @Autowired
     UserServices userServices;
     @Autowired
-    CreateXMLService createXMLService;
-    @Autowired
     WorkoutDAO workoutDAO;
     @Autowired
-    CreateWorkoutXMLService createWorkoutXMLService;
+    CreateXMLService createXMLService;
 
-    @RequestMapping(value = "complete")
+    /*@RequestMapping(value = "complete")
     public String getMyWorkoutPage() {
         return "complete";
     }
@@ -39,7 +35,7 @@ public class CompleteWorkoutController {
     String getXML() {
         User user = userServices.getUser("complete");
         return createXMLService.getXML(user).toString();
-    }
+    }*/
 
     @RequestMapping(value = "/getXmlWorkoutComplete", method = RequestMethod.GET, produces = {"application/xml; charset=UTF-8"}, params = {"id"})
     public
@@ -53,6 +49,6 @@ public class CompleteWorkoutController {
             response.setStatus(400);
         }
         response.setStatus(200);
-        return createWorkoutXMLService.getXML(workout).toString();
+        return createXMLService.getWorkoutXML(workout).toString();
     }
 }

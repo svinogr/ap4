@@ -62,15 +62,20 @@ public class DaoContext {
     }
 
     @Bean(name = "multipartResolver")
-     CommonsMultipartResolver multipartResolver() {
-        CommonsMultipartResolver multipartResolver= new CommonsMultipartResolver();
+    CommonsMultipartResolver multipartResolver() {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
         multipartResolver.setMaxUploadSize(100000);
         return multipartResolver;
     }
 
     @Bean
-    UserInfoDAO userInfoDAO(){
+    UserInfoDAO userInfoDAO() {
         return new UserInfoDAOImpl();
+    }
+
+    @Bean
+    PostDAO postDAO() {
+        return new PostDAOImpl();
     }
 
 }

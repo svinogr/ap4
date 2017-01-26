@@ -10,6 +10,7 @@ function getXmlAllWorkoutsBest() {
         success: function (xml) {
             $("#list").empty();
             $(xml).find("workout").each(function () {
+                var userId = $(this).find("userId:first").text()
                 var name = $(this).find("name:last").text();
                 var id = $(this).find("id:last").text();
                 var rate = $(this).find("rate:first").text();
@@ -18,9 +19,9 @@ function getXmlAllWorkoutsBest() {
                     "<div class='bs-calltoaction bs-calltoaction-primary'>" +
                     "<div class='row'>" +
                     "<div id='" + id + "'class='col-md-9 cta-contents'>" +
-                    "<div><h1 id='name' class='update btn btn-primary'>" + name + "</h1></div><div class='cta-button'><button id='"+author+"' class='btnAuthor btn btn-xs btn-primary'>автор: "+author+
+                    "<div><h1 id='name' class='update cta-title'>" + name + "</h1></div><div class='cta-button'><button id='"+userId+"' class='btnAuthor btn btn-xs btn-primary'>автор: "+author+
                     "</button></div>" +
-                    "<h3 id='name' class='update btn btn-primary'>Рейтинг: " + rate + "</h3>" +
+                    "<h3 id='name' class='update cta-title'>Рейтинг: " + rate + "</h3>" +
                     "</div>" +
                     "<div id='" + id + "' class='col-md-3 cta-button'>" +
                     "<button id='1' class='btnRate btn btn-lg btn-block btn-primary'>+</button>" +

@@ -1,23 +1,17 @@
 package ap.dao.daoimpl;
 
 import ap.dao.WorkoutDAO;
-import ap.entity.Exercise;
-import ap.entity.Try;
-import ap.entity.User;
-import ap.entity.Workout;
+import ap.entity.*;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,9 +28,9 @@ public class WorkoutDAOImpl extends BasicDAOImpl<Workout> implements WorkoutDAO 
     @Transactional
     public void createNewWorkout(String nameOfNewWorkout, int positionNewWorkout, User user) throws HibernateException {
         Workout workout = new Workout();
-        workout.setName(nameOfNewWorkout);
+        workout.setName(nameOfNewWorkout.toLowerCase());
         workout.setPosition(positionNewWorkout);
-        String author=user.getName();
+        String author= user.getUserInfo().getName();
         workout.setAuthor(author);
         workout.setParentid(user);
         add(workout);
@@ -45,7 +39,7 @@ public class WorkoutDAOImpl extends BasicDAOImpl<Workout> implements WorkoutDAO 
     @Override
     @Transactional
     public List<Workout> getListWorkout(int quantity) throws HibernateException {
-        List<Workout> list = new ArrayList<>();
+        List<Workout> list;
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Workout.class);
         criteria.addOrder(Order.desc("rate"));
@@ -84,12 +78,9 @@ public class WorkoutDAOImpl extends BasicDAOImpl<Workout> implements WorkoutDAO 
                 }
             }
             newWorkout.setParentid(user);
-
         }
         newWorkout.setParentid(user);
         this.add(newWorkout);
-
-
     }
 
     @Override
@@ -98,6 +89,7 @@ public class WorkoutDAOImpl extends BasicDAOImpl<Workout> implements WorkoutDAO 
         List<Workout> list = new ArrayList<>();
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Workout.class);
+        criteria.addOrder(Order.desc("rate"));
         criteria.setMaxResults(20);
         criteria.setFirstResult(start);
         list.addAll(criteria.list());

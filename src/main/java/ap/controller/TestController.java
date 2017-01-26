@@ -1,18 +1,12 @@
 package ap.controller;
 
 import ap.dao.ExersiceDAO;
+import ap.dao.PostDAO;
 import ap.dao.TryDAO;
 import ap.dao.WorkoutDAO;
-import ap.dao.daoimpl.WorkoutDAOImpl;
-import ap.entity.Exercise;
-import ap.entity.Try;
-import ap.entity.User;
-import ap.entity.Workout;
-import ap.services.CreateExerciseXMLService;
-import ap.services.CreateWorkoutXMLService;
+import ap.entity.*;
 import ap.services.CreateXMLService;
 import ap.services.UserServices;
-import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,13 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.xml.parsers.DocumentBuilder;
-import java.io.File;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 @Controller
 public class TestController {
@@ -49,12 +37,8 @@ public class TestController {
 
     @Autowired
     TryDAO tryDAO;
-
     @Autowired
-    CreateWorkoutXMLService createWorkoutXMLService;
-
-    @Autowired
-    CreateExerciseXMLService createExerciseXMLService;
+    PostDAO postDAO;
 
     @RequestMapping("/test")
     public ModelAndView getTestPage() {
@@ -69,6 +53,21 @@ public class TestController {
         }
 
         return modelAndView;
+    }
+
+    @RequestMapping("/post")
+    @Transactional
+    public void testPost() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Post post = new Post();
+        Images images = new Images();
+        images.setImage("картинка");
+        images.setParentId(post);
+        //post.getImage().add(images);
+        post.setParentId(user);
+        postDAO.add(post);
+
+
     }
 
     @RequestMapping(value = "XML")
@@ -89,33 +88,11 @@ public class TestController {
     }
 
     @RequestMapping(value = "/image", method = RequestMethod.POST)
-    public String imageSave(@RequestParam( value = "file", required = false)MultipartFile file) {
+    public String imageSave(@RequestParam(value = "file", required = false) MultipartFile file) {
         System.err.println(file.getSize());
 
         return "image";
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     @RequestMapping(value = "/aut")
