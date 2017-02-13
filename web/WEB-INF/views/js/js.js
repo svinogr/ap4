@@ -1,5 +1,5 @@
 $(document).ready(function () {
-     $("#add").text("Добавить новую тренировку");
+    $("#add").text("Добавить новую тренировку");
     $("#back").addClass("hiden")
     $("#add").click(add);
     $("#back").click(back);
@@ -100,8 +100,6 @@ function limitTry() {
 }
 
 
-
-
 function addNewWorkout() {
     $(".modal-title").empty();
     $(".modal-title").text("Введите имя новой тренировки");
@@ -112,17 +110,21 @@ function addNewWorkout() {
     $("#save").unbind();
     $("#save").click(function () {
         var nameWorkout = save();
+        var userId=$(".myid").attr("id");
+        var xml= "<workoutXML><workoutName>"+nameWorkout+"</workoutName></workoutXML>"
         if ($.trim(nameWorkout)) {
             var x = new XMLHttpRequest();
-            x.open("GET", "addNewWorkout?name=" + encodeURIComponent(nameWorkout), true);
-                    x.send();
-                    x.onreadystatechange = function () {
-                        if (x.readyState == 4) {
-                            if (x.status == 200) {
-                                getXmlAllWorkouts();
+            //x.open("GET", "addNewWorkout?name=" + encodeURIComponent(nameWorkout), true);
+            x.open("POST", "/users/user/"+userId+"/workout", true);
+            x.setRequestHeader("Content-Type", "application/xml");
+            x.send(xml);
+            x.onreadystatechange = function () {
+                if (x.readyState == 4) {
+                    if (x.status == 200) {
+                        getXmlAllWorkouts();
 
-                                
-                            } else limitWorkout()
+
+                    } else limitWorkout()
                 }
             }
         }
@@ -177,11 +179,11 @@ function addNewRepeat() {
     $("#save").click(function () {
         weight = $("#var").val();
         repeat = $("#var2").val();
-        tries=$("#var3").val();
+        tries = $("#var3").val();
         $("#myModalBox").modal('hide');
         if ($.trim(weight) && $.trim(repeat)) {
             var x = new XMLHttpRequest();
-            x.open("GET", "addNewTry?id=" + exerciseId + "&weight=" + weight + "&repeat=" + repeat+"&tries="+tries, true);
+            x.open("GET", "addNewTry?id=" + exerciseId + "&weight=" + weight + "&repeat=" + repeat + "&tries=" + tries, true);
             x.send();
             x.onreadystatechange = function () {
                 if (x.readyState == 4) {
@@ -209,12 +211,14 @@ function deleting() {
 }
 
 function deletingWorkout(id) {
+    var userId= $(".myid").attr("id");
     var x = new XMLHttpRequest();
-    x.open("GET", "deleteWorkout?id=" + id, true);
+    // x.open("GET", "deleteWorkout?id=" + id, true);
+    x.open("DELETE", "/users/user/"+userId+"/workout/" + id, true);
     x.send();
     x.onreadystatechange = function () {
         if (x.readyState == 4) {
-            if (x.status == 200) {
+            if (x.status == 204) {
                 getXmlAllWorkouts()
             } else alert("no connection");
         }
@@ -248,7 +252,7 @@ function deletingTry(id) {
 }
 
 function update() {
-   
+
     var name = $(this).attr("id");
     if (workoutLevel) {
         var type = "workout"
@@ -276,14 +280,18 @@ function updatingWorkout(name, id) {
     $("#save").unbind();
     $("#save").click(function () {
         var updateVar = save();
+        var userId= $(".myid").attr("id");
         $("#myModalBox").modal('hide');
         if (updateVar != "") {
             var x = new XMLHttpRequest();
-            x.open("GET", "updateWorkout?id=" + id + "&name=" + name + "&updateVar=" + encodeURIComponent(updateVar), true);
-            x.send();
+            var xml = "<workoutXML><workoutName>" + updateVar + "</workoutName>><workoutId>" + id + "</workoutId></workoutXML>";
+            //  x.open("GET", "updateWorkout?id=" + id + "&name=" + name + "&updateVar=" + encodeURIComponent(updateVar), true);
+            x.open("PUT", "/users/user/"+userId+"/workout/" + id, true);
+            x.setRequestHeader("Content-Type", "application/xml");
+            x.send(xml);
             x.onreadystatechange = function () {
                 if (x.readyState == 4) {
-                    if (x.status == 200) {
+                    if (x.status == 204) {
                         getXmlAllWorkouts()
                     } else alert("no connection");
                 }
@@ -298,7 +306,7 @@ function updatingexercise(name, id) {
     $(".modal-body").append("<span>название упражнения:</span>");
     $(".modal-body").append("<input type='text'id='var'/>");
     $("#myModalBox").modal('show');
-       $("#save").unbind();
+    $("#save").unbind();
     $("#save").click(function () {
         var updateVar = save();
         $("#myModalBox").modal('hide');
@@ -360,15 +368,15 @@ function getAuthorWorkout() {
             }
         }
     }
-    
-    
+
+
 }
-function setStatusDoneForTry(id){
+function setStatusDoneForTry(id) {
     var x = new XMLHttpRequest();
-    x.open("GET","/confidential/updateColorTry?id="+id)
+    x.open("GET", "/confidential/updateColorTry?id=" + id)
     x.send();
 
-    
+
 }
 
 

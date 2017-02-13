@@ -52,11 +52,6 @@
                                     <a href="${pageContext.request.contextPath}/allWorkouts"
                                        class="btn btn-primary">Все тренировки</a>
                                 </li>
-<%--
-                                <li class="navbarmini">
-                                    <a href="${pageContext.request.contextPath}/complete"
-                                       class="btn btn-primary">Готовые</a>
-                                </li>--%>
                             </ul>
                         </div>
                     </div>

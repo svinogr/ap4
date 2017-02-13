@@ -10,9 +10,9 @@ function getXmlAllWorkoutsBest() {
         dataType: "xml",
         success: function (xml) {
             $("#list").empty();
-            $(xml).find("workout").each(function () {
-                var name = $(this).find("name:last").text();
-                var id = $(this).find("id:last").text();
+            $(xml).find("workoutXML").each(function () {
+                var name = $(this).find("workoutName:last").text();
+                var id = $(this).find("workoutId:last").text();
                 var rate = $(this).find("rate:first").text();
                 var author=$(this).find("author:first").text();
                 var element =

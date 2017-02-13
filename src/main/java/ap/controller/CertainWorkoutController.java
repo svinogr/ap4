@@ -28,7 +28,7 @@ public class CertainWorkoutController {
 
     @Autowired
     UserServices userServices;
-
+//удалить?
     @RequestMapping(value = "/curtainUserRequest")
     public void getPageCertainUser(HttpServletRequest request, HttpServletResponse response) {
         response.setStatus(200);
@@ -39,7 +39,6 @@ public class CertainWorkoutController {
     public String getPageWithWorkoutCurtainUser(Model model, HttpServletRequest request, HttpServletResponse response) {
         UserInfo userInfo = userInfoDAO.getAllByParentKey(Integer.parseInt(request.getParameter("id"))).get(0);
         UserInfoXML userInfoXML = new UserInfoXML(userInfo);
-        userInfoXML.setImage(null);
         model.addAttribute("userInfoXML", userInfoXML);
         return "certainUser";
     }

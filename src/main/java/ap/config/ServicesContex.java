@@ -32,4 +32,18 @@ public class ServicesContex {
         return new InfoUserServiceImpl();
     }
 
+    @Bean
+    public WorkoutService workoutService(){
+       return new WorkoutServiceImpl();
+    }
+
+    @Bean
+    public ExerciseService exerciseService(){
+        return new ExerciseServiceImpl();
+    }
+    @Bean
+    public TryService tryService(){
+        return new TryServiceImpl();
+    }
+
 }

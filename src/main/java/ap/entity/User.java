@@ -21,34 +21,34 @@ import java.util.List;
 public class User implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    protected int id;
 
     @Column(name = "login", unique = true)
     @NotEmpty(message = "Пожалуйста, введите логин")
     @Size(min = 3, message = "Размер логина должен быть не менее 3 символов")
-    private String login;
+    protected String login;
 
     @Column(name = "password", nullable = false)
     @NotEmpty(message = "Пожалуйста, введите пароль")
     @Size(min = 4, message = "Размер пароля должен быть минимум 4 символов")
-    private String password;
+    protected String password;
 
     @Column(name = "email", unique = true)
     @Email(message = "Введенный адрес не является корректным адресом почты")
     @NotEmpty(message = "Пожалуйста, введите почтовый адрес")
-    private String email;
+    protected String email;
 
     @Column(name = "date_registration")
-    private Date dateRegistration;
+    protected Date dateRegistration;
 
     @Transient
-    private UserDetails userDetails;
+    protected UserDetails userDetails;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentid", cascade = CascadeType.ALL)
-    private List<Workout> workoutList = new ArrayList<>(0);
+    protected List<Workout> workoutList = new ArrayList<>(0);
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentid", cascade = CascadeType.ALL)
-    private List<Post> postList = new ArrayList<>(0);
+    protected List<Post> postList = new ArrayList<>(0);
 
     @Column(name = "active")
     public boolean isActive() {
@@ -60,10 +60,10 @@ public class User implements UserDetails{
         this.active = active;
     }
 
-    private boolean active = false;
+    public boolean active = false;
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "parentid", cascade = CascadeType.ALL)
-    private UserInfo userInfo;
+    protected UserInfo userInfo;
 
 
     public List<Post> getPostList() {
@@ -90,12 +90,25 @@ public class User implements UserDetails{
         return workoutList;
     }
 
-    @XmlElement(name = "workout")
+    @XmlTransient
     public void setWorkoutList(List<Workout> workoutList) {
         this.workoutList = workoutList;
     }
 
     public User() {
+    }
+
+    public User(User user) {
+        this.login = user.getLogin();
+        this.password = user.getPassword();
+        this.email = user.getEmail();
+        this.dateRegistration = user.getDateRegistration();
+        this.workoutList = user.getWorkoutList();
+        this.userDetails = user.getUserDetails();
+        this.postList = user.getPostList();
+        this.active = user.isActive();
+        this.userInfo = user.getUserInfo();
+        this.id= user.getId();
     }
 
     @Override
@@ -110,7 +123,7 @@ public class User implements UserDetails{
     @Override
     public String getUsername() {
         return userDetails.getUsername();
-    }//здесь что то
+    }
 
     @Override
     public boolean isAccountNonExpired() {
@@ -146,7 +159,7 @@ public class User implements UserDetails{
         return id;
     }
 
-    @XmlElement(name = "userid")
+    @XmlTransient
     public void setId(int id) {
         this.id = id;
     }
@@ -155,12 +168,12 @@ public class User implements UserDetails{
         return email;
     }
 
-    @XmlTransient
+    @XmlElement(name = "email")
     public void setEmail(String email) {
         this.email = email;
     }
 
-    @XmlTransient
+    @XmlElement(name = "password")
     public void setPassword(String password) {
         this.password = password;
     }
@@ -169,7 +182,7 @@ public class User implements UserDetails{
         return login;
     }
 
-    @XmlTransient
+    @XmlElement(name = "login")
     public void setLogin(String login) {
         this.login = login;
     }

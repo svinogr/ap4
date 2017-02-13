@@ -1,5 +1,6 @@
 package ap.services;
 
+import ap.entity.EntityForXML.UserXML;
 import ap.entity.User;
 
 import java.util.List;
@@ -7,6 +8,8 @@ import java.util.Map;
 
 public interface UserServices {
     void registrationUser(User user);
+
+    UserXML registrationUser(UserXML user);
 
     String acceptRegistration(String token);
 
@@ -27,6 +30,8 @@ public interface UserServices {
     User getLoggedUser();
 
     List<User> getSearchUser(Map<String, String> map);
+
+
 
 
 }

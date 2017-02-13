@@ -58,7 +58,7 @@ public class Exercise implements Serializable {
         return id;
     }
 
-    @XmlElement
+    @XmlElement(name="exerciseId")
     public void setId(int id) {
         this.id = id;
     }
@@ -76,7 +76,7 @@ public class Exercise implements Serializable {
         return name;
     }
 
-    @XmlElement
+    @XmlElement(name = "exerciseName")
     public void setName(String name) {
         this.name = name;
     }

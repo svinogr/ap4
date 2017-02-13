@@ -27,9 +27,9 @@
             <div><input id="search" type="text" class="form-control"/></div>
             <div><input id="searchsubmit" type="submit" class="btn btn-lg btn-primary btn-block" value="поиск"/></div>
             <div class="cta-contents"><label><input name="searchType" checked value="login" class="searchType"
-                                                    type="radio"> по email <input value="email" class="searchType"
+                                                    type="radio"> по логину <input value="email" class="searchType"
                                                                                    name="searchType" type="radio"> по
-                логину</label></div>
+               email</label></div>
 
         </div>
     </div>

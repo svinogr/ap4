@@ -5,24 +5,21 @@ import ap.entity.EntityForXML.WorkoutXML;
 import ap.entity.User;
 import ap.services.CreateXMLService;
 import ap.services.UserServices;
+import ap.services.WorkoutService;
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.StringWriter;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
-@Controller
-@RequestMapping("*/user")
+@RestController
+@RequestMapping(value = {"/api/v.1/user/"})
 public class UserControllerRest {
     @Autowired
     UserServices userServices;
@@ -30,43 +27,180 @@ public class UserControllerRest {
     @Autowired
     CreateXMLService createXMLService;
 
+    @Autowired
+    WorkoutService workoutService;
+
+    /**
+     * @param response 401 if user is not authenticated
+     * @return xml UserXML{int userId, int userInfo, Date date, List<WorkoutXML>}
+     */
+    @RequestMapping(value = "/auth", method = RequestMethod.GET, produces = {"application/xml; charset=UTF-8"})
+    @Transactional
+    public
+    @ResponseBody
+    UserXML getUser(HttpServletResponse response) {
+        User user = userServices.getLoggedUser();
+        if (user != null) {
+            user = userServices.getById(user.getId());
+            UserXML userXML = createXMLService.getUserXML(user);
+            response.setStatus(200);
+            return userXML;
+        } else {
+            response.setStatus(401);
+            return null;
+        }
+    }
+
+    /**
+     * @param id       id  of user in DB
+     * @param response 404 if id is not found
+     * @return xml UserXML
+     */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = {"application/xml; charset=UTF-8"})
     @Transactional
     public
     @ResponseBody
-    String getUser(@PathVariable int id, Model model) {
-        User user = userServices.getById(id);
-        User userXML = new User();
-        userXML.setLogin(user.getLogin());
-        userXML.setActive(user.isActive());
-        userXML.setEmail(user.getEmail());
-        userXML.setDateRegistration(user.getDateRegistration());
-        userXML.setId(user.getId());
-        return createXMLService.getUserXML(user).toString();
+    UserXML getUserByID(@PathVariable int id, HttpServletResponse response) {
+        try {
+            User user = userServices.getById(id);
+            int i = user.getId();
+            UserXML userXML = createXMLService.getUserXML(user);
+            response.setStatus(200);
+            return userXML;
+        } catch (HibernateException e) {
+            response.setStatus(404);
+            return null;
+        }
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void putUser(@PathVariable int id, @Valid User user) {
-
-    }
-
-    @RequestMapping(method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
+    /**
+     * @param userXML       xml with data type of <userXML><login></login><email></email><password></password></userXML>
+     * @param bindingResult returm xml with invalid fields and messages
+     * @param response      location with new user
+     * @return xml type of <userXML><date></date><email></email><login></login><myUserId></myUserId><userInfoId></userInfoId></userXML>
+     */
+    @RequestMapping(method = RequestMethod.POST, headers = "Content-Type=application/xml",
+            produces = {"application/xml; charset=UTF-8"})
+    @Transactional
     public
     @ResponseBody
-    String createUser(@Valid User user, BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) {
-        response.setHeader("Location", "/user/1");
-        return "создан";
+    UserXML createUser(@RequestBody @Valid UserXML userXML, BindingResult bindingResult, HttpServletResponse response) {
+        if (bindingResult.hasErrors()) {
+            Map<String, String> mapErrors = new HashMap<>();
+
+            for (FieldError error : bindingResult.getFieldErrors()) {
+                mapErrors.put(error.getField(), error.getDefaultMessage());
+            }
+            userXML.setLogin(mapErrors.get("login"));
+            userXML.setEmail(mapErrors.get("email"));
+            response.setStatus(400);
+            return userXML;
+
+        }
+        userXML = userServices.registrationUser(userXML);
+        response.setStatus(201);
+        response.setHeader("Location", "/api/v.1/user/" + userXML.getUserId());
+        return userXML;
     }
 
-    @RequestMapping(value = "/search", method = RequestMethod.GET, produces = {"application/xml; charset=UTF-8"})
+
+    @RequestMapping(value = "/auth/workout", method = RequestMethod.GET, produces = {"application/xml; charset=UTF-8"})
+    @Transactional
+    public
+    @ResponseBody
+    UserXML getUserWorkout(HttpServletResponse response) {
+        User user = userServices.getLoggedUser();
+        if (user != null) {
+            user = userServices.getById(user.getId());
+            UserXML userXML = createXMLService.getUserXML(user);
+            response.setStatus(200);
+            return userXML;
+        } else {
+            response.setStatus(401);
+            return null;
+        }
+    }
+
+    /**
+     * @param workoutXML    it need not empty name in workoutXML
+     * @param bindingResult
+     * @param response      401   user is not authenticated
+     *                      400 workoutXML has error
+     * @return new workoutXML
+     */
+    @RequestMapping(value = "/auth/workout", method = RequestMethod.POST, produces = {"application/xml; charset=UTF-8"})
+    @Transactional
+    public
+    @ResponseBody
+    WorkoutXML createWorkout(@RequestBody @Valid WorkoutXML workoutXML, BindingResult bindingResult, HttpServletResponse response) {
+        User user = userServices.getLoggedUser();
+        System.err.println(user);
+        if (user == null) {
+            response.setStatus(401);
+            return null;
+        }
+        if (bindingResult.hasErrors()) {
+            response.setStatus(400);
+            return workoutService.validWorkoutXML(workoutXML, bindingResult);
+        }
+        workoutXML = workoutService.createWorkout(workoutXML);
+
+        response.setStatus(201);
+        response.setHeader("Location", "/api/v.1/workout/" + workoutXML.getWorkoutId());
+        return workoutXML;
+    }
+
+
+    /**
+     * @param id       id  of user in DB
+     * @param response 404 if id is not found
+     * @return xml UserXML
+     */
+    @RequestMapping(value = "/{id}/workout", method = RequestMethod.GET, produces = {"application/xml; charset=UTF-8"})
+    @Transactional
+    public
+    @ResponseBody
+    UserXML getUserWorkoutByID(@PathVariable int id, HttpServletResponse response) {
+        try {
+            User user = userServices.getById(id);
+            int i = user.getId();
+            UserXML userXML = createXMLService.getUserXML(user);
+            response.setStatus(200);
+            return userXML;
+        } catch (HibernateException e) {
+            response.setStatus(404);
+            return null;
+        }
+    }
+
+    /**
+     * @param id is number in the list which is counting down the top 20 rated
+     * @param response 404 if list is empty
+     * @return userXML with workoutXML by rate
+     */
+    @RequestMapping(value = "/from/{id}", method = RequestMethod.GET, produces = {"application/xml; charset=UTF-8"})
+    @Transactional
+    public
+    @ResponseBody
+    UserXML getAllWorkoutByRatingFrom(@PathVariable int id, HttpServletResponse response) {
+        int start = id;
+        UserXML userXML= workoutService.getAllWorkout(start);
+        if(userXML==null){
+            response.setStatus(404);
+            return null;
+        }
+        response.setStatus(200);
+        return userXML;
+    }
+
+
+ /*   @RequestMapping(value = "/search", method = RequestMethod.GET, produces = {"application/xml; charset=UTF-8"})
     @ResponseStatus(HttpStatus.OK)
     @Transactional
     public
     @ResponseBody
     String getResultSearch(@RequestParam Map<String, String> searchParams) {
-        StringWriter xml = new StringWriter();
+        StringWriter xml;
         searchParams.remove("_");
         for (Map.Entry<String, String> p : searchParams.entrySet()) {
             System.err.println(p.getKey() + " " + p.getValue());
@@ -86,5 +220,5 @@ public class UserControllerRest {
         }
         return null;
 
-    }
+    }*/
 }

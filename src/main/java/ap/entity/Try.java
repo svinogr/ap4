@@ -65,7 +65,7 @@ public class Try implements Serializable {
         return id;
     }
 
-    @XmlElement(name = "id")
+    @XmlElement(name = "tryId")
     public void setId(int id) {
         this.id = id;
     }

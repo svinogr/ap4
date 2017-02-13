@@ -1,5 +1,6 @@
 package ap.controller;
 
+import ap.dao.ExersiceDAO;
 import ap.dao.TryDAO;
 import ap.entity.Exercise;
 import ap.entity.Try;
@@ -20,6 +21,8 @@ public class MyTryController {
     TryDAO tryDAO;
     @Autowired
     UserServices userServices;
+    @Autowired
+    ExersiceDAO exersiceDAO;
 
     @RequestMapping(value = "/confidential/addNewTry", method = RequestMethod.GET, params = {"id", "weight", "repeat", "tries"})
     @Transactional
@@ -28,15 +31,15 @@ public class MyTryController {
         double weight = Double.parseDouble(request.getParameter("weight"));
         int repeat = Integer.parseInt(request.getParameter("repeat"));
         int quantityTries = Integer.parseInt(request.getParameter("tries"));
-        Exercise exercise = new Exercise();
-        exercise.setId(idExercise);
-
+        Exercise exercise = exersiceDAO.getById(idExercise);
         for (int i = 0; i < quantityTries; i++) {
             Try tries = new Try();
             tries.setWeight(weight);
             tries.setRepeat(repeat);
             tries.setParentid(exercise);
             try {
+                System.err.println(tries.getParentid().getId());
+                System.err.println(tries.getParentid().getParentid().getWorkoutId());
                 if (userServices.allow(tries.getParentid().getParentid().getParentid().getId())) {
                     tryDAO.add(tries);
                     response.setStatus(200);

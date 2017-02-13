@@ -63,9 +63,10 @@ public class BasicDAOImpl<T> implements BasicDAO<T> {
 
     @Override
     @Transactional
-    public void add(T object) throws HibernateException {
+    public int add(T object) throws HibernateException {
         Session session = sessionFactory.getCurrentSession();
-        session.save(object);
+        int savedid = (int) session.save(object);
+        return savedid;
     }
 
     @Override
@@ -98,20 +99,33 @@ public class BasicDAOImpl<T> implements BasicDAO<T> {
 
     @Override
     @Transactional
-    public void update(T object) {
-        try {
-            Session session = sessionFactory.getCurrentSession();
-            session.update(object);
-        } catch (HibernateException e) {
-            System.out.println("не обновилось");
-        }
+    public void update(T object) throws HibernateException {
+
+        Session session = sessionFactory.getCurrentSession();
+        session.update(object);
+
     }
 
 
     @Override
+    @Transactional
     public void delete(T object) throws HibernateException {
         Session session = sessionFactory.getCurrentSession();
         session.delete(object);
+    }
+
+    @Override
+    public boolean checkItBD(int id) {
+        boolean flag = false;
+        List<T> list = new ArrayList<>(0);
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(type);
+        criteria.add(Restrictions.eq("id", id));
+        list.addAll(criteria.list());
+        if (list.size() > 0) {
+            flag = true;
+        }
+        return flag;
     }
 
 }

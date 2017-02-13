@@ -11,7 +11,7 @@ public class AdminController {
         return "administration";
     }
 
-    @RequestMapping(value = "/administration/user")
+    @RequestMapping(value = "/administration/users")
     public String getAdminUserPage(){
         return "adminuser";
     }

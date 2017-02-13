@@ -2,6 +2,7 @@ package ap.controller;
 
 import ap.dao.WorkoutDAO;
 import ap.entity.User;
+import ap.entity.UserInfo;
 import ap.services.CreateXMLService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,6 +36,9 @@ public class AllWorkoutsController {
         int numberPage = Integer.parseInt(request.getParameter("page"))*20;
         User user = new User();
         user. setWorkoutList(workoutDAO.getListAllWorkout(numberPage));
+        UserInfo userInfo = new UserInfo();
+        userInfo.setLogin(null);
+        user.setUserInfo(userInfo);
         return  createXMLService.getUserXML(user).toString();
     }
 }

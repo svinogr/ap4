@@ -2,7 +2,9 @@ package ap.controller;
 
 import ap.dao.UserInfoDAO;
 import ap.entity.UploadImageException;
+import ap.entity.User;
 import ap.entity.UserInfo;
+import ap.entity.Workout;
 import ap.services.InfoUserService;
 import ap.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,6 +98,10 @@ public class UserInfoController {
                 e.printStackTrace();
             }
             userInfoDAO.update(updateUserInfo);
+            User user  = userServices.getById(updateUserInfo.getParentid().getId());
+            for(Workout workout:user.getWorkoutList()){
+                workout.setAuthor(userInfo.getName());
+            }
             model.addAttribute("userInfo", updateUserInfo);
             model.addAttribute("result", "Изменение внесены");
         }

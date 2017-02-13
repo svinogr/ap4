@@ -13,10 +13,10 @@ function getXmlAllWorkoutsBest(page) {
         dataType: "xml",
         success: function (xml) {
             $("#list").empty();
-            $(xml).find("workout").each(function () {
+            $(xml).find("workoutXML").each(function () {
                 var userId = $(this).find("userId:first").text()
-                var name = $(this).find("name:last").text();
-                var id = $(this).find("id:last").text();
+                var name = $(this).find("workoutName:last").text();
+                var id = $(this).find("workoutId:last").text();
                 var rate = $(this).find("rate:first").text();
                 var author=$(this).find("author:first").text();
                 var element =
@@ -57,11 +57,11 @@ function getXmlThisWorkout(id) {
         dataType: "xml",
         success: function (xml) {
             $("#list").empty();
-            $(xml).find("exercise").each(function () {
+            $(xml).find("exerciseXML").each(function () {
                 var elementRepeat = "<div class='row'><div class='cta-button'>";
-                var name = $(this).find("name:first").text();
-                var id = $(this).find("id:first").text();
-                $(this).find("tryes").each(function () {
+                var name = $(this).find("exerciseName:first").text();
+                var id = $(this).find("exerciseId:first").text();
+                $(this).find("tryXML").each(function () {
                     var weight = $(this).find("weight:first").text();
                     var repeat = $(this).find("repeat:first").text();
                     var elementButton = "<button class='color-change btn btn-primary'>" + weight + "/" + repeat + "</>";

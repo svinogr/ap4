@@ -50,7 +50,7 @@ public class WorkoutDAOImpl extends BasicDAOImpl<Workout> implements WorkoutDAO 
     }
 
     @Override
-    public void copyWorkout(int idWorkout, User user )throws HibernateException  {
+    public Workout copyWorkout(int idWorkout, User user )throws HibernateException  {
         Workout workout = this.getById(idWorkout);
         List<Exercise> listExercise = new ArrayList<>();
         listExercise.addAll(workout.getExerciseList());
@@ -81,6 +81,7 @@ public class WorkoutDAOImpl extends BasicDAOImpl<Workout> implements WorkoutDAO 
         }
         newWorkout.setParentid(user);
         this.add(newWorkout);
+        return newWorkout;
     }
 
     @Override

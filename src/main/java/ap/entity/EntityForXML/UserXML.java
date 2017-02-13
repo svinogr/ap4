@@ -1,51 +1,81 @@
 package ap.entity.EntityForXML;
 
 import ap.entity.User;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @XmlRootElement
 public class UserXML {
 
-    private List<WorkoutXML> workoutXMLs;
-    private int id;
-    private String login;
+    private List<WorkoutXML> workoutXML = new ArrayList<>(0);
+    private int userInfoId;
+    private int myUserId;
     private Date date;
-    private int infoUser;
+    @NotEmpty
+    @NotNull
+    private String login;
+    @Email(message = "email введен некоректно")
+    private String email;
+    @NotEmpty
+    @NotNull
+    private String password;
 
     public UserXML() {
     }
 
     public UserXML(User user) {
-        this.id = user.getId();
-        this.login = user.getLogin();
+        this.myUserId = user.getId();
+        this.userInfoId = user.getUserInfo().getId();
         this.date = user.getDateRegistration();
-        this.infoUser = user.getUserInfo().getId();
     }
 
-    public UserXML(List<WorkoutXML> workoutXMLs) {
-        this.workoutXMLs = workoutXMLs;
+    public UserXML(User user, int userInfoId) {
+        this.myUserId = user.getId();
+        this.userInfoId = userInfoId;
+        this.date = user.getDateRegistration();
     }
 
-    @XmlElement(name = "workout")
-    public void setWorkoutXMLs(List<WorkoutXML> workoutXMLs) {
-        this.workoutXMLs = workoutXMLs;
+    public List<WorkoutXML> getWorkoutXML() {
+        return workoutXML;
+    }
+    @XmlElement(name = "workoutXML")
+    public void setWorkoutXML(List<WorkoutXML> workoutXML) {
+        this.workoutXML = workoutXML;
     }
 
-    public List<WorkoutXML> getWorkoutXMLs() {
-        return workoutXMLs;
+    public int getUserInfoId() {
+        return userInfoId;
+    }
+    @XmlElement(name = "userInfoId")
+    public void setUserInfoId(int userInfoId) {
+        this.userInfoId = userInfoId;
     }
 
-    public int getId() {
-        return id;
+    public int getUserId() {
+        return myUserId;
     }
-    @XmlElement(name = "id")
-    public void setId(int id) {
-        this.id = id;
+
+    @XmlElement(name = "myUserId")
+    public void setUserId(int userId) {
+        this.myUserId = userId;
     }
+
+    public Date getDate() {
+        return date;
+    }
+    @XmlElement(name = "date")
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+
 
     public String getLogin() {
         return login;
@@ -55,20 +85,19 @@ public class UserXML {
         this.login = login;
     }
 
-    public Date getDate() {
-        return date;
+    public String getEmail() {
+        return email;
+    }
+    @XmlElement(name = "email")
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    @XmlElement(name = "date")
-    public void setDate(Date date) {
-        this.date = date;
+    public String getPassword() {
+        return password;
     }
-
-    public int getInfoUser() {
-        return infoUser;
-    }
-    @XmlElement(name = "userInfo")
-    public void setInfoUser(int infoUser) {
-        this.infoUser = infoUser;
+    @XmlElement(name = "password")
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

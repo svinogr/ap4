@@ -3,8 +3,8 @@
 <jsp:include page="header.jsp"/>
 <div class="container">
     <div id="${userInfoXML.userId}" class="userId" >
-        <div><h1 id="nameAuthor" name="${userInfoXML.id}">${userInfoXML.name}</h1>
-            <a class="cta-contents btn-primary btn-xs" style="color: #fdfdfe"  href="${pageContext.request.contextPath}/infoUser?id=${userInfoXML.id}">подробнее</a>
+        <div><h1 id="nameAuthor" name="${userInfoXML.userInfoId}">${userInfoXML.name}</h1>
+            <a class="cta-contents btn-primary btn-xs" style="color: #fdfdfe"  href="${pageContext.request.contextPath}/infoUser?id=${userInfoXML.userInfoId}">подробнее</a>
         </div>
         <div id="loading"></div>
         <div id="title" class="cta-contents">

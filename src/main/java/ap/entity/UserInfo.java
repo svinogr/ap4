@@ -15,10 +15,10 @@ import java.util.Arrays;
 
 @Entity()
 @Table(name = "users_info")
-public class UserInfo implements Imagable, Serializable{
+public class UserInfo implements Imagable, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-   protected int id;
+    protected int id;
 
     @Column(name = "login", nullable = false)
     protected String login;
@@ -67,6 +67,7 @@ public class UserInfo implements Imagable, Serializable{
     public int getId() {
         return id;
     }
+
     @XmlElement(name = "UserInfoId")
     public void setId(int id) {
         this.id = id;
@@ -75,6 +76,7 @@ public class UserInfo implements Imagable, Serializable{
     public String getLogin() {
         return login;
     }
+
     @XmlElement(name = "login")
     public void setLogin(String login) {
         this.login = login;
@@ -83,6 +85,7 @@ public class UserInfo implements Imagable, Serializable{
     public String getName() {
         return name;
     }
+
     @XmlElement(name = "name")
     public void setName(String name) {
         this.name = name;
@@ -91,6 +94,7 @@ public class UserInfo implements Imagable, Serializable{
     public int getAge() {
         return age;
     }
+
     @XmlElement(name = "age")
     public void setAge(int age) {
         this.age = age;
@@ -99,6 +103,7 @@ public class UserInfo implements Imagable, Serializable{
     public int getWeight() {
         return weight;
     }
+
     @XmlElement(name = "weight")
     public void setWeight(int weight) {
         this.weight = weight;
@@ -107,6 +112,7 @@ public class UserInfo implements Imagable, Serializable{
     public int getHeight() {
         return height;
     }
+
     @XmlElement(name = "height")
     public void setHeight(int height) {
         this.height = height;
@@ -115,6 +121,7 @@ public class UserInfo implements Imagable, Serializable{
     public int getExperience() {
         return experience;
     }
+
     @XmlElement(name = "experience")
     public void setExperience(int experience) {
         this.experience = experience;
@@ -123,6 +130,7 @@ public class UserInfo implements Imagable, Serializable{
     public String getDescription() {
         return description;
     }
+
     @XmlTransient
     public void setDescription(String description) {
         this.description = description;
@@ -131,6 +139,7 @@ public class UserInfo implements Imagable, Serializable{
     public String getImage() {
         return image;
     }
+
     @XmlTransient
     public void setImage(String image) {
         this.image = image;

@@ -12,11 +12,13 @@ import java.io.StringWriter;
 public interface CreateXMLService<T> {
 
 
-    StringWriter getUserXML(User user);
+    UserXML getUserXML(User user);
 
     StringWriter getWorkoutXML(Workout workout);
 
     StringWriter getExerciseXML(Exercise exercise);
 
     StringWriter getTryXML(Try tries);
+
+    User getUserFromXML(String xml);
 }

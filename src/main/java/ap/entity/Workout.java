@@ -94,7 +94,7 @@ public class Workout implements Serializable{
         this.author = author;
     }
 
-    @XmlElement(name = "id")
+    @XmlElement(name = "workoutId")
     public void setWorkoutId(int workoutId) {
         this.workoutId = workoutId;
     }
@@ -131,7 +131,7 @@ public class Workout implements Serializable{
         return name;
     }
 
-    @XmlElement
+    @XmlElement(name = "workoutName")
     public void setName(String name) {
         this.name = name;
     }

@@ -1,3 +1,4 @@
+/*
 package ap.controller;
 
 import ap.dao.WorkoutDAO;
@@ -23,7 +24,8 @@ public class CompleteWorkoutController {
     @Autowired
     CreateXMLService createXMLService;
 
-    /*@RequestMapping(value = "complete")
+    */
+/*@RequestMapping(value = "complete")
     public String getMyWorkoutPage() {
         return "complete";
     }
@@ -35,7 +37,8 @@ public class CompleteWorkoutController {
     String getXML() {
         User user = userServices.getUser("complete");
         return createXMLService.getXML(user).toString();
-    }*/
+    }*//*
+
 
     @RequestMapping(value = "/getXmlWorkoutComplete", method = RequestMethod.GET, produces = {"application/xml; charset=UTF-8"}, params = {"id"})
     public
@@ -52,3 +55,4 @@ public class CompleteWorkoutController {
         return createXMLService.getWorkoutXML(workout).toString();
     }
 }
+*/

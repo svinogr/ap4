@@ -3,6 +3,7 @@ package ap.controller;
 import ap.dao.WorkoutDAO;
 import ap.entity.EntityForXML.UserXML;
 import ap.entity.User;
+import ap.entity.UserInfo;
 import ap.entity.Workout;
 import ap.services.CreateXMLService;
 import org.hibernate.HibernateException;
@@ -30,12 +31,15 @@ public class BestWorkoutController {
         return "best";
     }
 
-    @RequestMapping(value = "/getXmlAllWorkoutsBest", method = RequestMethod.GET, produces = {"application/xml; charset=UTF-8"})
+   /* @RequestMapping(value = "/getXmlAllWorkoutsBest", method = RequestMethod.GET, produces = {"application/xml; charset=UTF-8"})
     @Transactional
     public
     @ResponseBody
     String getXMLAll(HttpServletRequest request, HttpServletResponse response) {
         User user = new User();
+        UserInfo userInfo = new UserInfo();
+        user.setLogin(null);
+        user.setUserInfo(userInfo);
         int limitWorkout=50;
         List<Workout> workoutList;
         try {
@@ -48,7 +52,7 @@ public class BestWorkoutController {
         StringWriter xml = createXMLService.getUserXML(user);
         response.setStatus(200);
         return xml.toString();
-    }
+    }*/
     @RequestMapping(value = "/getXmlWorkoutBest", method = RequestMethod.GET, produces = {"application/xml; charset=UTF-8"}, params = {"id"})
     public
     @ResponseBody
