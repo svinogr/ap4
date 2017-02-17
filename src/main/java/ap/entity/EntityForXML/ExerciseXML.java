@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
-@XmlRootElement
+@XmlRootElement(name = "exerciseXML")
 public class ExerciseXML  {
     private int workoutId;
     private int exerciseId;

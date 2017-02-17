@@ -12,6 +12,8 @@ import java.io.StringWriter;
 public interface CreateXMLService<T> {
 
 
+    UserXML getUserXMLWithPost(User user);
+
     UserXML getUserXML(User user);
 
     StringWriter getWorkoutXML(Workout workout);

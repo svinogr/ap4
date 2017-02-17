@@ -11,10 +11,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@XmlRootElement
+@XmlRootElement(name = "userXML")
 public class UserXML {
 
     private List<WorkoutXML> workoutXML = new ArrayList<>(0);
+    private List<PostXML> postXMLs= new ArrayList<>(0);
     private int userInfoId;
     private int myUserId;
     private Date date;
@@ -48,6 +49,14 @@ public class UserXML {
     @XmlElement(name = "workoutXML")
     public void setWorkoutXML(List<WorkoutXML> workoutXML) {
         this.workoutXML = workoutXML;
+    }
+
+    public List<PostXML> getPostXMLs() {
+        return postXMLs;
+    }
+    @XmlElement(name = "PostXML")
+    public void setPostXMLs(List<PostXML> postXMLs) {
+        this.postXMLs = postXMLs;
     }
 
     public int getUserInfoId() {

@@ -10,11 +10,6 @@ import ap.services.UserServices;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class TryServiceImpl implements TryService {
     @Autowired
@@ -50,34 +45,96 @@ public class TryServiceImpl implements TryService {
 
     @Override
     public boolean changeTry(TryXML tryXML) {
+        try {
+            if (tryDAO.checkItBD(tryXML.getTryId())){
+                Try tries= tryDAO.getById(tryXML.getTryId());
+                double weight = tryXML.getWeight();
+                int repeat  = tryXML.getRepeat();
+                if (userServices.allow(tries.getParentid().getParentid().getParentid().getId())){
+                    if(weight>0){
+                        tries.setWeight(weight);
+                    }
+                    if(repeat>0){
+                        tries.setRepeat(repeat);
+                    }
+                    tryDAO.update(tries);
+                    return true;
+                }
+            }
+        } catch (HibernateException e) {
+            return false;
+        }
         return false;
     }
 
+
+
     @Override
+    @Transactional
     public boolean deleteTry(int id) {
+        try {
+            if (tryDAO.checkItBD(id)) {
+                Try tries = tryDAO.getById(id);
+                if (userServices.allow(tries.getParentid().getParentid().getParentid().getId())) {
+                    tryDAO.delete(tries);
+                    return true;
+                }
+            }
+        }catch (HibernateException e){
+            return false;
+        }
         return false;
     }
 
     @Override
+    @Transactional
     public TryXML getTry(int id) {
+        if (tryDAO.checkItBD(id)) {
+            Try tries = tryDAO.getById(id);
+            return new TryXML(tries);
+        }
         return null;
     }
 
     @Override
     public TryXML validTryXML(TryXML tryXML) {
+        String done = String.valueOf(tryXML.isDone());
         String weigth = String.valueOf(tryXML.getWeight());
-        System.out.println("wei1"+weigth);
         String repeat = String.valueOf(tryXML.getRepeat());
-        System.out.println("rep1"+repeat);
-        if(!weigth.matches("[0-9]{1,13}(\\.[0-9]*)?")){
+        if(!weigth.matches("-?[0-9]{1,13}(\\.[0-9]*)?")){
             tryXML.setWeight(0);
-            System.out.println("wei1"+tryXML.getWeight());
         }
-        if(!repeat.matches("\\d+")){
+        if(!repeat.matches("-?\\d+")){
             tryXML.setRepeat(0);
-            System.out.println("rep2"+tryXML.getRepeat());
+        }
+        return tryXML;
+    }
+
+    @Override
+    public TryXML validDoTryXML(TryXML tryXML) {
+        try {
+            boolean done = new Boolean(tryXML.isDone());
+            return tryXML;
+        }catch (Exception e){
+            return null;
         }
 
-        return tryXML;
+
+    }
+
+    @Override
+    @Transactional
+    public boolean done(TryXML tryXML) {
+        if(tryDAO.checkItBD(tryXML.getTryId())) {
+            boolean done = tryXML.isDone();
+            Try tries = tryDAO.getById(tryXML.getTryId());
+            if(userServices.allow(tries.getParentid().getParentid().getParentid().getId())){
+               tries.setDone(done);
+                tryDAO.update(tries);
+                return true;
+            }
+
+        }
+        return false;
     }
 }

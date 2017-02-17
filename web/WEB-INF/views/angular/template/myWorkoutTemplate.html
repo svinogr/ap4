@@ -1,0 +1,17 @@
+<div class="container" ng-repeat="item in items.workoutXML">
+<div class="bs-calltoaction bs-calltoaction-primary">
+    <div class="row">
+        <div class='col-md-9 cta-contents cta-button'>
+            <div><h1 class='update cta-title'>{{item.name}}</h1>
+            </div>
+            <div>
+                <button class='btnAuthor btn btn-xs btn-primary' ng-click="getPageAuthor(item)">автор:{{item.author}}</button>
+            </div>
+        </div>
+        <div class='col-md-3 cta-button'>
+            <button class="btnEdit btn btn-lg btn-block btn-primary" ng-click="open(item)">Открыть</button>
+            <button class="delete btn btn-lg btn-block btn-primary" ng-click="delete(item)">Удалить</button>
+        </div>
+    </div>
+</div>
+</div>

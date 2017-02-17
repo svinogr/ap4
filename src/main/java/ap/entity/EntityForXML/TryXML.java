@@ -9,7 +9,7 @@ import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
+@XmlRootElement(name = "tryXML")
 public class TryXML {
     private int exerciseId;
     private int tryId;

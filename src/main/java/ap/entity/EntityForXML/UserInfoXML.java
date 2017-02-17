@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
+@XmlRootElement(name = "userInfo")
 public class UserInfoXML{
     private int userId;
     private int userInfoId;

@@ -10,8 +10,8 @@ public class UserRole {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(name = "login", nullable = false)
-    private String login;
+    @Column(name = "parantid", nullable = false)
+    private int userId;
 
     @Column(name = "role_name", nullable = false)
     private  String roleName;
@@ -24,12 +24,12 @@ public class UserRole {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public int getLogin() {
+        return userId;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setLogin(int userId) {
+        this.userId = userId;
     }
 
     public String getRoleName() {
@@ -43,8 +43,9 @@ public class UserRole {
     public UserRole() {
     }
 
-    public UserRole(String login, Role role) {
-        this.login = login;
+    public UserRole(int userId, Role role) {
+        this.userId = userId;
         this.roleName = role.toString();
     }
+
 }

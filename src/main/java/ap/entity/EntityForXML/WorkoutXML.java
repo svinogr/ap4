@@ -12,7 +12,7 @@ import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.List;
 
-@XmlRootElement
+@XmlRootElement(name = "workoutXML")
 public class WorkoutXML {
     private int userId;
     private int workoutId;

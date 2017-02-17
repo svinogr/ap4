@@ -54,7 +54,7 @@ public class UserController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+   /* @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registrationResponse(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
@@ -74,7 +74,7 @@ public class UserController {
                 " почту отправлена ссылка для активации учетной записи");
         return "registrationForme";
     }
-
+*/
     @RequestMapping(value = "acceptRegistration", method = RequestMethod.GET, params = {"token"})
     @Transactional
     public String acceptRegistration(HttpServletRequest request, Model model) {

@@ -17,11 +17,13 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +53,7 @@ public class UserServicesImpl implements UserServices {
     @Autowired
     TokenService tokenService;
 
-    @Override
+  /*  @Override
     @Transactional
     public void registrationUser(User user) throws HibernateException {
         Date date = new Date();
@@ -78,7 +80,7 @@ public class UserServicesImpl implements UserServices {
         String token = tokenService.createToken(userLogin);
         mailService.sendSMTPforRegistration(mail, environment.getRequiredProperty("mail.linkregistration") + "token=" +
                 token);
-    }
+    }*/
 
     @Override
     @Transactional
@@ -89,8 +91,6 @@ public class UserServicesImpl implements UserServices {
         String password = new BCryptPasswordEncoder().encode(user.getPassword());
         String mail = user.getEmail();
 
-        UserRole userRole = new UserRole(userLogin, Role.ROLE_USER);
-        userRoleDAO.add(userRole);
 
         creatUser.setPassword(password);
         creatUser.setDateRegistration(date);
@@ -98,6 +98,8 @@ public class UserServicesImpl implements UserServices {
         creatUser.setLogin(userLogin);
         int newid = userDAO.add(creatUser);
 
+        UserRole userRole = new UserRole(newid, Role.ROLE_USER);
+        userRoleDAO.add(userRole);
         UserInfo userInfo = new UserInfo();
         userInfo.setLogin(userLogin);
         userInfo.setName("Еще нет имени");
@@ -106,6 +108,7 @@ public class UserServicesImpl implements UserServices {
         userInfo.setImage("R0lGODlhZABkAMQAAAAAAP////f6/uXw++71/KzR8rbW88Dc9dPm+Nzr+XO163+77IvA7ZbG76HL8Mnh9mav6f///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAABEALAAAAABkAGQAAAX/YCCOZGmeaKqubOu+cCzPdG3feK7vfO//wKBwSCwaj8ikcslsOp9QogJCpTYG0aWCQWpAEtnklkSAFMLI8ah8RhvVooaCIIKPGNySA7IgIagIIg8MVAwPAQRegX+LEA10g4WHf1VVAgGREIYwU5UQBiN2IngmexCHcYABBxAHIganInsIjA8QDiKsrqutI6xYub28uy12rG2iAaR6mnkDmhCBCg0kDH0iBbfauHXcsgq+EMABCt4BDuAuotl0nVaByyR7tlgGC6wIz8QBsHSvVaBEPPNExd8vgQQLqssTDgscOQLijdgjYIEDAQoM4NNHop8IAgumKFjgjyOKgwFM/85YB6EdQ0YSZUEQcEABKwL4yFG7cw2koVPW/NlpcI3XuKFFWRgzU4chxJjnZmK8xSuQrn+HQC4QwCgiSUxUeaEyOsIWN1ZjlXpiQMydI3gMJ86MajWaIEKaJi34yiiA10CZNjUkETitm8OIEytezLix48eQIwvBaE4yjgGm+IyzfCOBMM48GAQEvaPMZtImBBAMlNILBJuCFCDA68DfKndtBlZ5VFWEZwWqV+cMovqsXc87Hyg4U1M2Ijl0hg9YnvLTx2m9lb0eoXI4ENUBc8rp2BIWMTaISpB6FpAA9ZwH9qarTsz7D8+7cmIf8ecBrM0L5PFAZppU5wkWG0XDwP983Xky2g62gNHbfiL0Rw8JAd5m23rWIWJNVQzgsiB3nw2HQDk9jBdMICr+Q0AZ5zGV4R1csDfCf6wQdcmICNVn1yhJXdZhb8jF1kYBziUyRwBEAeNZjR16xUssyjBY4o8nVmYDJQmBMoBrsIVDRW0iCODaJxxWcgUvO1VJoo+VPIhDXyTYiJoMdJIo55189unnn4AGKuighBZq6KGI+pUNFbsQGOZtVgBDkaJV7MNYRQzQ8QcokwaQDRhyBGLmkpMuuAh1jrEi4TngdMoOfiNgdAZFsLroGDonEEiVqtX0QSBrYAG7GK6lzDUMrzxFxdWPwab6xUStGltcrX5RRxH/jDe25BimmlrX6VWh+gWdsp46d2Ib2y4qjK71dbImuVN+lui89NZr77345qvvvvz266+gmTgiVCUMsPZlFQXzQxAXAfMWVU2MBuAZus9oCYRnAUlJDkM8UriHbcRKHOWHUQFjiyst/meEbf9cAseHl/jBbMgsK3xJp0z20Z8IMxoxACyVuOzJLgLYUwmwIacEtCXwKkzHAtTsbIRnY8HislPiVIRuniFTne3NxtrMCwEOBDlENjGLDccfB9gCLNfzof1100SVmVFGSKBV5gJzwbHHABOPoAi04aBS0Vx7tKG3TNoisbQDk7q1ACrKWZEN0vMpPOakewA9OQmeWTwoJM4lPCOsoaSTEB+9qV+3Z6Gt79Hmv7TXbvvtuOeu++68995vCAA7");
         userInfo.setParentid(creatUser);
         int idUserInfo = userInfoDAO.add(userInfo);
+
         String token = tokenService.createToken(userLogin);
         mailService.sendSMTPforRegistration(mail, environment.getRequiredProperty("mail.linkregistration") + "token=" +
                 token);
@@ -163,8 +166,12 @@ public class UserServicesImpl implements UserServices {
     @Override
     @Transactional
     public User getById(int id) throws HibernateException, NullPointerException {
-        return userDAO.getById(id);
+        if (userDAO.checkItBD(id)) {
+            return userDAO.getById(id);
+        }
+        return null;
     }
+
 
     @Override
     public Boolean allow(int id) {
@@ -217,5 +224,17 @@ public class UserServicesImpl implements UserServices {
         System.err.println(map.entrySet().toString());
         return userDAO.getSearchResultOneParameter(map);
 
+    }
+
+    @Override
+    public boolean isAdmin() {
+        User user = getLoggedUser();
+        for (GrantedAuthority rol : user.getAuthorities()) {
+            if (rol.getAuthority().equals(Role.ROLE_ADMIN.toString())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

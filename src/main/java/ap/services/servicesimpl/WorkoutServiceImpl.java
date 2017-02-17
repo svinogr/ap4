@@ -69,20 +69,19 @@ public class WorkoutServiceImpl implements WorkoutService {
     @Override
     @Transactional
     public boolean deleteWorkout(int id) {
-        System.err.println(id);
-        boolean flag = false;
-        boolean f = workoutDAO.checkItBD(id);
-        System.err.println(f);
-        if (f) {
-            Workout workout = workoutDAO.getById(id);
-            System.out.println(workout.toString());
-            int userid = workout.getParentid().getId();
-            if (userServices.allow(userid)) {
-                workoutDAO.delete(workout);
-                return flag = true;
+        try {
+            if (workoutDAO.checkItBD(id)) {
+                Workout workout = workoutDAO.getById(id);
+                int userid = workout.getParentid().getId();
+                if (userServices.allow(userid)) {
+                    workoutDAO.delete(workout);
+                    return true;
+                }
             }
+            return false;
+        } catch (HibernateException e) {
+            return false;
         }
-        return flag;
     }
 
     @Override

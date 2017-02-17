@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -34,7 +33,7 @@ public class WorkoutControllerRest {
      * @param response 404 if workout is nit found
      * @return all exercise in WorkoutXML
      */
-    @RequestMapping(value = "/{id}/exercise", method = RequestMethod.GET, produces = {"application/xml; charset=UTF-8"})
+    @RequestMapping(value = "/{id}/exercise", method = RequestMethod.GET)
     public
     @ResponseBody
     WorkoutXML getWorkoutsById(@PathVariable int id, HttpServletResponse response) {

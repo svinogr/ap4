@@ -46,4 +46,9 @@ public class ServicesContex {
         return new TryServiceImpl();
     }
 
+    @Bean
+    public  PostService postService(){
+        return new PostServiceImpl();
+    }
+
 }

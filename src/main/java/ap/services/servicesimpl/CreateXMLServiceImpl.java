@@ -1,13 +1,7 @@
 package ap.services.servicesimpl;
 
-import ap.entity.EntityForXML.ExerciseXML;
-import ap.entity.EntityForXML.TryXML;
-import ap.entity.EntityForXML.UserXML;
-import ap.entity.EntityForXML.WorkoutXML;
-import ap.entity.Exercise;
-import ap.entity.Try;
-import ap.entity.User;
-import ap.entity.Workout;
+import ap.entity.*;
+import ap.entity.EntityForXML.*;
 import ap.services.CreateXMLService;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -71,6 +65,26 @@ public class CreateXMLServiceImpl<T> implements CreateXMLService<T> {
         userXML.setWorkoutXML(list);
         return userXML;
     }
+
+
+    @Override
+    @Transactional
+    public UserXML getUserXMLWithPost(User user) {
+        UserXML userXML = new UserXML(user);
+        List<PostXML> list = new ArrayList<>();
+        List<Post> postList = user.getPostList();
+        if(postList.size()>0) {
+            for (Post post : postList) {
+                PostXML postXML = new PostXML(post);
+                list.add(postXML);
+            }
+            userXML.setPostXMLs(list);
+            return userXML;
+        }
+        return null;
+    }
+
+
 
 
 

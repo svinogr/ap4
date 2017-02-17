@@ -23,8 +23,8 @@ public class Post implements Serializable, Imagable {
     @Column(name = "description")
     private String description;
 
-    /*@OneToMany(fetch = FetchType.LAZY, mappedBy = "parentid", cascade = CascadeType.ALL)
-    private List<Images> image = new ArrayList<>(0);*/
+    @Column(name = "link", length = 5120000)
+    private String link;
 
     public Post() {
     }
@@ -36,9 +36,7 @@ public class Post implements Serializable, Imagable {
     public void setId(int id) {
         this.id = id;
     }
-
-    public User getParentId() {
-        return parentid;
+    public User getParentid() { return parentid;
     }
 
     public void setParentId(User parentId) {
@@ -61,11 +59,16 @@ public class Post implements Serializable, Imagable {
         this.description = description;
     }
 
-    /*public List<Images> getImage() {
-        return image;
+
+
+    public void setParentid(User parentid) {this.parentid = parentid;
     }
 
-    public void setImage(List<Images> image) {
-        this.image = image;
-    }*/
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
 }

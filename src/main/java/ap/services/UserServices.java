@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface UserServices {
-    void registrationUser(User user);
+/*    void registrationUser(User user);*/
 
     UserXML registrationUser(UserXML user);
 
@@ -30,6 +30,7 @@ public interface UserServices {
     User getLoggedUser();
 
     List<User> getSearchUser(Map<String, String> map);
+    boolean isAdmin();
 
 
 

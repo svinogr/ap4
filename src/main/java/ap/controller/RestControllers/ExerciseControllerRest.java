@@ -2,26 +2,17 @@ package ap.controller.RestControllers;
 
 import ap.entity.EntityForXML.ExerciseXML;
 import ap.entity.EntityForXML.TryXML;
-import ap.entity.EntityForXML.UserXML;
-import ap.entity.EntityForXML.WorkoutXML;
-import ap.entity.Exercise;
 import ap.entity.User;
-import ap.entity.Workout;
 import ap.services.ExerciseService;
 import ap.services.TryService;
 import ap.services.UserServices;
-import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/v.1/exercise")
@@ -61,13 +52,12 @@ public class ExerciseControllerRest {
      *                      400 invalid fields tryXML
      * @return new tryXML
      */
-    @RequestMapping(value = "/{id}/try", method = RequestMethod.POST, produces = {"application/xml; charset=UTF-8"})
+    @RequestMapping(value = "/{id}/try", headers = "", method = RequestMethod.POST)
     @Transactional
     public
     @ResponseBody
     TryXML createTry(@RequestBody @Valid TryXML tryXML, @PathVariable int id, HttpServletResponse response) {
         User user = userServices.getLoggedUser();
-        System.err.println(user);
         if (user == null) {
             response.setStatus(401);
             return null;
@@ -85,7 +75,7 @@ public class ExerciseControllerRest {
             return null;
         }
         response.setStatus(201);
-        response.setHeader("Location", "/api/v.1/exercise/" + tryXML.getTryId());
+        response.setHeader("Location", "/api/v.1/try/" + tryXML.getTryId());
         return tryXML;
     }
 
@@ -102,6 +92,7 @@ public class ExerciseControllerRest {
             User user = userServices.getLoggedUser();
             if (user == null) {
                 response.setStatus(401);
+                return;
 
             }
             boolean flsg = false;
@@ -140,7 +131,7 @@ public class ExerciseControllerRest {
             response.setStatus(200);
             return exerciseXML;
         } else {
-            response.setStatus(403);
+            response.setStatus(404);
             return exerciseXML;
         }
     }
