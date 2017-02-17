@@ -300,7 +300,6 @@ public class UserControllerRest {
 
 
 
-
  /*   @RequestMapping(value = "/search", method = RequestMethod.GET, produces = {"application/xml; charset=UTF-8"})
     @ResponseStatus(HttpStatus.OK)
     @Transactional
