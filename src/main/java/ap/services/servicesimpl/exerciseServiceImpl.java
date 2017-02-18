@@ -49,7 +49,7 @@ public class ExerciseServiceImpl implements ExerciseService {
         }
         return null;
     }
-sssssss
+
     @Override
     @Transactional
     public boolean changeExercise(ExerciseXML exerciseXML) {
