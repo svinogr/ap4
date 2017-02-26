@@ -34,9 +34,10 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 
     }
-  /*  //это для токенов
-    @Autowired
-    DataSource dataSource;*/
+
+    /*  //это для токенов
+      @Autowired
+      DataSource dataSource;*/
     @Bean(name = "passwordEncoder")
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -44,17 +45,17 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-                http.authorizeRequests()
+        http.authorizeRequests()
                 .antMatchers("/administration/**").access("hasRole('ADMIN')")
                 .antMatchers("/confidential/**").access("hasRole('USER')")
                 .antMatchers("/superconfidential/**").access("hasRole('SUPERADMIN')")
-                .and().formLogin().loginPage("/login").permitAll().
-                defaultSuccessUrl("/", false)
-                .and().csrf().disable().
-                sessionManagement().maximumSessions(100).sessionRegistry(sessionRegistry()).and()
-                .and().logout().
-                logoutUrl("/logout").logoutSuccessUrl("/").
-                invalidateHttpSession(true).deleteCookies();
+                .and().httpBasic()
+
+                .and().csrf().disable()
+                .sessionManagement().maximumSessions(100).sessionRegistry(sessionRegistry()).and()
+                .and().logout()
+                .logoutUrl("/logout").logoutSuccessUrl("/")
+                .invalidateHttpSession(true).deleteCookies();
 
     }
 

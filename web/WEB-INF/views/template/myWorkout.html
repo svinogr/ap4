@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="UPump">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="../js/jquery-3.1.0.min.js"></script>
+    <link href="../css/mdb.css" rel="stylesheet">
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <script src="../js/bootstrap.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <link href="../css/css.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="app.js"></script>
+</head>
+<body ng-controller="MyWorkotCtrl">
+{{urlMiddle}}
+
+<ng-include src="urlHeader"></ng-include>
+<div>
+    <ng-include src="urlMiddle"></ng-include>
+</div>
+<ng-include src="urlFooter"></ng-include>
+</body>
+
+</html>

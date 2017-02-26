@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+        <div class="bs-calltoaction bs-calltoaction-primary">
+            <form class="form-signin" ng-submit="login(user)">
+                <p class="field">
+                    <input type="text" class="form-control" ng-model = "user.login"  name="login" id="username" placeholder="Логин"/>
+                </p>
+                <p class="field">
+                    <input type="password" class="form-control" ng-model = "user.password" name="password" id="password" placeholder="Пароль">
+                </p>
+                <p class="submit cta-button">
+                    <button class="btn btn-lg btn-block btn-primary" type="submit" name="submit">Войти</button>
+                </p>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            </form>
+
+        </div>
+    </div>
+    <div class="row">
+        <div align="right">
+            <div class="btn-group cta-button">
+                <a id="fogetlogin" href="${pageContext.request.contextPath}/forgetPass"
+                   class="btn btn-primary btn-xs">Востановить пароль</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

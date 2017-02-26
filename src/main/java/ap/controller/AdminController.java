@@ -11,6 +11,11 @@ public class AdminController {
         return "administration";
     }
 
+    @RequestMapping(value = "/*")
+    public String getAPage(){
+        return "static/index";
+    }/////
+
     @RequestMapping(value = "/administration/users")
     public String getAdminUserPage(){
         return "adminuser";

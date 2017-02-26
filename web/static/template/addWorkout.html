@@ -1,0 +1,34 @@
+<div class="container">
+    <form name="myForm" novalidate>
+        <div class="bs-calltoaction bs-calltoaction-primary">
+            <div class="row">
+                <div>
+                    <div class="form-group">
+                        <label>Название тренировки:</label>
+                        <input name="name" type="text" class="form-control" required ng-model="currentItem.name">
+                    </div>
+                    <div class="error" ng-show="myForm.name.$invalid && myForm.name.$dirty">
+                        <span ng-show="myForm.name.$error.name">
+                            Введите название тренировки
+                        </span>
+                        <span ng-show="myForm.name.$error.required">
+                            Поле не должно быть пустым
+                        </span>
+                    </div>
+                    <div>
+                        <div class=' cta-contents cta-button'>
+                            <div>
+                                <button ng-click="saveEdit(currentItem)" class='btn btn-block btn-xs btn-primary'
+                                        ng-disabled="myForm.$invalid">Сохранить
+                                </button>
+                            </div>
+                            <div>
+                                <button ng-click="cancelEdit()" class='btn btn-block btn-xs btn-primary'>Отмена</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

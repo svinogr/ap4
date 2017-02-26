@@ -1,0 +1,30 @@
+
+    <div class="container">
+        <div class="row">
+            <div class="btn-group btn-group-justified">
+                <div class="container btn-group">
+                    <button class="add btn btn-primary" ng-click="createOrEditWorkout(item)">Добавить новую тренировку
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container animation" ng-repeat="item in items.workoutXML">
+        <div class="bs-calltoaction bs-calltoaction-primary">
+            <div class="row">
+                <div class='col-md-9 cta-contents cta-button'>
+                    <div><h1 ng-click="createOrEditWorkout(item)" class="update cta-title">{{item.name}}</h1>
+                    </div>
+                    <div>
+                        <button class='btnAuthor btn btn-xs btn-primary' ng-click="getPageAuthor(item)">
+                            автор:{{item.author}}
+                        </button>
+                    </div>
+                </div>
+                <div class='col-md-3 cta-button'>
+                    <button class="btnEdit btn btn-lg btn-block btn-primary" ng-click="openWorkout(item)">Открыть</button>
+                    <button class="delete btn btn-lg btn-block btn-primary" ng-click="deleteWorkout(item)">Удалить</button>
+                </div>
+            </div>
+        </div>
+    </div>

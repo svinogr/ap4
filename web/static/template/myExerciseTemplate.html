@@ -1,0 +1,40 @@
+
+<div class="container">
+    <div class="row">
+        <div class="btn-group btn-group-justified">
+            <div class="container btn-group">
+                <button class="add btn btn-primary" ng-click="backToWorkouts()">Назад
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="btn-group btn-group-justified">
+            <div class="container btn-group">
+                <button class="animation add btn btn-primary" ng-click="createOrEditExercise(exercise)">Добавить новую упражнение
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container animation" ng-repeat="item in exercise.exerciseXMLList">
+    <div class="bs-calltoaction bs-calltoaction-primary">
+        <div class="row">
+            <div class="col-md-9 cta-contents cta-button">
+                <div>
+                    <h1 ng-click="createOrEditExercise(item)" class="update cta-title">{{item.name}}</h1>
+                </div>
+                <div>
+                    <button ng-repeat="item in item.list" ng-class="{{item.done}} ? 'btn btn-primary cta-button animation':'btn btn-danger cta-button animation'" class="btn btn-primary cta-button">{{item.weight}}/{{item.repeat}}
+                    </button>
+                </div>
+            </div>
+            <div class='col-md-3 cta-button'>
+                <button class="btnEdit btn btn-lg btn-block btn-primary" ng-click="openWorkout(item)">Редактировать подходы</button>
+                <button class="delete btn btn-lg btn-block btn-primary" ng-click="deleteExercise(item)">Удалить</button>
+            </div>
+        </div>
+    </div>
+</div>

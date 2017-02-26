@@ -1,9 +1,6 @@
 package ap.controller;
 
 import ap.dao.WorkoutDAO;
-import ap.entity.EntityForXML.UserXML;
-import ap.entity.User;
-import ap.entity.UserInfo;
 import ap.entity.Workout;
 import ap.services.CreateXMLService;
 import org.hibernate.HibernateException;
@@ -15,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.StringWriter;
-import java.util.List;
 
 @Controller
 public class BestWorkoutController {

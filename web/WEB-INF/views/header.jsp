@@ -37,20 +37,20 @@
                         <div class="navbarmini">
                             <ul class="nav navbar-nav btn-group navbarmini">
                                 <li class="navbarmini" >
-                                    <a href="${pageContext.request.contextPath}/"
-                                       class="btn btn-primary">Новости</a>
+                                    <button href="angular/myWorkout.html"
+                                       class="btn btn-primary">Новости</button>
                                 </li>
                                 <li class="navbarmini">
-                                    <a href="${pageContext.request.contextPath}/confidential/myworkout"
-                                       class="btn btn-primary ">Мои тренировки</a>
+                                    <button href="${pageContext.request.contextPath}/confidential/myworkout"
+                                       class="btn btn-primary ">Мои тренировки</button>
                                 </li>
                                 <li class="navbarmini">
-                                    <a href="${pageContext.request.contextPath}/best"
-                                       class="btn btn-primary">Лучшие</a>
+                                    <button href="${pageContext.request.contextPath}/best"
+                                       class="btn btn-primary">Лучшие</button>
                                 </li>
                                 <li class="navbarmini">
-                                    <a href="${pageContext.request.contextPath}/allWorkouts"
-                                       class="btn btn-primary">Все тренировки</a>
+                                    <button href="${pageContext.request.contextPath}/allWorkouts"
+                                       class="btn btn-primary">Все тренировки</button>
                                 </li>
                             </ul>
                         </div>

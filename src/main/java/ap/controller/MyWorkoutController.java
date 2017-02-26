@@ -37,7 +37,7 @@ public class MyWorkoutController {
 
     @RequestMapping(value = "/confidential/myworkout")
     public String getMyWorkoutPage() {
-        return "myworkout";
+        return "index";
     }
 
     @RequestMapping(value = "/confidential/altworkout")

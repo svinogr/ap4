@@ -2,14 +2,10 @@ package ap.controller;
 
 import ap.dao.UserInfoDAO;
 import ap.dao.WorkoutDAO;
-import ap.entity.UploadImageException;
 import ap.entity.User;
-import ap.entity.UserInfo;
-import ap.services.InfoUserService;
 import ap.services.MailService;
 import ap.services.TokenService;
 import ap.services.UserServices;
-import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,15 +15,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import java.io.IOException;
 
 @Controller
 public class UserController {

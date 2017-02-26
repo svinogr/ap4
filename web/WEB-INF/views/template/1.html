@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MyMod">
+<head>
+    <link>
+    <link rel="stylesheet" href="apstyle.css">
+</head>
+<body ng-controller="FirstCtrl ">
+ЭТО 1
+<div class="container">
+    <div class="row">
+        <div class=" bs-calltoaction bs-calltoaction-primary">
+            <form name="myRegForm" novalidate ng-submit="addUser(newUser)" class="form-signin" acceptCharset="UTF-8">
+
+                <p class="field">
+                    <input path="login" type="text" class="form-control" ng-model="newUser.login" required
+                           placeholder="Логин"/>
+
+                </p>
+                <p class="field">
+                    <input type="password" class="form-control" name="password"
+                           required ng-model="newUser.password"
+                           placeholder="Пароль"/>
+
+                </p>
+                <p class="field">
+                    <input type="email" class="form-control" name="email" ng-model="newUser.email"
+                           required placeholder="E-mail"/>
+
+                </p>
+                <div class="error" ng-show="myRegForm.email.$invalid && myRegForm.email.$dirty">
+                    {{getError(myRegForm.email.$error)}}
+                </div>
+
+                <p class="submit cta-button">
+                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Зарегистрировать"
+                           ng-disabled="myRegForm.$invalid" name="submit"/>
+                </p>
+
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+{{user}}
+</body>
+</html>

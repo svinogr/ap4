@@ -52,7 +52,7 @@ public class ExerciseControllerRest {
      *                      400 invalid fields tryXML
      * @return new tryXML
      */
-    @RequestMapping(value = "/{id}/try", headers = "", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/try", method = RequestMethod.POST)
     @Transactional
     public
     @ResponseBody
@@ -112,7 +112,7 @@ public class ExerciseControllerRest {
      *                      404 error in name
      * @return changed exerciseXM:
      */
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = {"application/xml; charset=UTF-8"})
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public
     @Transactional
     @ResponseBody

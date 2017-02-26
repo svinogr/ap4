@@ -57,7 +57,7 @@ public class WorkoutControllerRest {
      *                      404 workout not found for this user
      * @return new exercise
      */
-    @RequestMapping(value = "/{id}/exercise", method = RequestMethod.POST, produces = {"application/xml; charset=UTF-8"})
+    @RequestMapping(value = "/{id}/exercise", method = RequestMethod.POST)
     @Transactional
     public
     @ResponseBody
@@ -120,7 +120,7 @@ public class WorkoutControllerRest {
      *                      404 error in name
      * @return changed workoutXML
      */
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = {"application/xml; charset=UTF-8"})
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public
     @Transactional
     @ResponseBody
@@ -131,7 +131,7 @@ public class WorkoutControllerRest {
             return null;
         }
         if (bindingResult.hasErrors()) {
-            response.setStatus(400);
+            response.setStatus(408);
             return workoutService.validWorkoutXML(workoutXML, bindingResult);
         }
         workoutXML.setWorkoutId(id);

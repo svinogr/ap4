@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="row">
+        <div class="bs-calltoaction bs-calltoaction-primary">
+
+            <form class="form-signin" novalidate ng-submit="saveWorkout(editWorkout)">
+                <p class="field">
+                    <input type="text" class="form-control" ng-model="editWorkout.name" ng-required name="name"
+                           id="name" placeholder="Название тренировки"/>
+                </p>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+                <p class="submit cta-button">
+                    <button class="btn btn-lg btn-block btn-primary" type="submit" name="submit">Сохранить</button>
+                    <button class="btn btn-lg btn-block btn-primary" ng-click="backToWorkouts()" name="submit">Отмена
+                    </button>
+                </p>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            </form>
+        </div>
+    </div>
+</div>

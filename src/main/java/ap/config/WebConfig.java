@@ -29,8 +29,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         viewResolver.setViewClass(JstlView.class);
         viewResolver.setPrefix("/WEB-INF/views/");
         viewResolver.setSuffix(".jsp");
-       /* viewResolver.setPrefix("/WEB-INF/views/angular");//
-        viewResolver.setSuffix(".html");//*/
         viewResolver.setContentType("text/html; charset=utf-8");
         return viewResolver;
     }
@@ -64,5 +62,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/bootstrap/**").addResourceLocations("/WEB-INF/views/content/");
         registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/views/js/");
         registry.addResourceHandler("/font/**").addResourceLocations("/WEB-INF/views/font/");
-    }
+        registry.addResourceHandler("/static/**").addResourceLocations("/static/");
+           }
 }

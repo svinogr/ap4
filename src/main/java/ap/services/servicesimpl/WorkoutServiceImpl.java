@@ -7,6 +7,7 @@ import ap.entity.EntityForXML.ExerciseXML;
 import ap.entity.EntityForXML.TryXML;
 import ap.entity.EntityForXML.UserXML;
 import ap.entity.EntityForXML.WorkoutXML;
+import ap.services.InfoUserService;
 import ap.services.UserServices;
 import ap.services.WorkoutService;
 import org.hibernate.HibernateException;
@@ -30,6 +31,8 @@ public class WorkoutServiceImpl implements WorkoutService {
 
     @Autowired
     WorkoutRatingDAO workoutRatingDAO;
+    @Autowired
+    InfoUserService infoUserService;
 
     @Override
     @Transactional
@@ -39,6 +42,8 @@ public class WorkoutServiceImpl implements WorkoutService {
         User user = userServices.getLoggedUser();
         user = userServices.getById(user.getId());
         workout.setParentid(user);
+        UserInfo userInfo = infoUserService.getUserInfoByParentId(user.getId());
+        workout.setAuthor(userInfo.getName());
         try {
             workout.setPosition(user.getWorkoutList().size());
         }catch (NullPointerException e)
