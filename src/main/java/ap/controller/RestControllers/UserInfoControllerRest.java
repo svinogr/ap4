@@ -28,7 +28,7 @@ public class UserInfoControllerRest {
      * @param response 401 if user is not authenticated
      * @return xml UserInfoXML of authenticated user
      * */
-    @RequestMapping(value = "/userInfo", method = RequestMethod.GET, produces = {"application/xml; charset=UTF-8"})
+    @RequestMapping(value = "auth/userInfo", method = RequestMethod.GET)
     @Transactional
     public
     @ResponseBody
@@ -51,7 +51,7 @@ public class UserInfoControllerRest {
      * @param response 404 if id is not found
      * @return UserInfoXML
      */
-    @RequestMapping(value = "/{id}/userInfo", method = RequestMethod.GET, produces = {"application/xml; charset=UTF-8"})
+    @RequestMapping(value = "/{id}/userInfo", method = RequestMethod.GET)
     @Transactional
     public
     @ResponseBody

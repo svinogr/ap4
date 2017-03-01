@@ -1,10 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="container animate">
+    <div class="row">
+        <div class="bs-calltoaction bs-calltoaction-primary">
 
-</body>
-</html>
+            <form class="form-signin" novalidate ng-submit="saveTry(editTry)">
+
+                <p class="field">
+                    <input type="text" class="form-control" ng-model="editTry.repeat" ng-required name="repeat"
+                           id="repeat" placeholder="Введите количество повторов"/>
+                </p>
+                <p class="field">
+                    <input type="text" class="form-control" ng-model="editTry.weight" ng-required name="weight"
+                           id="weight" placeholder="Введите вес"/>
+                </p>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+                <p class="submit cta-button">
+                    <button class="btn btn-lg btn-block btn-primary" type="submit" name="submit">Сохранить</button>
+                    <button class="btn btn-lg btn-block btn-primary" ng-click="backToTry()" name="submit">
+                        Отмена
+                    </button>
+                </p>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            </form>
+        </div>
+    </div>
+</div>

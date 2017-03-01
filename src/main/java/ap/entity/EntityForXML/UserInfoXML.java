@@ -19,6 +19,7 @@ public class UserInfoXML{
     private int age;
     private int height;
     private int weight;
+    private int experience;
     private String linkImage;
 
     public UserInfoXML() {
@@ -33,6 +34,7 @@ public class UserInfoXML{
         this.height = userInfo.getHeight();
         this.weight = userInfo.getWeight();
         this.description = userInfo.getDescription();
+        this.experience=userInfo.getExperience();
         this.linkImage = "link";
     }
 
@@ -121,6 +123,14 @@ public class UserInfoXML{
     @XmlElement(name = "description")
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getExperience() {
+        return experience;
+    }
+    @XmlElement(name = "experience")
+    public void setExperience(int experience) {
+        this.experience = experience;
     }
 
     @Override

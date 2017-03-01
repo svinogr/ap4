@@ -1,0 +1,44 @@
+<!--<div class="container">
+    <div class="row">
+        <div class="bs-calltoaction bs-calltoaction-primary">
+            <h3 class="update cta-title">Упражнение: {{try.name}}</h3>
+        </div>
+    </div>
+</div>-->
+<div class="container">
+    <div class="row">
+        <div class="btn-group btn-group-justified">
+            <div class="container btn-group">
+                <button class="add btn btn-primary" ng-click="backToExercise(try)">Назад
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="btn-group btn-group-justified">
+            <div class="container btn-group">
+                <button class="add btn btn-primary" ng-click="createOrEditTry(try)">Добавить новый подход
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-cloak class="container animation" ng-repeat="item in try.list">
+    <div class="bs-calltoaction bs-calltoaction-primary">
+        <div class="row">
+            <div class="col-md-9 cta-contents cta-button">
+                <div>
+                    <h1 ng-click="createOrEditTry(item)" class="update cta-title">Вес:{{item.weight}}</h1>
+                    <h1 ng-click="createOrEditTry(item)" class="update cta-title">Повторения: {{item.repeat}}</h1>
+                </div>
+
+            </div>
+            <div class='col-md-3 cta-button'>
+
+                <button class="delete btn btn-lg btn-block btn-primary" ng-click="deleteTry(item)">Удалить</button>
+            </div>
+        </div>
+    </div>
+</div>

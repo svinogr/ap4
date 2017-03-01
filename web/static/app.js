@@ -1,4 +1,3 @@
-
 var upump = angular.module("UPump", ["ngAnimate", "ngRoute"]);
 
 upump.controller("UrlCtrl", function ($scope, $http, $route, $routeParams, $location) {
@@ -29,8 +28,8 @@ upump.controller("UrlCtrl", function ($scope, $http, $route, $routeParams, $loca
 
         $scope.openPage = function (page) {
             $scope.url.url = page;
-            var path=page.substring(8,13);
-            $location.path(path);
+            var path = page.substring(8, 13);
+            /* $location.path(path);*/
         }
         $scope.url = {
             header: "/static/header.html",
@@ -96,10 +95,37 @@ upump.controller("MyViewCtrl", function ($scope, $http, $route, $routeParams, $l
 });
 
 upump.controller("MyWorkoutCtrl", function ($scope, $http, $route, $routeParams, $location) {
+    $scope.getPageAuthor = function (item) {
+        var req = {
+            method: 'GET',
+            url: '/api/v.1/user/' + item.userId + "/userInfo",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        $http(req)
+            .then(function (response) {
+                $scope.userInfo = response.data;
+                $scope.urlView.url = "/static/authorPage.html";
+
+            }, function () {
+                alert("все плохо");
+                /*$scope.status = {};*/
+            });
+
+    }
+
+
     $scope.createOrEditWorkout = function (item) {
         $scope.editWorkout = item ? angular.copy(item) : {};
         $scope.urlView.url = "/static/template/editNameWorkout.html";
     };
+    
+    $scope.saveWorkout = function (item) {
+        if (angular.isDefined(item.workoutId)) {
+            updateWorkout(item)
+        } else createWorkout(item);
+    }
     function createWorkout(item) {
 
         var req = {
@@ -112,10 +138,17 @@ upump.controller("MyWorkoutCtrl", function ($scope, $http, $route, $routeParams,
             }
             ;
         $http(req)
-            .then(function () {
-                getItemsWorkout();
+            .then(function (respons) {
+                var data = respons.data;
+                var newItem = {
+                    "userId": data.userId,
+                    "workoutId": data.workoutId,
+                    "author": data.author,
+                    "name": data.name,
+                    "rate": 0
+                };
+                $scope.items.workoutXML.push(newItem);
                 $scope.urlView.url = "/static/template/myWorkoutTemplate.html";
-
             }, function () {
                 alert("все плохо");
                 /*$scope.status = {};*/
@@ -133,20 +166,13 @@ upump.controller("MyWorkoutCtrl", function ($scope, $http, $route, $routeParams,
             ;
         $http(req)
             .then(function () {
-                getItemsWorkout();
-                $scope.urlView.url = "/static/template/myWorkoutTemplate.html";
+                $scope.items.workoutXML.splice($scope.items.workoutXML.indexOf(item), 1);
             }, function () {
                 alert("все плохо");
                 /*$scope.status = {};*/
             });
     };
 
-
-    $scope.saveWorkout = function (item) {
-        if (angular.isDefined(item.workoutId)) {
-            updateWorkout(item)
-        } else createWorkout(item);
-    }
     function updateWorkout(item) {
         var req = {
                 method: 'PUT',
@@ -159,14 +185,18 @@ upump.controller("MyWorkoutCtrl", function ($scope, $http, $route, $routeParams,
             ;
         $http(req)
             .then(function () {
-                getItemsWorkout();
+                for (var i = 0; i < $scope.items.workoutXML.length; i++) {
+                    if ($scope.items.workoutXML[i].workoutId == item.workoutId) {
+                        $scope.items.workoutXML[i].name = item.name;
+                        break;
+                    }
+                }
                 $scope.urlView.url = "/static/template/myWorkoutTemplate.html";
             }, function () {
                 alert("все плохо");
                 /*$scope.status = {};*/
             });
     }
-
 
     var getItemsWorkout = function () {
         var promise = $http.get("/api/v.1/user/auth/workout");
@@ -182,7 +212,7 @@ upump.controller("MyWorkoutCtrl", function ($scope, $http, $route, $routeParams,
         return {};
     }
 
-    $scope.openWorkout = function (item) {
+    $scope.openMyWorkout = function (item) {
         var req = {
                 method: 'GET',
                 url: '/api/v.1/workout/' + item.workoutId + "/exercise",
@@ -193,7 +223,7 @@ upump.controller("MyWorkoutCtrl", function ($scope, $http, $route, $routeParams,
             ;
         $http(req)
             .then(function (respons) {
-                $scope.exercise = respons.data;
+                $scope.workout= respons.data;
                 $scope.urlView.url = "/static/template/myExerciseTemplate.html";
             }, function () {
                 alert("все плохо");
@@ -204,18 +234,48 @@ upump.controller("MyWorkoutCtrl", function ($scope, $http, $route, $routeParams,
         $scope.urlView.url = "/static/template/myWorkoutTemplate.html";
 
     }
+
+    $scope.openWorkout = function (item) {
+        var req = {
+                method: 'GET',
+                url: '/api/v.1/workout/' + item.workoutId + "/exercise",
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            ;
+        $http(req)
+            .then(function (response) {
+                $scope.workout = response.data;
+                $scope.urlView.url = "/static/template/exerciseTemplate.html";
+            }, function () {
+                alert("все плохо");
+                /*$scope.status = {};*/
+            });
+    }
+    $scope.backToWorkouts = function () {
+        $scope.urlView.url = "/static/template/myWorkoutTemplate.html";
+
+    }
+
+
 //for exercise
-    $scope.backToExercise = function () {
+    $scope.backToExercise = function (item) {
         $scope.urlView.url = "/static/template/myExerciseTemplate.html";
     }
 
-    var getItemsExercise = function (item) {
+    $scope.backToTry = function (item) {
+        $scope.urlView.url = "/static/template/myTryTemplate.html";
+    }
+
+
+    /*var getItemsExercise = function (item) {
         var promise = $http.get("/api/v.1/workout/" + item.workoutId + "/exercise");
         promise.then(getExerciseSuccess, getExerciseError)
-    };
+    };*/
 
     function getExerciseSuccess(respons) {
-        $scope.exercise = respons.data;
+        $scope.workout = respons.data;
     }
 
     function getExerciseError(respons) {
@@ -224,7 +284,7 @@ upump.controller("MyWorkoutCtrl", function ($scope, $http, $route, $routeParams,
 
 
     $scope.createOrEditExercise = function (item) {
-        if(!angular.isDefined(item.exerciseId)){
+        if (!angular.isDefined(item.exerciseId)) {
             $scope.editExercise = {"workoutId": item.workoutId};
         } else $scope.editExercise = {"name": item.name, "workoutId": item.workoutId, "exerciseId": item.exerciseId};
         $scope.urlView.url = "/static/template/editNameExercise.html";
@@ -248,10 +308,16 @@ upump.controller("MyWorkoutCtrl", function ($scope, $http, $route, $routeParams,
             data: {"name": item.name}
         };
         $http(req)
-            .then(function () {
-                getItemsExercise(item);
+            .then(function (response) {
+                var data = response.data;
+                var newItem = {
+                    "workoutId": data.workoutId,
+                    "exerciseId": data.exerciseId,
+                    "position": data.position,
+                    "name": data.name
+                }
+                $scope.workout.exerciseXMLList.push(newItem);
                 $scope.urlView.url = "/static/template/myExerciseTemplate.html";
-
             }, function () {
                 alert("все плохо");
                 /*$scope.status = {};*/
@@ -270,7 +336,12 @@ upump.controller("MyWorkoutCtrl", function ($scope, $http, $route, $routeParams,
             ;
         $http(req)
             .then(function () {
-                getItemsExercise(item);
+                for (var i = 0; i < $scope.workout.exerciseXMLList.length; i++) {
+                    if ($scope.workout.exerciseXMLList[i].exerciseId == item.exerciseId) {
+                        $scope.workout.exerciseXMLList[i].name = item.name;
+                        break
+                    }
+                }
                 $scope.urlView.url = "/static/template/myExerciseTemplate.html";
             }, function () {
                 alert("все плохо");
@@ -289,17 +360,237 @@ upump.controller("MyWorkoutCtrl", function ($scope, $http, $route, $routeParams,
             ;
         $http(req)
             .then(function () {
-                getItemsExercise(item);
-                // $scope.urlView.url = "/static/template/myExerciseTemplate.html";
+                $scope.workout.exerciseXMLList.splice($scope.workout.exerciseXMLList.indexOf(item), 1);
             }, function () {
                 alert("все плохо");
                 /*$scope.status = {};*/
             });
     };
+    //Exercise
+    $scope.openExercise = function (item) {
+        //getItemsTry(item);
+        $scope.try=item;
+        $scope.urlView.url = "/static/template/myTryTemplate.html";
+    };
+
+
+    ///try
+    $scope.createOrEditTry = function (item) {
+        if (!angular.isDefined(item.tryId)) {
+            $scope.editTry = {"exerciseId": item.exerciseId};
+        } else $scope.editTry = {
+            "repeat": item.repeat,
+            "weight": item.weight,
+            "tryId": item.tryId,
+            "exerciseId": item.exerciseId
+        };
+        $scope.urlView.url = "/static/template/editTry.html";
+    };
+
+    $scope.saveTry = function (item) {
+        if (angular.isDefined(item.tryId)) {
+            updateTry(item)
+        } else createTry(item);
+    }
+
+
+    function createTry(item) {
+        var req = {
+            method: 'POST',
+            url: '/api/v.1/exercise/' + item.exerciseId + "/try",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: {"weight": item.weight, "repeat": item.repeat}
+        };
+        $http(req)
+            .then(function (response) {
+                var data = response.data;
+                var newItem = {
+                    "exerciseId": data.exerciseId,
+                    "tryId": data.tryId,
+                    "weight": data.weight,
+                    "repeat": data.repeat,
+                    "done": false
+                };
+                for (var i = 0; i < $scope.workout.exerciseXMLList.length; i++) {
+                    if ($scope.workout.exerciseXMLList[i].exerciseId == newItem.exerciseId) {
+                        var index = $scope.workout.exerciseXMLList.indexOf($scope.workout.exerciseXMLList[i]);
+                        $scope.workout.exerciseXMLList[index].list.push(newItem);
+                    }
+                }
+               // $scope.try.list.push(newItem);
+                $scope.urlView.url = "/static/template/myTryTemplate.html";
+            }, function () {
+                alert("все плохо");
+                /*$scope.status = {};*/
+            });
+    }
+
+    function updateTry(item) {
+        var req = {
+                method: 'PUT',
+                url: '/api/v.1/try/' + item.tryId,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: {"weight": item.weight, "repeat": item.repeat}
+            }
+            ;
+        $http(req)
+            .then(function () {
+                for (var i = 0; i < $scope.try.list.length; i++) {
+                    if ($scope.try.list[i].exerciseId == item.exerciseId) {
+                        $scope.try.list[i].weight = item.weight;
+                        $scope.try.list[i].repeat = item.repeat;
+                        break;
+                    }
+                }
+                for (var i = 0; i < $scope.workout.exerciseXMLList.length; i++) {
+                    if ($scope.workout.exerciseXMLList[i].exerciseId == item.exerciseId) {
+                        var index = $scope.workout.exerciseXMLList.indexOf($scope.workout.exerciseXMLList[i]);
+                        var list = $scope.workout.exerciseXMLList[index].list;
+                        for (var j = 0; j < list.length; j++) {
+                            if (list[j].tryId == item.tryId) {
+                                $scope.workout.exerciseXMLList[i].list[j] = item;
+                                break;
+                            }
+                        }
+                    }
+                }
+                $scope.urlView.url = "/static/template/myTryTemplate.html";
+            }, function () {
+                alert("все плохо");
+                /*$scope.status = {};*/
+            });
+    }
+
+    $scope.deleteTry = function (item) {
+        var req = {
+            method: 'DELETE',
+            url: '/api/v.1/try/' + item.tryId,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        $http(req)
+            .then(function () {
+
+                    for (var i = 0; i < $scope.workout.exerciseXMLList.length; i++) {
+                    if ($scope.workout.exerciseXMLList[i].exerciseId == item.exerciseId) {
+                        $scope.workout.exerciseXMLList[i].list.splice($scope.workout.exerciseXMLList[i].list.indexOf(item),1);
+                    }
+                }
+            }, function () {
+                alert("все плохо");
+                /*$scope.status = {};*/
+            });
+    };
+
+    $scope.done = function (item) {
+        var done = !item.done;
+        var req = {
+            method: 'PUT',
+            url: '/api/v.1/try/' + item.tryId + "/do",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: {"done": done}
+        };
+        $http(req)
+            .then(function () {
+                var doneTry = item;
+                doneTry.done = done;
+                for (var i = 0; i < $scope.workout.exerciseXMLList.length; i++) {
+                    if ($scope.workout.exerciseXMLList[i].exerciseId == item.exerciseId) {
+                        var index = $scope.workout.exerciseXMLList.indexOf($scope.workout.exerciseXMLList[i]);
+                        var list = $scope.workout.exerciseXMLList[index].list;
+                        for (var j = 0; j < list.length; j++) {
+                            if (list[j].tryId == item.tryId) {
+                                $scope.workout.exerciseXMLList[i].list[j] = doneTry;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }, function () {
+                alert("все плохо");
+                /*$scope.status = {};*/
+            });
+
+
+    }
+
+   /* var getItemsTry = function (item) {
+        var req = {
+                method: 'GET',
+                url: '/api/v.1/exercise/' + item.exerciseId + "/try",
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            ;
+        $http(req)
+            .then(function (respons) {
+                $scope.try = respons.data;
+
+            }, function () {
+                alert("все плохо");
+                /!*$scope.status = {};*!/
+            });
+    };*/
+
+
     getItemsWorkout();
+//info
+
+    $scope.openWorkout = function (item) {
+        var req = {
+                method: 'GET',
+                url: '/api/v.1/workout/' + item.workoutId + "/exercise",
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            ;
+        $http(req)
+            .then(function (respons) {
+                $scope.workout = respons.data;
+                $scope.urlView.url = "/static/template/exerciseTemplate.html";
+            }, function () {
+                alert("все плохо");
+                /*$scope.status = {};*/
+            });
+    }
+    $scope.authorWorkout = function (item) {
+        var req = {
+            method: 'GET',
+            url: '/api/v.1/user/' + item.userId,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+
+        };
+        $http(req)
+            .then(function (response) {
+                $scope.items = response.data;
+                $scope.urlView.url = "/static/template/workoutTemplate.html";
+
+            }, function () {
+                alert("все плохо");
+                /*$scope.status = {};*/
+            });
+
+    };
 
 
-});
+    $scope.backToInfo = function () {
+        $scope.urlView.url = "/static/authorPage.html";
+
+    }
+
+})
+;
 
 /*
 

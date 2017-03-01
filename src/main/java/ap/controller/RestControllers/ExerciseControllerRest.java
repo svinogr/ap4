@@ -30,7 +30,7 @@ public class ExerciseControllerRest {
      * @param response 404 exercise is not found
      * @return exerciseXML
      */
-    @RequestMapping(value = "/{id}/try", method = RequestMethod.GET, produces = {"application/xml; charset=UTF-8"})
+    @RequestMapping(value = "/{id}/try", method = RequestMethod.GET)
     public
     @Transactional
     @ResponseBody

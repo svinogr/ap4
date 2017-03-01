@@ -51,6 +51,7 @@ public class WorkoutServiceImpl implements WorkoutService {
             workout.setPosition(0);
         }
         int id = workoutDAO.add(workout);
+        workoutXML.setAuthor(workout.getAuthor());
         workoutXML.setWorkoutId(id);
         workoutXML.setUserId(user.getId());
         return workoutXML;
