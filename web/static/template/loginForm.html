@@ -3,7 +3,7 @@
         <div class="bs-calltoaction bs-calltoaction-primary">
             <form class="form-signin" ng-submit="login(user)">
                 <p class="field">
-                    <input type="text" class="form-control" ng-model = "user.login"  name="login" id="username" placeholder="Логин"/>
+                    <input type="text" class="form-control" ng-model = "user.login"  name="username" id="username" placeholder="Логин"/>
                 </p>
                 <p class="field">
                     <input type="password" class="form-control" ng-model = "user.password" name="password" id="password" placeholder="Пароль">
@@ -19,8 +19,8 @@
     <div class="row">
         <div align="right">
             <div class="btn-group cta-button">
-                <a id="fogetlogin" href="${pageContext.request.contextPath}/forgetPass"
-                   class="btn btn-primary btn-xs">Востановить пароль</a>
+                <button ng-click="rememberPass()"
+                   class="btn btn-primary btn-xs">Востановить пароль</button>
             </div>
         </div>
     </div>

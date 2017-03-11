@@ -72,8 +72,7 @@ public class UserInfoControllerRest {
      * @param response 401 if user is not authenticated
      * @return
      */
-    @RequestMapping(value = "/userInfo", method = RequestMethod.PUT, headers = "Content-Type=application/xml",
-            produces = {"application/xml; charset=UTF-8"})
+    @RequestMapping(value = "auth/userInfo", method = RequestMethod.PUT)
     @Transactional
     public
     @ResponseBody

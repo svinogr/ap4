@@ -1,8 +1,10 @@
 package ap.controller.RestControllers;
 
 import ap.entity.EntityForXML.ExerciseXML;
+import ap.entity.EntityForXML.UserXML;
 import ap.entity.EntityForXML.WorkoutXML;
 import ap.entity.User;
+import ap.entity.Workout;
 import ap.services.ExerciseService;
 import ap.services.UserServices;
 import ap.services.WorkoutService;
@@ -12,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -151,7 +155,7 @@ public class WorkoutControllerRest {
      *                 404 workout is not found in DB
      * @return new workoutXML
      */
-    @RequestMapping(value = "/{id}/copy", method = RequestMethod.POST, produces = {"application/xml; charset=UTF-8"})
+    @RequestMapping(value = "/{id}/copy", method = RequestMethod.POST)
     public
     @Transactional
     @ResponseBody
@@ -175,9 +179,9 @@ public class WorkoutControllerRest {
      * @param response   400 field rate in workoutXML is not 0 or 1
      *                   401 user is not authenticated
      *                   404 workout is not found
-     * @return           workoutXML with final rate
+     * @return workoutXML with final rate
      */
-    @RequestMapping(value = "/{id}/rate", method = RequestMethod.PUT, produces = {"application/xml; charset=UTF-8"})
+    @RequestMapping(value = "/{id}/rate", method = RequestMethod.PUT)
     public
     @Transactional
     @ResponseBody
@@ -203,5 +207,18 @@ public class WorkoutControllerRest {
             return null;
         }
     }
+
+
+    @RequestMapping(value = "/best", method = RequestMethod.GET)
+    @Transactional
+    public
+    @ResponseBody
+    UserXML getBestWorkout(HttpServletRequest request, HttpServletResponse response) {
+        int limit = 20;
+        UserXML userXML = workoutService.getBestWorkout(limit);
+
+        return userXML;
+    }
+
 
 }

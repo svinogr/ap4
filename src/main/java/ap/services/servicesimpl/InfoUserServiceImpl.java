@@ -4,9 +4,12 @@ import ap.dao.UserInfoDAO;
 import ap.entity.EntityForXML.UserInfoXML;
 import ap.entity.UploadImageException;
 import ap.entity.UserInfo;
+import ap.entity.Workout;
 import ap.services.InfoUserService;
+import ap.services.WorkoutService;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -14,12 +17,17 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+@Component
 public class InfoUserServiceImpl implements InfoUserService {
 
     @Autowired
     UserInfoDAO userInfoDAO;
+
+    @Autowired
+    WorkoutService workoutService;
 
     @Override
     public String upload(MultipartFile file) throws UploadImageException, IOException {
@@ -63,6 +71,10 @@ public class InfoUserServiceImpl implements InfoUserService {
         userInfo.setWeight(userInfoXML.getWeight());
         userInfo.setHeight(userInfoXML.getHeight());
         userInfo.setDescription(userInfoXML.getDescription());
+        List<Workout> workoutList = workoutService.getAllWorkoutByUSerId(userInfoXML.getUserId());
+        for(Workout workout : workoutList){
+            workout.setAuthor(userInfo.getName());
+        }
         //TODO and link
 
         userInfoDAO.update(userInfo);

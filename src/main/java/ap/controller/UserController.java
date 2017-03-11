@@ -3,6 +3,7 @@ package ap.controller;
 import ap.dao.UserInfoDAO;
 import ap.dao.WorkoutDAO;
 import ap.entity.User;
+import ap.entity.UserChangeData;
 import ap.services.MailService;
 import ap.services.TokenService;
 import ap.services.UserServices;
@@ -67,22 +68,100 @@ public class UserController {
         return "registrationForme";
     }
 */
-    @RequestMapping(value = "acceptRegistration", method = RequestMethod.GET, params = {"token"})
+  /*  @RequestMapping(value = "acceptRegistration", method = RequestMethod.GET, params = {"token"})
     @Transactional
     public String acceptRegistration(HttpServletRequest request, Model model) {
         String token = request.getParameter("token");
         String responceMessage = userServices.acceptRegistration(token);
         model.addAttribute("result", responceMessage);
-        return "acceptRegistration";
+        return "index";
+
+    }*/
+   /* @RequestMapping(value = "acceptRegistration", method = RequestMethod.GET, params = {"token"})
+    @Transactional
+    public String acceptRegistration(HttpServletRequest request, Model model) {
+        String token = request.getParameter("token");
+        if(userServices.acceptRegistrationHTML(token)){
+            return "acceptRegistration";
+        }
+
+        return "index";
+
+    }
+*/
+
+    @RequestMapping(value = "/api/v.1/user/acceptRegistration", method = RequestMethod.GET, params = {"token"})
+    @Transactional
+    public String acceptRegistration(HttpServletRequest request, Model model) {
+        String token = request.getParameter("token");
+        if(userServices.acceptRegistrationHTML(token)){
+            return "acceptRegistration";
+        }
+        return "index";
 
     }
 
-    @RequestMapping(value = "forgetPass", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/api/v.1/user/rememberPass", method = RequestMethod.POST)
+    @Transactional
+    @ResponseBody
+    public void receivePass(@RequestBody UserChangeData UserChangeData, HttpServletResponse response) {
+        //TODO обезапасится от многократного запроса пароля
+        System.err.println(UserChangeData.getEmail());
+        String email = UserChangeData.getEmail();
+        System.out.println(email);
+        User user = userServices.getByEmail(email);
+        System.err.println(user);
+        if (user != null) {
+            String login = user.getLogin();
+            String token = tokenService.createToken(login);
+            mailService.sendForgetPass(email, "token=" + token);
+            response.setStatus(200);
+        } else response.setStatus(404);
+    }
+
+    @RequestMapping(value = "/api/v.1/user/acceptRememberPass", method = RequestMethod.GET, params = {"token"})
+    @Transactional
+    public String changePass(HttpServletRequest request, HttpServletResponse response, Model model) {
+        String token = request.getParameter("token");
+        String login = tokenService.loginUserByToken(token);
+        if (login != null) {
+            UserDetails userDetails = userDetailsService.loadUserByUsername(login);
+            Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            tokenService.deleteToken(token);
+            response.setStatus(200);
+            return "rememberPass";
+
+        } else {
+            response.setStatus(401);
+            return "index";
+        }
+
+    }
+
+
+    @RequestMapping(value = "/api/v.1/user/changePass", method = RequestMethod.POST)
+    @Transactional
+    public void changePass(@RequestBody UserChangeData userChangeData, HttpServletResponse response) {
+        //TODO обезапасится от многократного запроса пароля
+        String password = userChangeData.getPassword();
+        if (userServices.changePassword(password)) {
+            response.setStatus(200);
+
+        } else response.setStatus(404);
+        SecurityContextHolder.clearContext();
+    }
+
+
+
+
+    @RequestMapping(value = "/forgetPass", method = RequestMethod.GET)
     public String getForgetPassPage() {
         return "forgetPass";
     }
 
-    @RequestMapping(value = "rememberPass", method = RequestMethod.GET, params = {"email"})
+    /*@RequestMapping(value = "/rememberPass", method = RequestMethod.GET, params = {"email"})
     @Transactional
     public void receivePass(HttpServletRequest request, HttpServletResponse response) {
         //TODO обезапасится от многократного запроса пароля
@@ -96,9 +175,9 @@ public class UserController {
             mailService.sendForgetPass(email, "token=" + token);
             response.setStatus(200);
         } else response.setStatus(400);
-    }
+    }*/
 
-    @RequestMapping(value = "acceptRememberPass", method = RequestMethod.GET, params = {"token"})
+    /*@RequestMapping(value = "acceptRememberPass", method = RequestMethod.GET, params = {"token"})
     @Transactional
     public ModelAndView changePass(HttpServletRequest request, HttpServletResponse response) {
         String token = request.getParameter("token");
@@ -121,8 +200,9 @@ public class UserController {
             return modelAndView;
         }
 
-    }
+    }*/
 
+/*
 
     @RequestMapping(value = "/confidential/reset", method = RequestMethod.POST)
     @Transactional
@@ -138,6 +218,7 @@ public class UserController {
         SecurityContextHolder.clearContext();
         return modelAndView;
     }
+*/
 
 
 

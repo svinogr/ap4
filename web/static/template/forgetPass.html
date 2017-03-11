@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row">
+        <div class="bs-calltoaction bs-calltoaction-primary">
+            <span class="alert" >{{rememberPassResult}}</span> <br/>
+            <form name="forgetPass" ng-submit="sendRequestRememberPass(email)">
+                <p class="field">
+                    <input type="email" class="form-control" name="email" required ng-model="email.email" placeholder="Email"/>
+                </p>
+                <div ng-show="forgetPass.email.$invalid && forgetPass.email.$dirty" class="error">
+                        <span ng-show="forgetPass.email.$error.required">поле не должно быть пустым
+                        </span>
+                          <span ng-show="forgetPass.email.$error.email">введите правильный емейл
+                        </span>
+
+                </div>
+                <p class="submit cta-button">
+                    <button class="btn btn-lg btn-block btn-primary" ng-disabled="forgetPass.$invalid" type="submit">Востановить пароль
+                    </button>
+                    <button class="btn btn-lg btn-block btn-primary" ng-click="abortRequestRememberPass()">Отмена
+                    </button>
+                </p>
+            </form>
+
+        </div>
+    </div>
+
+</div>

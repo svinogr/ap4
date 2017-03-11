@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +37,7 @@ public class WorkoutServiceImpl implements WorkoutService {
 
     @Override
     @Transactional
-    public WorkoutXML createWorkout(WorkoutXML workoutXML) throws HibernateException{
+    public WorkoutXML createWorkout(WorkoutXML workoutXML) throws HibernateException {
         Workout workout = new Workout();
         workout.setName(workoutXML.getName());
         User user = userServices.getLoggedUser();
@@ -46,8 +47,7 @@ public class WorkoutServiceImpl implements WorkoutService {
         workout.setAuthor(userInfo.getName());
         try {
             workout.setPosition(user.getWorkoutList().size());
-        }catch (NullPointerException e)
-        {
+        } catch (NullPointerException e) {
             workout.setPosition(0);
         }
         int id = workoutDAO.add(workout);
@@ -60,7 +60,7 @@ public class WorkoutServiceImpl implements WorkoutService {
     @Override
     @Transactional
     public boolean changeWorkout(WorkoutXML workoutXML) {
-        if(workoutDAO.checkItBD(workoutXML.getWorkoutId())) {
+        if (workoutDAO.checkItBD(workoutXML.getWorkoutId())) {
             Workout workout = workoutDAO.getById(workoutXML.getWorkoutId());
             if (userServices.allow(workout.getParentid().getId())) {
                 workout.setName(workoutXML.getName());
@@ -111,7 +111,7 @@ public class WorkoutServiceImpl implements WorkoutService {
         if (workoutDAO.checkItBD(workoutXML.getWorkoutId())) {
             WorkoutRating workoutRating = workoutRatingDAO.getRate(workoutXML.getUserId(), workoutXML.getWorkoutId());
             Workout workout = workoutDAO.getById(workoutXML.getWorkoutId());
-            int rate= workoutXML.getRate();
+            int rate = workoutXML.getRate();
             if (workoutRating != null) {
                 int status = workoutRating.getStatus();
                 if (status == 0 && rate == 0) {
@@ -133,11 +133,11 @@ public class WorkoutServiceImpl implements WorkoutService {
                 newWorkoutRating.setWorkoutId(workoutXML.getWorkoutId());
                 newWorkoutRating.setUserId(workoutXML.getUserId());
                 newWorkoutRating.setStatus(rate);
-                if(rate ==0){
-                    workout.setRate(workout.getRate()-1);
+                if (rate == 0) {
+                    workout.setRate(workout.getRate() - 1);
                 }
-                if(rate ==1){
-                    workout.setRate(workout.getRate()+1);
+                if (rate == 1) {
+                    workout.setRate(workout.getRate() + 1);
                 }
                 System.err.println(newWorkoutRating.toString());
                 workoutRatingDAO.add(newWorkoutRating);
@@ -185,10 +185,10 @@ public class WorkoutServiceImpl implements WorkoutService {
     @Transactional
     public UserXML getAllWorkout(int start) {
         List<Workout> workoutList = workoutDAO.getListAllWorkout(start);
-        List<WorkoutXML> workoutXMLList=new ArrayList<>();
-        if(workoutList.size()>0){
+        List<WorkoutXML> workoutXMLList = new ArrayList<>();
+        if (workoutList.size() > 0) {
             System.err.println(workoutList.size());
-            for (Workout workout:workoutList){
+            for (Workout workout : workoutList) {
                 WorkoutXML workoutXML = new WorkoutXML(workout);
                 workoutXMLList.add(workoutXML);
             }
@@ -197,5 +197,27 @@ public class WorkoutServiceImpl implements WorkoutService {
             return userXML;
         }
         return null;
+    }
+
+
+    @Override
+    @Transactional
+    public UserXML getBestWorkout(int quantity) {
+        List<Workout> workoutList = workoutDAO.getListWorkout(20);
+        List<WorkoutXML> workoutXMLList=new ArrayList<>();
+        for (Workout workout : workoutList){
+            WorkoutXML workoutXML = new WorkoutXML(workout);
+            workoutXMLList.add(workoutXML);
+        }
+        UserXML userXML = new UserXML();
+        userXML.setWorkoutXML(workoutXMLList);
+            return userXML;
+    }
+
+    @Override
+    @Transactional
+    public List<Workout> getAllWorkoutByUSerId(int id) {
+        List<Workout> allByParentKey = workoutDAO.getAllByParentKey(id);
+        return allByParentKey;
     }
 }

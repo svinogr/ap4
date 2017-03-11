@@ -1,0 +1,46 @@
+<div class="container" ng-controller="RegistrationCTRL">
+    <div class="row">
+        <div class=" bs-calltoaction bs-calltoaction-primary">
+
+            <span class="alert">{{result}}</span> <br/>
+            <div class="">
+                <form class="form-signin" name="registration"
+                      novalidate ng-submit="registrationUser(newUser)">
+
+                    <p class="field">
+                        <input type="text" class="form-control" required ng-model="newUser.login" name="login"
+                               placeholder="Логин"/>
+
+                    </p>
+                    <p class="field">
+                        <input type="password" class="form-control" required
+                               name="password" ng-model="newUser.password"
+                               placeholder="Пароль"/>
+
+                    </p>
+                    <p class="field">
+                        <input type="email" required class="form-control" name="email"
+                               ng-model="newUser.email" placeholder="E-mail"/>
+
+                    </p>
+                    <div ng-show="registration.email.$invalid && registration.email.$dirty" class="error">
+                        <span ng-show="registration.email.$error.required">поле не должно быть пустым
+                        </span>
+                          <span ng-show="registration.email.$error.email">введите правильный емейл
+                        </span>
+
+                    </div>
+
+                    <p class="submit cta-button">
+                        <input ng-disabled="registration.$invalid" name="submit"
+                               class="btn btn-lg btn-primary btn-block" type="submit" value="Зарегистрировать"
+                        />
+                    </p>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

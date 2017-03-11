@@ -13,6 +13,8 @@ public interface UserServices {
 
     String acceptRegistration(String token);
 
+    Boolean acceptRegistrationHTML(String token);
+
     User getUser(String login);
 
     User getUserByName(String name);
@@ -30,9 +32,10 @@ public interface UserServices {
     User getLoggedUser();
 
     List<User> getSearchUser(Map<String, String> map);
+
     boolean isAdmin();
 
-
+    boolean changePassword(String password);
 
 
 }

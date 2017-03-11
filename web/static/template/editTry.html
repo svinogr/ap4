@@ -2,20 +2,28 @@
     <div class="row">
         <div class="bs-calltoaction bs-calltoaction-primary">
 
-            <form class="form-signin" novalidate ng-submit="saveTry(editTry)">
+            <form name="tryName" class="form-signin" novalidate ng-submit="saveTry(editTry)">
 
                 <p class="field">
-                    <input type="text" class="form-control" ng-model="editTry.repeat" ng-required name="repeat"
+                    <input type="number" class="form-control" ng-model="editTry.repeat" required name="repeat"
                            id="repeat" placeholder="Введите количество повторов"/>
                 </p>
+                <div ng-show="tryName.repeat.$invalid && tryName.repeat.$dirty" class="error">
+                    <span ng-show="tryName.repeat.$error.required">поле не должно быть пустым</span>
+                    <span ng-show="tryName.repeat.$error.number">доступен только ввод цифр</span>
+                </div>
                 <p class="field">
-                    <input type="text" class="form-control" ng-model="editTry.weight" ng-required name="weight"
+                    <input type="number" class="form-control" ng-model="editTry.weight" required name="weight"
                            id="weight" placeholder="Введите вес"/>
                 </p>
+                <div ng-show="tryName.weight.$invalid && tryName.weight.$dirty" class="error">
+                    <span ng-show="tryName.weight.$error.required">поле не должно быть пустым</span>
+                    <span ng-show="tryName.weight.$error.number">доступен только ввод цифр</span>
+                </div>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                 <p class="submit cta-button">
-                    <button class="btn btn-lg btn-block btn-primary" type="submit" name="submit">Сохранить</button>
+                    <button ng-disabled="tryName.$invalid" class="btn btn-lg btn-block btn-primary" type="submit" name="submit">Сохранить</button>
                     <button class="btn btn-lg btn-block btn-primary" ng-click="backToTry()" name="submit">
                         Отмена
                     </button>

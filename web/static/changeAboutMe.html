@@ -1,0 +1,81 @@
+<div class="container">
+    <div>
+            <div class="row">
+                <div class="btn-group btn-group-justified">
+                <div class="container btn-group">
+                    <button class="add btn btn-primary" ng-click="backToMyInfo()">Назад
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bs-calltoaction bs-calltoaction-primary">
+        <div class="row">
+            <span class="alert">{{result}}</span> <br/>
+            <form class="form-signin" name="myUserInfoForm" novalidate ng-submit="saveMyUserInfo(myUserInfo)"
+                  acceptCharset="UTF-8"
+                  enctype="multipart/form-data">
+                <div class="col-md-6">
+                    <h1 id="loginAuthor" style="margin-bottom:10px; margin-top: 10px" class="btn btn-lg btn-primary"
+                        name="${userInfo.login}">{{myUserInfo.login}}</h1>
+                    <p class="field">
+                        <textarea ng-model="myUserInfo.description" rows="5"
+                                  name="description" ng-maxlength="200"
+                                  class="btn btn-primary  textarea">{{myUserInfo.description}}</textarea>
+
+                    </p>
+                    <span ng-show="myUserInfoForm.description.$invalid && myUserInfoForm.description.$dirty">не более 200 символов</span>
+                </div>
+                <div class="col-md-6">
+                    <p class="field">
+                        <label>Имя: </label>
+                        <input type="text" class="btn btn-lg btn-primary btn-block" name="name"
+                               ng-model="myUserInfo.name"
+                               placeholder="{{myUserInfo.name}}"/>
+
+                    </p>
+
+                    <p class="field">
+                        <label>Возраст: </label>
+                        <input type="number" class="btn btn-lg btn-primary btn-block"
+                               name="age"
+                                ng-model="myUserInfo.age"
+                               placeholder="{{myUserInfo.age}}"/>
+
+                    </p>
+                    <span ng-show="myUserInfoForm.age.$invalid && myUserInfoForm.age.$dirty">доступен только ввод цифр</span>
+                    <p class="field">
+                        <label>Вес:</label>
+                        <input type="number" class="btn btn-lg btn-primary btn-block" name="weight"
+                               ng-model="myUserInfo.weight"
+                               placeholder="{{myUserInfo.weight}}"/>
+
+                    </p>
+                    <span ng-show="myUserInfoForm.weight.$invalid && myUserInfoForm.weight.$dirty">доступен только ввод цифр</span>
+                    <p class="field">
+                        <label>Рост:</label>
+                        <input type="number" class="btn btn-lg btn-primary btn-block" name="height"
+                               ng-model="myUserInfo.height"
+                               placeholder="{{myUserInfo.height}}"/>
+
+                    </p>
+                    <span ng-show="myUserInfoForm.height.$invalid && myUserInfoForm.height.$dirty">доступен только ввод  цифр</span>
+                    <p class="field">
+                        <label>Стаж</label>
+                        <input type="number" class="btn btn-lg btn-primary btn-block" name="experience"
+                               ng-model="myUserInfo.experience"
+                               placeholder="{{myUserInfo.experience}}"/>
+                    </p>
+                    <span class="error" ng-show="myUserInfoForm.experience.$invalid && myUserInfoForm.experience.$dirty">доступен только ввод  цифр</span>
+                </div>
+                <p class="submit cta-button">
+                    <button class="btn btn-lg btn-primary btn-block" ng-disabled="myUserInfoForm.$invalid"
+                           type="submit"
+                           name="submit">Сохранить</button>
+                </p>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            </form>
+        </div>
+    </div>
+</div>
+</div>

@@ -5,42 +5,84 @@
         </div>
     </div>
 </div>-->
-<div class="container">
-    <div class="row">
-        <div class="btn-group btn-group-justified">
-            <div class="container btn-group">
-                <button class="add btn btn-primary" ng-click="backToWorkouts()">Назад
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="btn-group btn-group-justified">
-            <div class="container btn-group">
-                <button class="add btn btn-primary" ng-click="createOrEditExercise(workout)">Добавить новую упражнение
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-<div ng-cloak class="container animation" ng-repeat="exercise in workout.exerciseXMLList">
-    <div class="bs-calltoaction bs-calltoaction-primary">
+<div ng-hide="createOrEditStatus">
+    <div class="container">
         <div class="row">
-            <div class="col-md-9 cta-contents cta-button">
-                <div>
-                    <h1 ng-click="createOrEditExercise(item)" class="update cta-title">{{exercise.name}}</h1>
-                </div>
-                <div>
-                    <button ng-repeat="try in exercise.list"  ng-click="done(try)" ng-class="try.done ? 'btn btn-danger cta-button':'btn btn-primary cta-button'" >{{try.weight}}/{{try.repeat}}
+            <div class="btn-group btn-group-justified">
+                <div class="container btn-group">
+                    <button class="btn btn-primary" ng-click="backBtn()">Назад
                     </button>
                 </div>
             </div>
-            <div class='col-md-3 cta-button'>
-                <button class="btnEdit btn btn-lg btn-block btn-primary" ng-click="openExercise(exercise)">Редактировать подходы</button>
-                <button class="delete btn btn-lg btn-block btn-primary" ng-click="deleteExercise(exercise)">Удалить</button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="btn-group btn-group-justified">
+                <div class="container btn-group">
+                    <button class="add btn btn-primary" ng-click="createOrEditExercise(controllerValue.myExercises)">
+                        Добавить новую упражнение
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-cloak class="container animation" ng-repeat="exercise in controllerValue.myExercises.exerciseXMLList">
+        <div class="bs-calltoaction bs-calltoaction-primary">
+            <div class="row">
+                <div class="col-md-9 cta-contents cta-button">
+                    <div>
+                        <h1 ng-click="createOrEditExercise(exercise)" class="update cta-title">{{exercise.name}}</h1>
+                    </div>
+                    <div>
+                        <button ng-repeat="try in exercise.list" ng-click="done(try)"
+                                ng-class="try.done ? 'btn btn-danger cta-button':'btn btn-primary cta-button'">
+                            {{try.weight}}/{{try.repeat}}
+                        </button>
+                    </div>
+                </div>
+                <div class='col-md-3 cta-button'>
+                    <button class="btnEdit btn btn-lg btn-block btn-primary" ng-click="openExercise(exercise)">
+                        Редактировать подходы
+                    </button>
+                    <button class="delete btn btn-lg btn-block btn-primary" ng-click="deleteExercise(exercise)">
+                        Удалить
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<div class="container" ng-show="createOrEditStatus">
+    {{editExercise}}
+    <div class="container animation">
+        <div class="row">
+            <div class="bs-calltoaction bs-calltoaction-primary">
+                <form name="exerciseName" class="form-signin" novalidate ng-submit="saveExercise(editExercise)">
+                    <p class="field">
+                        <input type="text" class="form-control" ng-model="editExercise.name" required name="name"
+                               id="name" placeholder="Название упражнения"/>
+                    </p>
+                    <div ng-show="exerciseName.name.$invalid && exerciseName.name.$dirty" class="error">
+                        <span ng-show="exerciseName.name.$error.required">поле не должно быть пустым></span>
+
+                    </div>
+                    <p class="submit cta-button">
+                        <button ng-disabled="exerciseName.$invalid" class="btn btn-lg btn-block btn-primary"
+                                type="submit" name="submit">Сохранить
+                        </button>
+
+                    </p>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                </form>
+                <p class="submit cta-button">
+                <button class="btn btn-lg btn-block btn-primary" ng-click="cancel()"
+                        name="submit">Отмена
+                </button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+

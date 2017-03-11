@@ -1,16 +1,8 @@
 <div class="container">
     <div class="row">
-        <div class="bs-calltoaction bs-calltoaction-primary">
-            <h3 class="update cta-title">Тренировка: {{exercise.name}}</h3>
-        </div>
-    </div>
-</div>
-
-<div class="container">
-    <div class="row">
         <div class="btn-group btn-group-justified">
             <div class="container btn-group">
-                <button class="add btn btn-primary" ng-click="copy(exercise)">Скопировать
+                <button class="btn btn-primary" ng-click="backBtn()">Назад
                 </button>
             </div>
         </div>
@@ -20,21 +12,21 @@
     <div class="row">
         <div class="btn-group btn-group-justified">
             <div class="container btn-group">
-                <button class="add btn btn-primary" ng-click="authorWorkout(exercise)">Назад
+                <button class="btn btn-primary" ng-click="copy(controllerValue.authorExercises)">Скопировать
                 </button>
             </div>
         </div>
     </div>
 </div>
-<div class="container animation" ng-repeat="item in exercise.exerciseXMLList">
+<div class="container animation" ng-repeat="exercise in controllerValue.authorExercises.exerciseXMLList">
     <div class="bs-calltoaction bs-calltoaction-primary">
         <div class="row">
             <div class="col-md-12 cta-contents cta-button">
                 <div>
-                    <h1 ng-click="createOrEditExercise(item)" class="update cta-title">{{item.name}}</h1>
+                    <h1 class="update cta-title">{{exercise.name}}</h1>
                 </div>
                 <div>
-                    <button ng-repeat="item in item.list" ng-class="{{item.done}} ? 'btn btn-danger cta-button :'btn btn-primary cta-button '" class="btn btn-primary cta-button">{{item.weight}}/{{item.repeat}}
+                    <button ng-repeat="try in exercise.list" class="btn btn-primary cta-button">{{try.weight}}/{{try.repeat}}
                     </button>
                 </div>
             </div>

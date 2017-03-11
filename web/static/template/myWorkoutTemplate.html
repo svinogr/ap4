@@ -8,14 +8,15 @@
         </div>
     </div>
 </div>
-<div ng-cloak class="container animation" ng-repeat="item in items.workoutXML">
+{{$scope.controllerValue.myWorkouts}}
+<div ng-cloak class="container animation" ng-repeat="item in controllerValue.myWorkouts.workoutXML">
     <div class="bs-calltoaction bs-calltoaction-primary">
         <div class="row">
             <div class='col-md-9 cta-contents cta-button'>
                 <div><h1 ng-click="createOrEditWorkout(item)" class="update cta-title">{{item.name}}</h1>
                 </div>
                 <div>
-                    <button class='btnAuthor btn btn-xs btn-primary' ng-click="getPageAuthor(item)">
+                    <button class='btnAuthor btn btn-xs btn-primary' ng-click="getPageAuthor(items)">
                         автор:{{item.author}}
                     </button>
                 </div>

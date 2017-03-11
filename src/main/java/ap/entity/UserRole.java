@@ -16,6 +16,15 @@ public class UserRole {
     @Column(name = "role_name", nullable = false)
     private  String roleName;
 
+    @Column(name = "login", nullable = false)
+    private String login;
+
+
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
     public int getId() {
         return id;
     }
@@ -43,9 +52,10 @@ public class UserRole {
     public UserRole() {
     }
 
-    public UserRole(int userId, Role role) {
+    public UserRole(int userId, Role role, String login) {
         this.userId = userId;
         this.roleName = role.toString();
+        this.login = login;
     }
 
 }

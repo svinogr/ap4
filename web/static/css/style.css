@@ -188,7 +188,7 @@
     opacity: 1
 }
 
-.form-control::placeholder {
+.form-control:placeholder {
     color: #999;
     opacity: 1
 }
@@ -240,23 +240,53 @@ a.logo {
     margin-right: 40px;
 }
 
-li.navbarmini{
+li.navbarmini {
     margin-left: 10px;
 }
 
-/*.animation{-webkit-transition: 1s}
-.animation.ng-enter-stagger{
-    -webkit-transition-delay: 0.2s;
-    transition-delay: 0.5s;}
-.animation.ng-leave-stagger{
-    -webkit-transition-delay: 0.2s;
-    transition-delay: 0.5s;
+.animation {
+    -webkit-transition: 0.5s linear all
+}
 
-    -webkit-transition-duration:0s;
-    transition-duration:0s;
-}*/
-.animation{-webkit-transition: 0.5s linear all}
-.animation.ng-enter{opacity: 0}
-.animation.ng-enter.ng-enter-active{opacity: 1}
-.animation.ng-leave{opacity: 1}
-.animation.ng-leave.ng-leave-active{opacity: 0}
+.animation.ng-enter {
+    opacity: 0
+}
+
+.animation.ng-enter.ng-enter-active {
+    opacity: 1
+}
+
+.animation.ng-leave {
+    opacity: 1
+}
+
+.animation.ng-leave.ng-leave-active {
+    opacity: 0
+}
+
+form .ng-invalid-number {
+    color: red;
+}
+
+form .ng-invalid-email {
+    color: red;
+}
+
+textarea {
+    margin-bottom: 10px;
+    word-break: break-all;
+    overflow: hidden;
+}
+
+p {
+    word-break: break-all;
+}
+
+textarea
+.ng-invalid-maxlength {
+    color: red;
+}
+div .error{
+    color: red;
+}
+

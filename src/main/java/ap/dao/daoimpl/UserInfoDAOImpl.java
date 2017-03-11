@@ -9,8 +9,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
+@Component
 public class UserInfoDAOImpl extends BasicDAOImpl<UserInfo> implements UserInfoDAO {
     @Autowired
     SessionFactory sessionfactory;

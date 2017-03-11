@@ -50,7 +50,6 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/confidential/**").access("hasRole('USER')")
                 .antMatchers("/superconfidential/**").access("hasRole('SUPERADMIN')")
                 .and().httpBasic()
-
                 .and().csrf().disable()
                 .sessionManagement().maximumSessions(100).sessionRegistry(sessionRegistry()).and()
                 .and().logout()

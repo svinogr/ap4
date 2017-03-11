@@ -98,7 +98,7 @@ public class UserServicesImpl implements UserServices {
         creatUser.setLogin(userLogin);
         int newid = userDAO.add(creatUser);
 
-        UserRole userRole = new UserRole(newid, Role.ROLE_USER);
+        UserRole userRole = new UserRole(newid, Role.ROLE_USER, userLogin);
         userRoleDAO.add(userRole);
         UserInfo userInfo = new UserInfo();
         userInfo.setLogin(userLogin);
@@ -121,7 +121,8 @@ public class UserServicesImpl implements UserServices {
 
     }
 
-    @Override
+
+   @Override
     @Transactional
     public String acceptRegistration(String token) {
         String responseMessage = null;
@@ -143,6 +144,27 @@ public class UserServicesImpl implements UserServices {
         return responseMessage;
     }
 
+    @Override
+    @Transactional
+    public Boolean acceptRegistrationHTML(String token) {
+        Boolean responseMessage = false;
+        String login = tokenService.loginUserByToken(token);
+        System.err.println(login);
+        if (login != null) {
+
+            User acceptUser = userDAO.getByLogin(login);
+            if (acceptUser != null) {
+              //  tokenService.deleteToken(token);
+                acceptUser.setActive(true);
+                responseMessage = true;
+
+            }
+        } else
+            responseMessage = false;
+
+
+        return responseMessage;
+    }
     @Override
     @Transactional
     public User getUser(String login) {
@@ -200,6 +222,18 @@ public class UserServicesImpl implements UserServices {
     public Boolean changePassword(String login, String password) {
 
         User user = this.getUser(login);
+        if (user != null) {
+            user.setPassword(new BCryptPasswordEncoder().encode(password));
+            this.userUpdate(user);
+            return true;
+        }
+        return false;
+    }
+    @Override
+    @Transactional
+    public boolean changePassword(String password) {
+        User user = getLoggedUser();
+        user = userDAO.getByLogin(user.getLogin());
         if (user != null) {
             user.setPassword(new BCryptPasswordEncoder().encode(password));
             this.userUpdate(user);

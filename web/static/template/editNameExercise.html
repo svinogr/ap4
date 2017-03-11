@@ -1,14 +1,17 @@
 <div class="container animation">
     <div class="row">
         <div class="bs-calltoaction bs-calltoaction-primary">
-            <form class="form-signin" novalidate ng-submit="saveExercise(editExercise)">
+            <form name="exerciseName" class="form-signin" novalidate ng-submit="saveExercise(editExercise)">
                 <p class="field">
-                    <input type="text" class="form-control" ng-model="editExercise.name" ng-required name="name"
+                    <input type="text" class="form-control" ng-model="editExercise.name" required name="name"
                            id="name" placeholder="Название упражнения"/>
                 </p>
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <div ng-show="exerciseName.name.$invalid && exerciseName.name.$dirty" class="error">
+                    <span ng-show="exerciseName.name.$error.required">поле не должно быть пустым></span>
+
+                </div>
                 <p class="submit cta-button">
-                    <button class="btn btn-lg btn-block btn-primary" type="submit" name="submit">Сохранить</button>
+                    <button  ng-disabled="exerciseName.$invalid"  class="btn btn-lg btn-block btn-primary" type="submit" name="submit">Сохранить</button>
                     <button class="btn btn-lg btn-block btn-primary" ng-click="backToExercise(editExercise)" name="submit">Отмена
                     </button>
                 </p>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="UPump" xmlns="http://www.w3.org/1999/html">
+<html ng-app="UPump">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
@@ -9,17 +9,21 @@
     <link href="/static/css/bootstrap.css" rel="stylesheet">
     <script src="/static/js/bootstrap.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <script src="/static/js/angular-route.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
     <script src="/static/js/angular-route.js"></script>
     <link href="/static/css/css.css" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/style.css">
     <script src="/static/app.js"></script>
+    <base href="http://localhost:8080/">
 </head>
 <body  ng-cloak ng-controller="UrlCtrl">
-<div ng-view="templateUrl"></div>
+
 <ng-include  src="url.header"></ng-include>
+<div ng-view></div>
 <ng-include  class="animation" src="url.url"></ng-include>
 <ng-include src="url.footer"></ng-include>
+
 </body>
 
 </html>

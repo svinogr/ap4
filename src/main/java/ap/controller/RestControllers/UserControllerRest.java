@@ -3,19 +3,23 @@ package ap.controller.RestControllers;
 import ap.entity.EntityForXML.PostXML;
 import ap.entity.EntityForXML.UserXML;
 import ap.entity.EntityForXML.WorkoutXML;
-import ap.entity.Post;
 import ap.entity.User;
-import ap.services.CreateXMLService;
-import ap.services.PostService;
-import ap.services.UserServices;
-import ap.services.WorkoutService;
+import ap.entity.UserChangeData;
+import ap.services.*;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -35,6 +39,16 @@ public class UserControllerRest {
 
     @Autowired
     PostService postService;
+
+    @Autowired
+    TokenService tokenService;
+
+    @Autowired
+    MailService mailService;
+
+    @Autowired
+    UserDetailsService userDetailsService;
+
 
     /**
      * @param response 401 if user is not authenticated
@@ -85,8 +99,7 @@ public class UserControllerRest {
      * @param response      location with new user
      * @return xml type of <userXML><date></date><email></email><login></login><myUserId></myUserId><userInfoId></userInfoId></userXML>
      */
-    @RequestMapping(method = RequestMethod.POST, headers = "Content-Type=application/xml",
-            produces = {"application/xml; charset=UTF-8"})
+    @RequestMapping(method = RequestMethod.POST)
     @Transactional
     public
     @ResponseBody
@@ -297,6 +310,11 @@ public class UserControllerRest {
         response.setStatus(404);
         return null;
     }
+
+
+
+
+
 
 
 

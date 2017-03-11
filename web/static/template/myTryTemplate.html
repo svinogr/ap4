@@ -5,39 +5,85 @@
         </div>
     </div>
 </div>-->
-<div class="container">
-    <div class="row">
-        <div class="btn-group btn-group-justified">
-            <div class="container btn-group">
-                <button class="add btn btn-primary" ng-click="backToExercise(try)">Назад
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="btn-group btn-group-justified">
-            <div class="container btn-group">
-                <button class="add btn btn-primary" ng-click="createOrEditTry(try)">Добавить новый подход
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-<div ng-cloak class="container animation" ng-repeat="item in try.list">
-    <div class="bs-calltoaction bs-calltoaction-primary">
+{{controllerValue.myExercises.exerciseXMLList}}
+<div ng-hide="createOrEditStatus">
+    <div class="container">
         <div class="row">
-            <div class="col-md-9 cta-contents cta-button">
-                <div>
-                    <h1 ng-click="createOrEditTry(item)" class="update cta-title">Вес:{{item.weight}}</h1>
-                    <h1 ng-click="createOrEditTry(item)" class="update cta-title">Повторения: {{item.repeat}}</h1>
+            <div class="btn-group btn-group-justified">
+                <div class="container btn-group">
+                    <button class="btn btn-primary" ng-click="backBtn()">Назад
+                    </button>
                 </div>
-
             </div>
-            <div class='col-md-3 cta-button'>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="btn-group btn-group-justified">
+                <div class="container btn-group">
+                    <button class="add btn btn-primary" ng-click="createOrEditTry(controllerValue.myTryies)">Добавить
+                        новый подход
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-cloak class="container animation" ng-repeat="item in controllerValue.myTryies.list">
+        <div class="bs-calltoaction bs-calltoaction-primary">
+            <div class="row">
+                <div class="col-md-9 cta-contents cta-button">
+                    <div>
+                        <h1 ng-click="createOrEditTry(item)" class="update cta-title">Вес:{{item.weight}}</h1>
+                        <h1 ng-click="createOrEditTry(item)" class="update cta-title">Повторения: {{item.repeat}}</h1>
+                    </div>
 
-                <button class="delete btn btn-lg btn-block btn-primary" ng-click="deleteTry(item)">Удалить</button>
+                </div>
+                <div class='col-md-3 cta-button'>
+
+                    <button class="delete btn btn-lg btn-block btn-primary" ng-click="deleteTry(item)">Удалить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-show="createOrEditStatus">
+    <div class="container animate">
+        <div class="row">
+            <div class="bs-calltoaction bs-calltoaction-primary">
+
+                <form name="tryName" class="form-signin" novalidate ng-submit="saveTry(editTry)">
+
+
+                    <p class="field">
+                        <input type="number" class="form-control" ng-model="editTry.weight" required name="weight"
+                               id="weight" placeholder="Введите вес"/>
+                    </p>
+                    <div ng-show="tryName.weight.$invalid && tryName.weight.$dirty" class="error">
+                        <span ng-show="tryName.weight.$error.required">поле не должно быть пустым</span>
+                        <span ng-show="tryName.weight.$error.number">доступен только ввод цифр</span>
+                    </div>
+                    <p class="field">
+                        <input type="number" class="form-control" ng-model="editTry.repeat" required name="repeat"
+                               id="repeat" placeholder="Введите количество повторов"/>
+                    </p>
+                    <div ng-show="tryName.repeat.$invalid && tryName.repeat.$dirty" class="error">
+                        <span ng-show="tryName.repeat.$error.required">поле не должно быть пустым</span>
+                        <span ng-show="tryName.repeat.$error.number">доступен только ввод цифр</span>
+                    </div>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+                    <p class="submit cta-button">
+                        <button ng-disabled="tryName.$invalid" class="btn btn-lg btn-block btn-primary" type="submit"
+                                name="submit">Сохранить
+                        </button>
+                    </p>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                </form>
+                <p class="submit cta-button">
+                <button class="btn btn-lg btn-block btn-primary" ng-click="cancel()" >
+                    Отмена
+                </button>
+                </p>
             </div>
         </div>
     </div>

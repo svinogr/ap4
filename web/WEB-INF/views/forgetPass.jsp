@@ -19,7 +19,7 @@
     </div>
 
 </div>
-</div>
+
 <link href="${pageContext.request.contextPath}/css/css.css" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <script charset="utf-8" src="${pageContext.request.contextPath}/js/spin.js"></script>

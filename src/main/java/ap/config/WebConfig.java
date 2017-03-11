@@ -29,6 +29,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         viewResolver.setViewClass(JstlView.class);
         viewResolver.setPrefix("/WEB-INF/views/");
         viewResolver.setSuffix(".jsp");
+        viewResolver.setPrefix("/static/");
+        viewResolver.setSuffix(".html");
         viewResolver.setContentType("text/html; charset=utf-8");
         return viewResolver;
     }

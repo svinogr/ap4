@@ -7,7 +7,9 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserRoleDAOImpl extends BasicDAOImpl implements UserRoleDAO {
     public UserRoleDAOImpl() {
         super(UserRole.class);

@@ -1,6 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html ng-app="UPump" >
+<html ng-app="UPump">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
@@ -11,25 +10,26 @@
     <script src="/static/js/bootstrap.js"></script>
     <link href="/static/css/css.css" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/style.css">
+
     <script>
         function redirect() {
-            window.location.href="http://localhost:8080/";
+            window.location.href = "http://localhost:8080/";
         }
-    </script>>
+    </script>
 </head>
-<body  ng-cloak ng-controller="UrlCtrl">
+<body>
+<div class="container">
+    <div class=" bs-calltoaction bs-calltoaction-primary">
+        <div class="row">
 
-<div class="container" ng-app="UPump">
-    <div class="row">
-        <div class="btn-group btn-group-justified">
-            <div class="container btn-group">
-                <span class="alert">${result}</span> <br/>
-                <button class="add btn btn-primary" onclick="redirect()"> Перейти на сайт
+            <span class="alert">Регистрация завершена. Перейдите на сайт</span> <br/>
+            <p class="submit cta-button">
+                <button ng-show="status" class="btn btn-lg btn-primary btn-block" onclick="redirect()"> Перейти на
+                    сайт
                 </button>
-            </div>
+            </p>
         </div>
     </div>
 </div>
 </body>
-
 </html>

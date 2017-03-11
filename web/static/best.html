@@ -1,0 +1,27 @@
+<div class="container animation" ng-repeat="workout in itemsBest.workoutXML">
+    <div class="bs-calltoaction bs-calltoaction-primary">
+        <div class="row">
+            <div class='col-md-9 cta-contents cta-button'>
+                <div class='col-md-9 cta-contents cta-button'>
+                    <div><h1 class="update cta-title">{{workout.name}}</h1>
+                        <div><h4 class="update cta-title">Рейтинг: {{workout.rate}}</h4>
+                        </div>
+                        <button class='btnAuthor btn btn-xs btn-primary' ng-click="getPageAuthor(workout)">
+                            автор:{{workout.author}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class='col-md-1 cta-button'>
+                <button class="btnEdit btn btn-lg btn-block btn-primary" ng-click="rate(1)">+
+                </button>
+                <button class="btnEdit btn btn-lg btn-block btn-primary" ng-click="rate(0)">-
+                </button>
+            </div>
+            <div class='col-md-2 cta-button'>
+                <button class="btn btn-lg btn-block btn-primary" ng-click="openWorkout(workout)">Открыть
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

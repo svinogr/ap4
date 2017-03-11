@@ -1,32 +1,5 @@
-<div class="container animation">
-    <div class="bs-calltoaction bs-calltoaction-primary">
-        <div class="row">
-            <div class="col-md-6">
-                <img class="avatar btn btn-primary" src="#"/>
-                <h1 class="cta-title" id="nameAuthor">Имя: {{userInfo.name}}</h1>
-                <h2 maxlenght="20" rows="4" class="cta-title">{{userInfo.description}}</h2>
-            </div>
-            <div class="col-md-6">
-                <h3 id="nameAuthorAge" class="cta-title">Возраст: {{userInfo.age}}</h3>
-                <h3 id="nameAuthorWeight" class="cta-title">Вес: {{userInfo.weight}}</h3>
-                <h3 id="nameAuthorHeight" class="cta-title">Рост: {{userInfo.height}}</h3>
-                <h3 id="nameAuthorExperience" class="cta-title">Стаж: {{userInfo.experience}}</h3>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container">
-    <div class="row">
-        <div class="btn-group btn-group-justified">
-            <div class="container btn-group">
-                <button class="add btn btn-primary" ng-click="authorWorkout(userInfo)">Тренировки
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="container">
+<!--<div>
+    <div class="container">
     <div class="row">
         <div class="btn-group btn-group-justified">
             <div class="container btn-group">
@@ -35,4 +8,31 @@
             </div>
         </div>
     </div>
+</div>-->
+<div  ng-cloak class="container animation">
+    <div class="bs-calltoaction bs-calltoaction-primary">
+        <div class="row">
+            <div class="col-md-6">
+                <h1 class="cta-title" id="nameAuthor">Имя: {{controllerValue.userInfo.name}}</h1>
+                <h2 maxlenght="20" rows="4" class="cta-title">{{controllerValue.userInfo.description}}</h2>
+            </div>
+            <div class="col-md-6">
+                <h3 id="nameAuthorAge" class="cta-title">Возраст: {{controllerValue.userInfo.age}}</h3>
+                <h3 id="nameAuthorWeight" class="cta-title">Вес: {{controllerValue.userInfo.weight}}</h3>
+                <h3 id="nameAuthorHeight" class="cta-title">Рост: {{controllerValue.userInfo.height}}</h3>
+                <h3 id="nameAuthorExperience" class="cta-title">Стаж: {{controllerValue.userInfo.experience}}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="btn-group btn-group-justified">
+            <div class="container btn-group">
+                <button class="add btn btn-primary" ng-click="openAuthorWorkout()">Тренировки
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 </div>

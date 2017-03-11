@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="UPump">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="/static/js/jquery-3.1.0.min.js"></script>
+    <link href="/static/css/mdb.css" rel="stylesheet">
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <script src="/static/js/bootstrap.js"></script>
+    <link href="/static/css/css.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/rememberPassApp.js"></script>
+</head>
+<body ng-cloak ng-controller="UrlCtrl">
+<div class="container">
+    <div class=" bs-calltoaction bs-calltoaction-primary">
+        <div class="row">
+
+            <span>{{rememberPassResult}}</span>
+            <span ng-show="!status" class="alert">Введите новый пароль</span> <br/>
+            <form name="rememberPas" novalidate ng-submit="changePass(item)">
+                <p class="field">
+                    <input ng-show="!status" class="form-control" required name="password" ng-model="item.password">
+                </p>
+                <p class="submit cta-button">
+                    <button ng-show="!status" class="btn btn-lg btn-primary btn-block"
+                            ng-disabled="rememberPas.$invalid" type="submit">Сохранить
+                    </button>
+                </p>
+
+            </form>
+            <p class="submit cta-button">
+                <button ng-show="status" class="btn btn-lg btn-primary btn-block" ng-click="redirect()"> Перейти на сайт
+                </button>
+            </p>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

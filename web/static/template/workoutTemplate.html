@@ -1,20 +1,19 @@
-
 <div class="container">
     <div class="row">
         <div class="btn-group btn-group-justified">
             <div class="container btn-group">
-                <button class="add btn btn-primary" ng-click="backToInfo()">Назад
+                <button class="btn btn-primary" ng-click="backBtn()">Назад
                 </button>
             </div>
         </div>
     </div>
 </div>
-<div class="container animation" ng-repeat="item in items.workoutXML">
+<div class="container animation" ng-repeat="workout in controllerValue.authorWorkouts.workoutXML">
     <div class="bs-calltoaction bs-calltoaction-primary">
         <div class="row">
             <div class='col-md-9 cta-contents cta-button'>
-                <div><h1 class="update cta-title">{{item.name}}</h1>
-                    <div><h4 class="update cta-title">Рейтинг: {{item.rate}}</h4>
+                <div><h1 class="update cta-title">{{workout.name}}</h1>
+                    <div><h4 class="update cta-title">Рейтинг: {{workout.rate}}</h4>
                     </div>
 
                 </div>
@@ -26,7 +25,7 @@
                 </button>
             </div>
             <div class='col-md-2 cta-button'>
-                <button class="btnEdit btn btn-lg btn-block btn-primary" ng-click="openWorkout(item)">Открыть
+                <button class="btnEdit btn btn-lg btn-block btn-primary" ng-click="openWorkout(workout)">Открыть
                 </button>
             </div>
 
