@@ -5,6 +5,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -126,6 +127,14 @@ public class BasicDAOImpl<T> implements BasicDAO<T> {
             flag = true;
         }
         return flag;
+    }
+
+    @Override
+    @Transactional
+    public int getQuantityRow() {
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria =  session.createCriteria(type);
+        return Integer.parseInt(criteria.setProjection(Projections.rowCount()).uniqueResult().toString());
     }
 
 }

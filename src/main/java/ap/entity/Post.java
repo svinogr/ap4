@@ -3,9 +3,7 @@ package ap.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "post")
@@ -20,7 +18,18 @@ public class Post implements Serializable, Imagable {
 
     @Column(name = "date")
     private Date date;
-    @Column(name = "description")
+
+    public String getTitle() {
+        return title;
+    }
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    @Column(name="title")
+    String title;
+
+    @Column(name = "description", length = 5120000)
     private String description;
 
     @Column(name = "link", length = 5120000)

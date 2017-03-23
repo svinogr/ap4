@@ -20,4 +20,8 @@ public interface PostService {
     UserXML getALLPostXML();
 
     PostXML validPostXML(PostXML postXML, BindingResult bindingResult);
+
+    int getQuantityRow();
+
+    UserXML getAllPost(int start);
 }

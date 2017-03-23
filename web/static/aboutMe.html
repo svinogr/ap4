@@ -1,20 +1,18 @@
-<div class="container animation">
-
-    <div class="bs-calltoaction bs-calltoaction-primary">
-
+<div ng-hide="changeInfo">
+    <div class="container animation">
+        <div ng-cloak class="bs-calltoaction bs-calltoaction-primary">
             <div class="row">
                 <div class="col-md-6">
-                    <div><h1 class="cta-title">Имя: {{myUserInfo.name}}</h1>
+                    <div><h1 class="cta-title">Имя: {{controllerValue.myUserInfo.name}}</h1>
                     </div>
-                    <div><p> {{myUserInfo.description}}</p></div>
-
+                    <h3 id="nameAuthorAge" class="cta-title">Возраст: {{controllerValue.myUserInfo.age}}</h3>
+                    <h3 id="nameAuthorWeight" class="cta-title">Вес: {{controllerValue.myUserInfo.weight}}</h3>
+                    <h3 id="nameAuthorHeight" class="cta-title">Рост: {{controllerValue.myUserInfo.height}}</h3>
+                    <h3 id="nameAuthorExperience" class="cta-title">Стаж: {{controllerValue.myUserInfo.experience}}</h3>
 
                 </div>
                 <div class="col-md-6">
-                    <h3 id="nameAuthorAge" class="cta-title">Возраст: {{myUserInfo.age}}</h3>
-                    <h3 id="nameAuthorWeight" class="cta-title">Вес: {{myUserInfo.weight}}</h3>
-                    <h3 id="nameAuthorHeight" class="cta-title">Рост: {{myUserInfo.height}}</h3>
-                    <h3 id="nameAuthorExperience" class="cta-title">Стаж: {{myUserInfo.experience}}</h3>
+                    <p> {{controllerValue.myUserInfo.description}}</p>
                 </div>
             </div>
         </div>
@@ -29,3 +27,103 @@
             </div>
         </div>
     </div>
+</div>
+<div ng-show="changeInfo">
+    <div class="container">
+        <div class="bs-calltoaction bs-calltoaction-primary">
+            <div class="row">
+
+                <span class="alert">{{result}}</span> <br/>
+                <form class="form-signin" name="myUserInfoForm" novalidate
+                      ng-submit="saveMyUserInfo(controllerValue.myUserInfo)"
+                      acceptCharset="UTF-8"
+                      enctype="multipart/form-data">
+                    <div class="col-md-6">
+                        <h1 id="loginAuthor" style="margin-bottom:10px; margin-top: 10px" class="btn btn-lg btn-primary"
+                            name="${controllerValue.myUserInfo.login}">{{controllerValue.myUserInfo.login}}</h1>
+                        <p class="field">
+                            <label>Имя: </label>
+                            <input type="text" class="btn btn-lg btn-primary btn-block" name="name"
+                                   ng-model="controllerValue.myUserInfo.name"
+                                   placeholder="{{controllerValue.myUserInfo.name}}"/>
+
+                        </p>
+
+                        <p class="field">
+                            <label>Возраст: </label>
+                            <input type="number" class="btn btn-lg btn-primary btn-block"
+                                   name="age"
+                                   ng-model="controllerValue.myUserInfo.age"
+                                   placeholder="{{controllerValue.myUserInfo.age}}"/>
+
+                        </p>
+                        <span ng-show="myUserInfoForm.age.$invalid && myUserInfoForm.age.$dirty">доступен только ввод цифр</span>
+                        <p class="field">
+                            <label>Вес:</label>
+                            <input type="number" class="btn btn-lg btn-primary btn-block" name="weight"
+                                   ng-model="controllerValue.myUserInfo.weight"
+                                   placeholder="{{controllerValue.myUserInfo.weight}}"/>
+
+                        </p>
+                        <span ng-show="myUserInfoForm.weight.$invalid && myUserInfoForm.weight.$dirty">доступен только ввод цифр</span>
+                        <p class="field">
+                            <label>Рост:</label>
+                            <input type="number" class="btn btn-lg btn-primary btn-block" name="height"
+                                   ng-model="controllerValue.myUserInfo.height"
+                                   placeholder="{{controllerValue.myUserInfo.height}}"/>
+
+                        </p>
+                        <span ng-show="myUserInfoForm.height.$invalid && myUserInfoForm.height.$dirty">доступен только ввод  цифр</span>
+                        <p class="field">
+                            <label>Стаж</label>
+                            <input type="number" class="btn btn-lg btn-primary btn-block" name="experience"
+                                   ng-model="controllerValue.myUserInfo.experience"
+                                   placeholder="{{controllerValue.myUserInfo.experience}}"/>
+                        </p>
+                    <span class="error"
+                          ng-show="myUserInfoForm.experience.$invalid && myUserInfoForm.experience.$dirty">доступен только ввод  цифр</span>
+                    </div>
+                    <div class="col-md-6">
+
+
+                        <p class="field">
+                        <textarea type="text" ng-model="controllerValue.myUserInfo.description" rows="5"
+                                  name="description" ng-maxlength="200" style="height:auto; resize: none"
+                                  class="btn btn-primary textarea">{{controllerValue.myUserInfo.description}}</textarea>
+
+                        </p>
+                        <p class="field" ng-show="controllerValue.myUserInfo.description.length < 200">
+                            <span class="label"
+                                 >осталось <span class="badge"
+                                    ng-class ="{' badge badge-primary': controllerValue.myUserInfo.description.length <= 150, 'badge badge-danger': controllerValue.myUserInfo.description.length > 150}"> {{200- controllerValue.myUserInfo.description.length }}</span> символов <i
+                                    class="glyphicon glyphicon-pencil"></i></span>
+
+                        </p>
+
+                        <p class="field">
+                            <span class="label label-danger"
+                                  ng-show="myUserInfoForm.description.$invalid && myUserInfoForm.description.$dirty"> не более 200 символов <i
+                                    class="glyphicon glyphicon-pencil"></i></span>
+                        </p>
+
+
+
+                    </div>
+                    <p class="submit cta-button">
+                        <button class="btn btn-lg btn-primary btn-block" ng-disabled="myUserInfoForm.$invalid"
+                                type="submit"
+                                name="submit">Сохранить
+                        </button>
+                    </p>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                </form>
+                <p class="submit cta-button">
+                    <button class="btn btn-lg btn-primary btn-block" ng-click="cancel()"
+
+                    >Отмена
+                    </button>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

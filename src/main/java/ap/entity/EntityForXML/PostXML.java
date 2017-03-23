@@ -15,6 +15,17 @@ public class PostXML {
     private int userId;
 
     private Date date;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    @XmlElement(name = "title")
+    private String title;
+
     @NotEmpty
     @Size(max = 1000, message = "текст не должен отсутсвовать")
     private String description;
@@ -26,6 +37,7 @@ public class PostXML {
     }
 
     public PostXML(Post post) {
+        this.title=post.getTitle();
         this.id = post.getId();
         this.userId = post.getParentid().getId();
         this.date = post.getDate();

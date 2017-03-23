@@ -244,7 +244,23 @@ li.navbarmini {
     margin-left: 10px;
 }
 
-.animation {
+/*body{
+      overflow-y: scroll;
+}*/
+html{
+    overflow-y:scroll;
+    }
+
+/* хром, сафари */
+/*html::-webkit-scrollbar { width: 0; }
+
+!* ie 10+ *!
+html{ -ms-overflow-style: none; }
+
+!* фф (свойство больше не работает, других способов тоже нет)*!
+html{ overflow: -moz-scrollbars-none; }*/
+
+/*.animation {
     -webkit-transition: 0.5s linear all
 }
 
@@ -262,14 +278,14 @@ li.navbarmini {
 
 .animation.ng-leave.ng-leave-active {
     opacity: 0
-}
+}*/
 
 form .ng-invalid-number {
-    color: red;
+    color: #d9534f;
 }
 
 form .ng-invalid-email {
-    color: red;
+    color: #d9534f;
 }
 
 textarea {
@@ -284,9 +300,18 @@ p {
 
 textarea
 .ng-invalid-maxlength {
-    color: red;
+    color:#d9534f;
 }
 div .error{
-    color: red;
-}
+    }
 
+.badge-danger {
+    color: white;
+    background-color: #d9534f;
+    border-color: #d9534f;
+}
+.badge-primary{
+    color: white;
+    background-color: #2e6da4;
+    border-color: #2e6da4;
+}

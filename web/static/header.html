@@ -1,4 +1,4 @@
-<header>
+
     <div class="container">
         <div class="row">
             <div class="navbar navbar-default bs-calltoaction bs-calltoaction-primary ">
@@ -23,7 +23,7 @@
                                     </button>
                                 </li>
                                 <li class="navbarmini">
-                                    <button ng-click="openPage('/myworkouts')"
+                                    <button ng-click="openPage('myworkouts')"
                                             class="btn btn-primary animation">Мои тренировки
                                     </button>
                                 </li>
@@ -53,7 +53,7 @@
                     </button>
                     <button id="registration" ng-hide="value.status" ng-click="openPage('registration')"
                    class="btn btn-primary btn-xs">зарегистрироваться</button>
-                    <button id="info" ng-show="value.status" ng-click="aboutMe()"
+                    <button id="info" ng-show="value.status" ng-click="openPage('aboutme')"
                             class="btn btn-primary btn-xs">обо мне
                     </button>
                     <button id="logout" ng-show="value.status" class="btn btn-primary btn-xs" ng-click="logoutHeader()">
@@ -63,4 +63,3 @@
             </div>
         </div>
     </div>
-</header>

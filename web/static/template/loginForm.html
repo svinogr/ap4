@@ -1,12 +1,14 @@
 <div class="container animation">
-    <div class="row">
-        <div class="bs-calltoaction bs-calltoaction-primary">
+    <div class="bs-calltoaction bs-calltoaction-primary">
+        <div class="row">
             <form class="form-signin" ng-submit="login(user)">
                 <p class="field">
-                    <input type="text" class="form-control" ng-model = "user.login"  name="username" id="username" placeholder="Логин"/>
+                    <input type="text" class="form-control" ng-model="user.login" name="username" id="username"
+                           placeholder="Логин"/>
                 </p>
                 <p class="field">
-                    <input type="password" class="form-control" ng-model = "user.password" name="password" id="password" placeholder="Пароль">
+                    <input type="password" class="form-control" ng-model="user.password" name="password" id="password"
+                           placeholder="Пароль">
                 </p>
                 <p class="submit cta-button">
                     <button class="btn btn-lg btn-block btn-primary" type="submit" name="submit">Войти</button>
@@ -20,7 +22,8 @@
         <div align="right">
             <div class="btn-group cta-button">
                 <button ng-click="rememberPass()"
-                   class="btn btn-primary btn-xs">Востановить пароль</button>
+                        class="btn btn-primary btn-xs">Востановить пароль
+                </button>
             </div>
         </div>
     </div>

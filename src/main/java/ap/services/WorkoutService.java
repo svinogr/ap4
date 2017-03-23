@@ -26,6 +26,7 @@ public interface WorkoutService {
 
     UserXML getBestWorkout(int quantity);
 
-
     List<Workout> getAllWorkoutByUSerId(int id);
+
+    int getQuantityWorkout();
 }

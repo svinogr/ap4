@@ -2,7 +2,6 @@ package ap.dao.daoimpl;
 
 import ap.dao.PersistentLoginsDAO;
 import ap.entity.PersistentLogins;
-import ap.entity.User;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;

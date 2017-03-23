@@ -36,6 +36,7 @@ public class PostServiceImpl implements PostService {
             User user = userServices.getLoggedUser();
             user = userServices.getById(user.getId());
             Post post = new Post();
+            post.setTitle(postXML.getTitle());
             post.setDescription(postXML.getDescription());
             post.setDate(new Date());
             post.setLink(postXML.getLink());
@@ -58,6 +59,7 @@ public class PostServiceImpl implements PostService {
             Post post = postDAO.getById(postXML.getId());
             if (userServices.allow(post.getParentid().getId())) {
                 post.setDescription(postXML.getDescription());
+                post.setTitle(postXML.getTitle());
                 postDAO.update(post);
                 return true;
             }
@@ -130,8 +132,38 @@ public class PostServiceImpl implements PostService {
         for (FieldError error : bindingResult.getFieldErrors()) {
             mapErrors.put(error.getField(), error.getDefaultMessage());
         }
-        postXML.setDescription(mapErrors.get("description"));
+        if(mapErrors.containsKey("description")){
+        postXML.setDescription(mapErrors.get("description"));}
+        if(mapErrors.containsKey("title")){
+            postXML.setTitle(mapErrors.get("title"));}
         return postXML;
 
     }
+
+    @Override
+    @Transactional
+    public int getQuantityRow() {
+        return postDAO.getQuantityRow();
+    }
+
+    @Override
+    @Transactional
+    public UserXML getAllPost(int start) {
+        List<Post> postList = postDAO.getListAllPost(start);
+        List<PostXML> postXMLList = new ArrayList<>();
+        if (postList.size() > 0) {
+            System.err.println(postList.size());
+            for (Post post : postList) {
+                PostXML postXML = new PostXML(post);
+                postXMLList.add(postXML);
+            }
+            UserXML userXML = new UserXML();
+            userXML.setPostXMLs(postXMLList);
+            return userXML;
+        }
+        return null;
+
+    }
+
+
 }

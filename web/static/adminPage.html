@@ -1,0 +1,89 @@
+<div class="container">
+    <div class="row">
+        <button class="btn btn-primary" ng-click="showAllNews()">{{titleBtn}}</button>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <button class="btn btn-primary" ng-click="create()">создать пост</button>
+    </div>
+</div>
+<div class="container" ng-show="createOrEditStatus">
+    <div class=" bs-calltoaction bs-calltoaction-primary">
+    <div class="row">
+            <span class="alert">{{resultPost}}</span> <br/>
+            <div class="">
+                <form name="postForm" novalidate class="form-signin" ng-submit="createOrEdit(post)"
+
+                      acceptCharset="UTF-8">
+
+                    <p class="field">
+                        <input  required type="text" class="form-control" name="title" ng-model="post.title"
+                                placeholder="Название"/>
+
+                    </p>
+                    <div ng-show="mailToForm.from.$invalid && postForm.from.$dirty" class="error">
+                        <span ng-show="postForm.from.$error.required">поле не должно быть пустым</span>
+
+                    </div>
+                    <p class="field">
+                        <input type="text" class="form-control" name="description" ng-model="post.description" required
+                               placeholder="Текст сообщения"/>
+
+                    </p>
+                    <div ng-show="postForm.body.$invalid && postForm.body.$dirty" class="error">
+                        <span ng-show="postForm.description.$error.required">поле не должно быть пустым
+                        </span>
+                    </div>
+
+                    <p class="submit cta-button">
+                        <button ng-disabled="postForm.$invalid"   class="btn btn-lg btn-primary btn-block" type="submit"
+                               name="submit">Сохранить</button>
+                    </p>
+
+                </form>
+                <p class="submit cta-button">
+                    <button   class="btn btn-lg btn-primary btn-block"  ng-click="cancel()"
+                            name="submit">Отмена</button>
+                </p>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div ng-cloak ng-show="showAll">
+    <div class="container animation" ng-repeat="post in todos.postXMLs">
+        <div class="bs-calltoaction bs-calltoaction-primary">
+            <div class="row">
+                <div class='col-md-9 cta-contents cta-button'>
+                    <div class='col-md-9 cta-contents cta-button'>
+                        <div><h5 align="right" class="cta-title">{{post.data}}</h5></div>
+                        <div><h1 class="update cta-title">{{post.title}}</h1>
+                            <div><p  class="update cta-title">{{post.description}}</p>
+                            </div>
+                        </div>
+                        <div><h5 align="right" class="cta-title">{{}}</h5></div>
+                    </div>
+                </div>
+                <div class='col-md-3 cta-button'>
+                    <button class="btnEdit btn btn-lg btn-block btn-primary" ng-click="editPost(post)">Редактировать
+                    </button>
+                    <button class="delete btn btn-lg btn-block btn-primary" ng-click="deletePost(post)">Удалить
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container text-center" ng-cloak>
+        <pagination boundary-links="true"
+                    max-size="3"
+                    items-per-page="itemsPerPage"
+                    total-items="totalPages"
+                    ng-model="currentPage"
+                    ng-change="pageChanged()">
+
+        </pagination>
+    </div>
+</div>

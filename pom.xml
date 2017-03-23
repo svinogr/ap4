@@ -3,9 +3,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>com.pigvin.ap4</groupId>
     <artifactId>ap4</artifactId>
+    <packaging>war</packaging>
     <version>1.0</version>
     <properties>
         <spring.version>4.2.5.RELEASE</spring.version>
@@ -231,9 +231,17 @@
 
           </dependencies>
     <build>
-        <finalName>ap4</finalName>
+        <finalName>ap</finalName>
         <sourceDirectory>src/main/java</sourceDirectory>
-        <testSourceDirectory>src/test/java</testSourceDirectory>
+
+       <!-- <resources>
+            <resource>
+                <directory>${basedir}/src/</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+        </resources>-->
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -251,6 +259,7 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 </project>

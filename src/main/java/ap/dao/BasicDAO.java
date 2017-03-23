@@ -14,6 +14,7 @@ public interface BasicDAO<T> {
      T getById(int id) throws HibernateException;
      List<T> getSearchResultOneParameter(Map<String, String> map);
      boolean checkItBD(int id);
+     int getQuantityRow();
 
 
 }

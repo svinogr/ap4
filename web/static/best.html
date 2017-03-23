@@ -1,4 +1,4 @@
-<div class="container animation" ng-repeat="workout in itemsBest.workoutXML">
+<div class="container animation" ng-repeat="workout in itemsBest.workoutXML | orderBy : '-rate'">
     <div class="bs-calltoaction bs-calltoaction-primary">
         <div class="row">
             <div class='col-md-9 cta-contents cta-button'>
@@ -13,9 +13,9 @@
                 </div>
             </div>
             <div class='col-md-1 cta-button'>
-                <button class="btnEdit btn btn-lg btn-block btn-primary" ng-click="rate(1)">+
+                <button class="btnEdit btn btn-lg btn-block btn-primary" ng-click="rate(workout, 1)">+
                 </button>
-                <button class="btnEdit btn btn-lg btn-block btn-primary" ng-click="rate(0)">-
+                <button class="btnEdit btn btn-lg btn-block btn-primary" ng-click="rate(workout, 0)">-
                 </button>
             </div>
             <div class='col-md-2 cta-button'>

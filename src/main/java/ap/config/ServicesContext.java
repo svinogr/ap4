@@ -2,15 +2,13 @@ package ap.config;
 
 import ap.services.*;
 import ap.services.servicesimpl.*;
-import org.glassfish.jersey.server.BackgroundScheduler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@PropertySource("classpath:util.properties")
 @PropertySource(value = {"classpath:auth.properties"})
-public class ServicesContex {
+public class ServicesContext {
 
     @Bean
     public UserServices userServices() {

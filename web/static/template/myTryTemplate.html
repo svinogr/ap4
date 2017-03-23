@@ -5,7 +5,6 @@
         </div>
     </div>
 </div>-->
-{{controllerValue.myExercises.exerciseXMLList}}
 <div ng-hide="createOrEditStatus">
     <div class="container">
         <div class="row">
@@ -46,45 +45,54 @@
         </div>
     </div>
 </div>
-<div ng-show="createOrEditStatus">
-    <div class="container animate">
+<div class="container animate" ng-show="createOrEditStatus">
+    <div class="bs-calltoaction bs-calltoaction-primary">
         <div class="row">
-            <div class="bs-calltoaction bs-calltoaction-primary">
 
-                <form name="tryName" class="form-signin" novalidate ng-submit="saveTry(editTry)">
+            <form name="tryName" class="form-signin" novalidate ng-submit="saveTry(editTry)">
 
 
-                    <p class="field">
-                        <input type="number" class="form-control" ng-model="editTry.weight" required name="weight"
-                               id="weight" placeholder="Введите вес"/>
+                <p class="field">
+                    <input type="number" class="form-control" ng-model="editTry.weight" required name="weight"
+                           id="weight" placeholder="Введите вес"/>
+                </p>
+                <div ng-show="tryName.weight.$invalid && tryName.weight.$dirty" class="error">
+                    <p class="label label-danger">
+                    <span ng-show="tryName.weight.$error.required">поле не должно быть пустым</span>
+                    <span ng-show="tryName.weight.$error.number">доступен только ввод цифр</span>
                     </p>
-                    <div ng-show="tryName.weight.$invalid && tryName.weight.$dirty" class="error">
-                        <span ng-show="tryName.weight.$error.required">поле не должно быть пустым</span>
-                        <span ng-show="tryName.weight.$error.number">доступен только ввод цифр</span>
-                    </div>
-                    <p class="field">
-                        <input type="number" class="form-control" ng-model="editTry.repeat" required name="repeat"
-                               id="repeat" placeholder="Введите количество повторов"/>
+                </div>
+                <p class="field">
+                    <input type="number" class="form-control" ng-model="editTry.repeat" required name="repeat"
+                           id="repeat" placeholder="Введите количество повторов"/>
+                </p>
+                <div ng-show="tryName.repeat.$invalid && tryName.repeat.$dirty" class="error">
+                    <p class="label label-danger">
+                    <span ng-show="tryName.repeat.$error.required">поле не должно быть пустым</span>
+                    <span ng-show="tryName.repeat.$error.number">доступен только ввод цифр</span>
                     </p>
-                    <div ng-show="tryName.repeat.$invalid && tryName.repeat.$dirty" class="error">
-                        <span ng-show="tryName.repeat.$error.required">поле не должно быть пустым</span>
-                        <span ng-show="tryName.repeat.$error.number">доступен только ввод цифр</span>
-                    </div>
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                </div>
+                <p class="field">
+                    <input type="number" class="form-control" ng-model="editTry.for"  name="for"
+                            placeholder="кол-во подходов. по умолчанию 1">
+                </p>
+                <div ng-show="tryName.for.$invalid" class="error">
+                    <span ng-show="tryName.for.$error.number">доступен только ввод цифр</span>
+                </div>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-                    <p class="submit cta-button">
-                        <button ng-disabled="tryName.$invalid" class="btn btn-lg btn-block btn-primary" type="submit"
-                                name="submit">Сохранить
-                        </button>
-                    </p>
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                </form>
                 <p class="submit cta-button">
-                <button class="btn btn-lg btn-block btn-primary" ng-click="cancel()" >
+                    <button ng-disabled="tryName.$invalid" class="btn btn-lg btn-block btn-primary" type="submit"
+                            name="submit">Сохранить
+                    </button>
+                </p>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            </form>
+            <p class="submit cta-button">
+                <button class="btn btn-lg btn-block btn-primary" ng-click="cancel()">
                     Отмена
                 </button>
-                </p>
-            </div>
+            </p>
         </div>
     </div>
 </div>

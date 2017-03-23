@@ -10,5 +10,4 @@ public interface WorkoutDAO extends BasicDAO<Workout>{
     List<Workout> getListWorkout(int quantity);
     Workout copyWorkout(int idWorkout, User user);
     List<Workout> getListAllWorkout(int start);
-    int getCountAllWorkout();
 }

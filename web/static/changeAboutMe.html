@@ -1,7 +1,7 @@
 <div class="container">
     <div>
-            <div class="row">
-                <div class="btn-group btn-group-justified">
+        <div class="row">
+            <div class="btn-group btn-group-justified">
                 <div class="container btn-group">
                     <button class="add btn btn-primary" ng-click="backToMyInfo()">Назад
                     </button>
@@ -24,6 +24,8 @@
                                   class="btn btn-primary  textarea">{{myUserInfo.description}}</textarea>
 
                     </p>
+                    {{myUserInfo.description}}
+
                     <span ng-show="myUserInfoForm.description.$invalid && myUserInfoForm.description.$dirty">не более 200 символов</span>
                 </div>
                 <div class="col-md-6">
@@ -35,11 +37,12 @@
 
                     </p>
 
+
                     <p class="field">
                         <label>Возраст: </label>
                         <input type="number" class="btn btn-lg btn-primary btn-block"
                                name="age"
-                                ng-model="myUserInfo.age"
+                               ng-model="myUserInfo.age"
                                placeholder="{{myUserInfo.age}}"/>
 
                     </p>
@@ -66,12 +69,14 @@
                                ng-model="myUserInfo.experience"
                                placeholder="{{myUserInfo.experience}}"/>
                     </p>
-                    <span class="error" ng-show="myUserInfoForm.experience.$invalid && myUserInfoForm.experience.$dirty">доступен только ввод  цифр</span>
+                    <span class="error"
+                          ng-show="myUserInfoForm.experience.$invalid && myUserInfoForm.experience.$dirty">доступен только ввод  цифр</span>
                 </div>
                 <p class="submit cta-button">
                     <button class="btn btn-lg btn-primary btn-block" ng-disabled="myUserInfoForm.$invalid"
-                           type="submit"
-                           name="submit">Сохранить</button>
+                            type="submit"
+                            name="submit">Сохранить
+                    </button>
                 </p>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             </form>

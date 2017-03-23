@@ -1,8 +1,7 @@
 package ap.controller.RestControllers;
 
 import ap.entity.EntityForXML.PostXML;
-import ap.entity.EntityForXML.TryXML;
-import ap.entity.Post;
+import ap.entity.EntityForXML.UserXML;
 import ap.entity.User;
 import ap.services.PostService;
 import ap.services.UserServices;
@@ -38,7 +37,7 @@ public class PostControllerRest {
     }
 
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = {"application/xml; charset=UTF-8"})
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @Transactional
     public
     @ResponseBody
@@ -69,25 +68,52 @@ public class PostControllerRest {
 
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = {"application/xml; charset=UTF-8"})
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @Transactional
     public
     @ResponseBody
     void  deletePostById(@PathVariable int id, HttpServletResponse response) {
         User user = userServices.getLoggedUser();
-        if(user!= null){
+        if (user == null) {
             response.setStatus(401);
             return;
-                    }
-        if(!userServices.isAdmin()){
+        }
+        if (!userServices.isAdmin()) {
             response.setStatus(403);
             return;
         }
+
         if(postService.deletePost(id)){
             response.setStatus(200);
         } else response.setStatus(404);
     }
 
 
+    @RequestMapping(value = "/from/{id}", method = RequestMethod.GET)
+    @Transactional
+    public
+    @ResponseBody
+    UserXML getPostFrom(@PathVariable int id, HttpServletResponse response) {
+        int start = id;
+        UserXML userXML = postService.getAllPost(start);
+        if (userXML == null) {
+            response.setStatus(404);
+            return null;
+        }
+        response.setStatus(200);
+        return userXML;
+    }
+
+    /**
+     * @param response
+     * @return int quantity of post in DB
+     */
+    @RequestMapping(value = "/quantity", method = RequestMethod.GET)
+    @Transactional
+    public
+    @ResponseBody
+    int getQuantityPostUser(HttpServletResponse response) {
+        return postService.getQuantityRow();
+    }
 
 }

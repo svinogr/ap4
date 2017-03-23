@@ -4,22 +4,15 @@ import ap.entity.EntityForXML.PostXML;
 import ap.entity.EntityForXML.UserXML;
 import ap.entity.EntityForXML.WorkoutXML;
 import ap.entity.User;
-import ap.entity.UserChangeData;
 import ap.services.*;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import javax.servlet.http.HttpServletRequest;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -288,6 +281,8 @@ public class UserControllerRest {
     }
 
 
+
+
     /**
      * @param id       id of user in Db
      * @param response 404 no one posts are not found in DB for this user
@@ -312,37 +307,4 @@ public class UserControllerRest {
     }
 
 
-
-
-
-
-
-
- /*   @RequestMapping(value = "/search", method = RequestMethod.GET, produces = {"application/xml; charset=UTF-8"})
-    @ResponseStatus(HttpStatus.OK)
-    @Transactional
-    public
-    @ResponseBody
-    String getResultSearch(@RequestParam Map<String, String> searchParams) {
-        StringWriter xml;
-        searchParams.remove("_");
-        for (Map.Entry<String, String> p : searchParams.entrySet()) {
-            System.err.println(p.getKey() + " " + p.getValue());
-        }
-        if (searchParams.size() < 2) {
-
-            List list = userServices.getSearchUser(searchParams);
-            if (list.size() == 0) {
-                return null;
-            } else {
-
-                User user = (User) list.get(0);
-                xml = createXMLService.getUserXML(user);
-            }
-
-            return xml.toString();
-        }
-        return null;
-
-    }*/
 }

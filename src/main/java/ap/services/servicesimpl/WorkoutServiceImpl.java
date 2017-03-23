@@ -2,11 +2,11 @@ package ap.services.servicesimpl;
 
 import ap.dao.WorkoutDAO;
 import ap.dao.WorkoutRatingDAO;
-import ap.entity.*;
 import ap.entity.EntityForXML.ExerciseXML;
 import ap.entity.EntityForXML.TryXML;
 import ap.entity.EntityForXML.UserXML;
 import ap.entity.EntityForXML.WorkoutXML;
+import ap.entity.*;
 import ap.services.InfoUserService;
 import ap.services.UserServices;
 import ap.services.WorkoutService;
@@ -219,5 +219,11 @@ public class WorkoutServiceImpl implements WorkoutService {
     public List<Workout> getAllWorkoutByUSerId(int id) {
         List<Workout> allByParentKey = workoutDAO.getAllByParentKey(id);
         return allByParentKey;
+    }
+
+    @Override
+    @Transactional
+    public int getQuantityWorkout() {
+        return workoutDAO.getQuantityRow();
     }
 }

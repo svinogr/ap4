@@ -1,17 +1,20 @@
 package ap.dao.daoimpl;
 
 import ap.dao.WorkoutDAO;
-import ap.entity.*;
+import ap.entity.Exercise;
+import ap.entity.Try;
+import ap.entity.User;
+import ap.entity.Workout;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,13 +100,5 @@ public class WorkoutDAOImpl extends BasicDAOImpl<Workout> implements WorkoutDAO 
         return list;
     }
 
-    @Override
-    @Transactional
-    public int getCountAllWorkout() {
-        Session session = sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(Workout.class);
-        int count = Integer.parseInt(criteria.setProjection(Projections.rowCount()).uniqueResult().toString());
-        return count;
-    }
 }
 

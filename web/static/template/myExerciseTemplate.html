@@ -53,36 +53,34 @@
         </div>
     </div>
 </div>
-<div class="container" ng-show="createOrEditStatus">
-    {{editExercise}}
-    <div class="container animation">
+<div class="container animation" ng-show="createOrEditStatus">
+    <div class="bs-calltoaction bs-calltoaction-primary">
         <div class="row">
-            <div class="bs-calltoaction bs-calltoaction-primary">
-                <form name="exerciseName" class="form-signin" novalidate ng-submit="saveExercise(editExercise)">
-                    <p class="field">
-                        <input type="text" class="form-control" ng-model="editExercise.name" required name="name"
-                               id="name" placeholder="Название упражнения"/>
+            <form name="exerciseName" class="form-signin" novalidate ng-submit="saveExercise(editExercise)">
+                <p class="field">
+                    <input type="text" class="form-control" ng-model="editExercise.name" required name="name"
+                           id="name" placeholder="Название упражнения"/>
+                </p>
+                <div ng-show="exerciseName.name.$invalid && exerciseName.name.$dirty" class="error">
+                    <p class="label label-danger">
+                        <span ng-show="exerciseName.name.$error.required">поле не должно быть пустым</span>
                     </p>
-                    <div ng-show="exerciseName.name.$invalid && exerciseName.name.$dirty" class="error">
-                        <span ng-show="exerciseName.name.$error.required">поле не должно быть пустым></span>
 
-                    </div>
-                    <p class="submit cta-button">
-                        <button ng-disabled="exerciseName.$invalid" class="btn btn-lg btn-block btn-primary"
-                                type="submit" name="submit">Сохранить
-                        </button>
-
-                    </p>
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                </form>
+                </div>
                 <p class="submit cta-button">
+                    <button ng-disabled="exerciseName.$invalid" class="btn btn-lg btn-block btn-primary"
+                            type="submit" name="submit">Сохранить
+                    </button>
+
+                </p>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            </form>
+            <p class="submit cta-button">
                 <button class="btn btn-lg btn-block btn-primary" ng-click="cancel()"
                         name="submit">Отмена
                 </button>
-                </p>
-            </div>
+            </p>
         </div>
     </div>
-
 </div>
 

@@ -4,7 +4,6 @@ import ap.entity.EntityForXML.ExerciseXML;
 import ap.entity.EntityForXML.UserXML;
 import ap.entity.EntityForXML.WorkoutXML;
 import ap.entity.User;
-import ap.entity.Workout;
 import ap.services.ExerciseService;
 import ap.services.UserServices;
 import ap.services.WorkoutService;
@@ -186,7 +185,7 @@ public class WorkoutControllerRest {
     @Transactional
     @ResponseBody
     WorkoutXML rateWorkoutsById(@RequestBody WorkoutXML workoutXML, @PathVariable int id, HttpServletResponse response) {
-        if (workoutXML.getRate() > 1 || workoutXML.getRate() < -1) {
+        if (workoutXML.getRate() > 1 || workoutXML.getRate() < -0) {
             response.setStatus(400);
             return null;
         }
@@ -209,6 +208,11 @@ public class WorkoutControllerRest {
     }
 
 
+    /**
+     * @param request
+     * @param response
+     * @return userXML with workoutXML limited by 20
+     */
     @RequestMapping(value = "/best", method = RequestMethod.GET)
     @Transactional
     public
@@ -218,6 +222,14 @@ public class WorkoutControllerRest {
         UserXML userXML = workoutService.getBestWorkout(limit);
 
         return userXML;
+    }
+
+
+    @RequestMapping(value = "/quantity", method = RequestMethod.GET)
+    @Transactional
+    public int getQuantity() {
+        System.err.println("dwdwdwd  " + workoutService.getQuantityWorkout());
+        return workoutService.getQuantityWorkout();
     }
 
 

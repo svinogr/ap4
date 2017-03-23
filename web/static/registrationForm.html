@@ -1,6 +1,7 @@
 <div class="container" ng-controller="RegistrationCTRL">
+    <div class=" bs-calltoaction bs-calltoaction-primary">
     <div class="row">
-        <div class=" bs-calltoaction bs-calltoaction-primary">
+
 
             <span class="alert">{{result}}</span> <br/>
             <div class="">
@@ -24,10 +25,12 @@
 
                     </p>
                     <div ng-show="registration.email.$invalid && registration.email.$dirty" class="error">
+                        <p class="label label-danger">
                         <span ng-show="registration.email.$error.required">поле не должно быть пустым
                         </span>
                           <span ng-show="registration.email.$error.email">введите правильный емейл
                         </span>
+                        </p>
 
                     </div>
 

@@ -1,9 +1,12 @@
 <div class="container">
     <div class="row">
         <div class="navbar navbar-default bs-calltoaction bs-calltoaction-primary">
-            <div class="row">
-                <div align="right"><a class="cta-contents btn-primary btn-xs" style="color: #fdfdfe" href="/mailto">обратная
-                    связь</a></div>
+            <div class="row cta-button">
+                <div align="right"><button class="btn btn-primary btn-xs" style="color: #fdfdfe" ng-click="openPage('mailto')">обратная
+                    связь</button></div>
+            </div>
+            <div class="row cta-button" ng-show="controllerValue.adminStatus">
+                <div align="right"><button class="btn btn-primary btn-xs" style="color: #fdfdfe" ng-click="openPage('adminPage')">вход админа</button></div>
             </div>
         </div>
     </div>

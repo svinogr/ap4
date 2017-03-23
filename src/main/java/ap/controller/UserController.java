@@ -16,8 +16,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,7 +41,7 @@ public class UserController {
     @Autowired
     TokenService tokenService;
 
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+ /*   @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public ModelAndView Userregistration() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("user", new User());
@@ -47,7 +49,7 @@ public class UserController {
         return modelAndView;
     }
 
-   /* @RequestMapping(value = "/registration", method = RequestMethod.POST)
+ @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registrationResponse(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
@@ -67,8 +69,9 @@ public class UserController {
                 " почту отправлена ссылка для активации учетной записи");
         return "registrationForme";
     }
-*/
-  /*  @RequestMapping(value = "acceptRegistration", method = RequestMethod.GET, params = {"token"})
+
+
+  @RequestMapping(value = "acceptRegistration", method = RequestMethod.GET, params = {"token"})
     @Transactional
     public String acceptRegistration(HttpServletRequest request, Model model) {
         String token = request.getParameter("token");
@@ -76,8 +79,9 @@ public class UserController {
         model.addAttribute("result", responceMessage);
         return "index";
 
-    }*/
-   /* @RequestMapping(value = "acceptRegistration", method = RequestMethod.GET, params = {"token"})
+    }
+
+ @RequestMapping(value = "acceptRegistration", method = RequestMethod.GET, params = {"token"})
     @Transactional
     public String acceptRegistration(HttpServletRequest request, Model model) {
         String token = request.getParameter("token");
@@ -87,8 +91,9 @@ public class UserController {
 
         return "index";
 
-    }
-*/
+    }*/
+
+
 
     @RequestMapping(value = "/api/v.1/user/acceptRegistration", method = RequestMethod.GET, params = {"token"})
     @Transactional
@@ -153,7 +158,7 @@ public class UserController {
         SecurityContextHolder.clearContext();
     }
 
-
+/*
 
 
     @RequestMapping(value = "/forgetPass", method = RequestMethod.GET)
@@ -161,7 +166,7 @@ public class UserController {
         return "forgetPass";
     }
 
-    /*@RequestMapping(value = "/rememberPass", method = RequestMethod.GET, params = {"email"})
+@RequestMapping(value = "/rememberPass", method = RequestMethod.GET, params = {"email"})
     @Transactional
     public void receivePass(HttpServletRequest request, HttpServletResponse response) {
         //TODO обезапасится от многократного запроса пароля
@@ -175,9 +180,10 @@ public class UserController {
             mailService.sendForgetPass(email, "token=" + token);
             response.setStatus(200);
         } else response.setStatus(400);
-    }*/
+    }
 
-    /*@RequestMapping(value = "acceptRememberPass", method = RequestMethod.GET, params = {"token"})
+
+@RequestMapping(value = "acceptRememberPass", method = RequestMethod.GET, params = {"token"})
     @Transactional
     public ModelAndView changePass(HttpServletRequest request, HttpServletResponse response) {
         String token = request.getParameter("token");
@@ -200,9 +206,9 @@ public class UserController {
             return modelAndView;
         }
 
-    }*/
+    }
 
-/*
+
 
     @RequestMapping(value = "/confidential/reset", method = RequestMethod.POST)
     @Transactional
@@ -218,13 +224,14 @@ public class UserController {
         SecurityContextHolder.clearContext();
         return modelAndView;
     }
-*/
+
+
 
 
 
     @RequestMapping(value = "/instruction")
     public String getInstructionPage(){
         return "instruction";
-    }
+    }*/
 
 }

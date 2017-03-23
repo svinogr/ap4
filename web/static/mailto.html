@@ -1,0 +1,48 @@
+<div class="container">
+    <div class=" bs-calltoaction bs-calltoaction-primary">
+    <div class="row">
+
+
+            <span class="alert">{{resultSend}}</span> <br/>
+            <div class="">
+                <form name="mailToForm" novalidate class="form-signin" ng-submit="send(mail)"
+
+                           acceptCharset="UTF-8">
+
+                    <p class="field">
+                        <input  required type="email" class="form-control" name="from" ng-model="mail.from"
+                                    placeholder="Адрес электронной почты для ответа"/>
+
+                    </p>
+                    <div ng-show="mailToForm.from.$invalid && mailToForm.from.$dirty" class="error">
+                        <p class="label label-danger">
+                        <span ng-show="mailToForm.from.$error.required">поле не должно быть пустым
+                        </span>
+                          <span ng-show="mailToForm.from.$error.email">введите правильный емейл
+                        </span>
+                        </p>
+
+                    </div>
+                    <p class="field">
+                        <input type="text" class="form-control" name="body" ng-model="mail.body" required
+                                    placeholder="Текст сообщения"/>
+
+                    </p>
+                    <div ng-show="mailToForm.body.$invalid && mailToForm.body.$dirty" class="error">
+                        <p class="label label-danger">
+                        <span ng-show="mailToForm.body.$error.required">поле не должно быть пустым
+                        </span>
+                        </p>
+                    </div>
+
+                    <p class="submit cta-button">
+                        <input ng-disabled="mailToForm.$invalid"  class="btn btn-lg btn-block btn-primary"  class="btn btn-lg btn-primary btn-block" type="submit" value="Отправить сообщение"
+                               name="submit"/>
+                    </p>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

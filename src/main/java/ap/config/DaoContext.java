@@ -1,9 +1,7 @@
 package ap.config;
 
 import ap.dao.*;
-
 import ap.dao.daoimpl.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +10,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 @Configuration
-@PropertySource("classpath:util.properties")
 @PropertySource(value = {"classpath:auth.properties"})
 public class DaoContext {
     @Autowired

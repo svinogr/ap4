@@ -1,63 +1,70 @@
-<div ng-hide="createOrEditStatus">
-    <div class="container">
-        <div class="row">
-            <div class="btn-group btn-group-justified">
-                <div class="container btn-group">
-                    <button class="add btn btn-primary" ng-click="createOrEditWorkout(item)">Добавить новую тренировку
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div ng-cloak class="container animation" ng-repeat="item in controllerValue.myWorkouts.workoutXML">
-        <div class="bs-calltoaction bs-calltoaction-primary">
+<div>
+    <div ng-hide="createOrEditStatus">
+        <div class="container">
             <div class="row">
-                <div class='col-md-9 cta-contents cta-button'>
-                    <div><h1 ng-click="createOrEditWorkout(item)" class="update cta-title">{{item.name}}</h1>
-                    </div>
-                    <div>
-                        <button class='btnAuthor btn btn-xs btn-primary' ng-click="getPageAuthor(controllerValue.myWorkouts)">
-                            автор:{{item.author}}
+                <div class="btn-group btn-group-justified">
+                    <div class="container btn-group">
+                        <button class="add btn btn-primary" ng-click="createOrEditWorkout(item)">Добавить новую
+                            тренировку
                         </button>
                     </div>
                 </div>
-                <div class='col-md-3 cta-button'>
-                    <button class="btnEdit btn btn-lg btn-block btn-primary" ng-click="openMyWorkout(item)">Открыть
-                    </button>
-                    <button class="delete btn btn-lg btn-block btn-primary" ng-click="deleteWorkout(item)">Удалить
-                    </button>
+            </div>
+        </div>
+        <div ng-cloak class="container animation" ng-repeat="item in controllerValue.myWorkouts.workoutXML">
+            <div class="bs-calltoaction bs-calltoaction-primary">
+                <div class="row">
+                    <div class='col-md-9 cta-contents cta-button'>
+                        <div><h1 ng-click="createOrEditWorkout(item)" class="update cta-title">{{item.name}}</h1>
+                        </div>
+                        <div>
+                            <button class='btnAuthor btn btn-xs btn-primary'
+                                    ng-click="getPageAuthor(controllerValue.myWorkouts)">
+                                автор:{{item.author}}
+                            </button>
+                        </div>
+                    </div>
+                    <div class='col-md-3 cta-button'>
+                        <button class="btnEdit btn btn-lg btn-block btn-primary" ng-click="openMyWorkout(item)">Открыть
+                        </button>
+                        <button class="delete btn btn-lg btn-block btn-primary" ng-click="deleteWorkout(item)">Удалить
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="container" ng-show="createOrEditStatus">
-    <div class="row">
+    <div class="container" ng-show="createOrEditStatus">
+
         <div class="bs-calltoaction bs-calltoaction-primary">
+            <div class="row">
+                <form name="workoutName" class="form-signin" novalidate ng-submit="saveWorkout(editWorkout)">
+                    <p class="field">
+                        <input type="text" class="form-control" ng-model="editWorkout.name" required name="name"
+                               id="name" placeholder="Название тренировки"/>
+                    </p>
+                    <div ng-show="workoutName.name.$invalid && workoutName.name.$dirty" class="error">
+                        <p class="label label-danger">
+                        <span ng-show="workoutName.name.$error.required">поле не должно быть пустым</span>
+                        </p>
 
-            <form name="workoutName" class="form-signin" novalidate ng-submit="saveWorkout(editWorkout)">
-                <p class="field">
-                    <input type="text" class="form-control" ng-model="editWorkout.name" required name="name"
-                           id="name" placeholder="Название тренировки"/>
-                </p>
-                <div ng-show="workoutName.name.$invalid && workoutName.name.$dirty" class="error">
-                    <span ng-show="workoutName.name.$error.required">поле не должно быть пустым</span>
+                    </div>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-                </div>
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <p class="submit cta-button">
+                        <button ng-disabled="workoutName.$invalid" class="btn btn-lg btn-block btn-primary"
+                                type="submit"
+                                name="submit">Сохранить
+                        </button>
 
+                    </p>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                </form>
                 <p class="submit cta-button">
-                    <button ng-disabled="workoutName.$invalid" class="btn btn-lg btn-block btn-primary" type="submit"
-                            name="submit">Сохранить
+                    <button class="cta-button btn btn-lg btn-block btn-primary" ng-click="cancel()">Отмена
                     </button>
-
                 </p>
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            </form>
-            <p class="submit cta-button">
-                <button class="cta-button btn btn-lg btn-block btn-primary" ng-click="cancel()">Отмена
-                </button>
-            </p>
+            </div>
         </div>
     </div>
 </div>

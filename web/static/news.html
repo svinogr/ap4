@@ -1,10 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div>
+    <div class="container animation" ng-repeat="post in todos.postXMLs">
+        <div class="bs-calltoaction bs-calltoaction-primary">
+            <div class="row">
+                <div class='col-md-9 cta-contents cta-button'>
+                    <div class='col-md-9 cta-contents cta-button'>
+                        <div><h5 align="right" class="cta-title">{{post.data}}</h5></div>
+                        <div><h1 class="update cta-title">{{post.title}}</h1>
+                            <div><p  class="update cta-title">{{post.description}}</p>
+                            </div>
+                        </div>
+                        <div><h5 align="right" class="cta-title">{{}}</h5></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container text-center">
+        <pagination boundary-links="true"
+                    max-size="3"
+                    items-per-page="itemsPerPage"
+                    total-items="totalPages"
+                    ng-model="currentPage"
+                    ng-change="pageChanged()">
 
-</body>
-</html>
+        </pagination>
+    </div>
+</div>
