@@ -461,6 +461,39 @@ upump.controller("LoginCTRL", function ($scope, $http, $location) {
             }, function () {
                 $scope.controllerValue.adminStatus = false;
             });
+    };
+
+
+    $scope.rememberPass = function () {
+        $scope.rememberPassStatus= true;
+       
+    };
+    $scope.cancel = function () {
+        $scope.rememberPassStatus= false;
+    };
+    
+    
+    $scope.sendRequestRememberPass = function (item) {
+
+        var req = {
+            method: 'POST',
+            url: '/api/v.1/user/rememberPass',
+            data: {
+                "email": item.email
+            }
+
+        };
+        $http(req)
+            .then(function () {
+                $scope.rememberPassResult = "на Ваш емейл будет отправлено письмо с инструкцией";
+            }, function () {
+                $scope.rememberPassResult = "пользователя с таким емейл не существует";
+            });
+    };
+
+    $scope.abortRequestRememberPass = function () {
+        $scope.urlView.url = "/static/template/loginForm.html";
+
     }
 
 
@@ -912,7 +945,6 @@ upump.controller("UrlCtrl", function ($scope, $http, $route, $routeParams, $loca
 
         };
 
-
         $scope.openPage = function (page) {
             $location.path(page);
             console.log("path" + $location.path());
@@ -1134,33 +1166,6 @@ upump.controller("MyWorkoutCtrl", function ($scope, $http, $route, $routeParams,
             });
     };
 
-
-    $scope.rememberPass = function () {
-        $scope.email = {};
-        $scope.urlView.url = "/static/template/forgetPass.html";
-    };
-    $scope.sendRequestRememberPass = function (item) {
-
-        var req = {
-            method: 'POST',
-            url: '/api/v.1/user/rememberPass',
-            data: {
-                "email": item.email
-            }
-
-        };
-        $http(req)
-            .then(function () {
-                $scope.rememberPassResult = "на Ваш емейл будет отправлено письмо с инструкцией";
-            }, function () {
-                $scope.rememberPassResult = "пользователя с таким емейл не существует";
-            });
-    };
-
-    $scope.abortRequestRememberPass = function () {
-        $scope.urlView.url = "/static/template/loginForm.html";
-
-    }
 
 });
 upump.controller("RegistrationCTRL", function ($scope, $http) {

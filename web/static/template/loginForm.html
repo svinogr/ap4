@@ -1,4 +1,4 @@
-<div class="container animation">
+<div class="container" ng-hide="rememberPassStatus">
     <div class="bs-calltoaction bs-calltoaction-primary">
         <div class="row">
             <form class="form-signin" ng-submit="login(user)">
@@ -28,4 +28,36 @@
         </div>
     </div>
 </div>
+<div class="container" ng-show="rememberPassStatus">
+    <div class="bs-calltoaction bs-calltoaction-primary">
+        <div class="row">
+            <span class="alert">{{rememberPassResult}}</span> <br/>
+            <form name="forgetPass" ng-submit="sendRequestRememberPass(email)">
+                <p class="field">
+                    <input type="email" class="form-control" name="email" required ng-model="email.email"
+                           placeholder="Email"/>
+                </p>
+                <div ng-show="forgetPass.email.$invalid && forgetPass.email.$dirty" class="error">
+                    <p class="label label-danger">
+                        <span ng-show="forgetPass.email.$error.required">поле не должно быть пустым
+                        </span>
+                          <span ng-show="forgetPass.email.$error.email">введите правильный емейл
+                        </span>
+                    </p>
+
+                </div>
+                <p class="submit cta-button">
+                    <button class="btn btn-lg btn-block btn-primary" ng-disabled="forgetPass.$invalid" type="submit">
+                        Востановить пароль
+                    </button>
+                </p>
+            </form>
+            <p class="submit cta-button">
+                <button class="btn btn-lg btn-block btn-primary" ng-click="cancel()">Отмена
+                </button>
+            </p>
+
+        </div>
+    </div>
+
 </div>
