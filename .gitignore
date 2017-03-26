@@ -2,7 +2,6 @@
 /lib/
 /out/
 /target/
-/resources/
 ap.rar
 ap/
 hs_err_pid15292.log
@@ -10,7 +9,5 @@ hs_err_pid7868.log
 web/WEB-INF/debug.log
 web/WEB-INF/views/angular/app/
 web/static/fonts/
-"\320\235\320\276\320\262\320\260\321\217 \320\277\320\260\320\277\320\272\320\260/"
-
 /src/main/resources/mail.properties
 /src/main/resources/hibernate.properties
