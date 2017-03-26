@@ -413,8 +413,7 @@ upump.controller("InfoCTRL", function ($scope, $http, $location) {
 });
 
 upump.controller("LoginCTRL", function ($scope, $http, $location) {
-
-    $scope.login = function (user) {
+       $scope.login = function (user) {
         var getUserInfo = function () {
             var req = {
                 method: 'GET',
@@ -497,8 +496,7 @@ upump.controller("LoginCTRL", function ($scope, $http, $location) {
     }
 
 
-})
-;
+});
 
 upump.controller("WorkoutsCTRL", function ($scope, $http, $location) {
     $scope.openWorkout = function (item) {
