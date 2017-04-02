@@ -20,13 +20,18 @@
 </div>
 <div class="container animation" ng-repeat="exercise in controllerValue.authorExercises.exerciseXMLList">
     <div class="bs-calltoaction bs-calltoaction-primary">
+        <div id="progressbar" ng-show="progressbar" class="progress-bar  progress-bar-striped active"
+             style="width: 100%">{{resultSend}}
+        </div>
         <div class="row">
+
             <div class="col-md-12 cta-contents cta-button">
                 <div>
                     <h1 class="update cta-title">{{exercise.name}}</h1>
                 </div>
                 <div>
-                    <button ng-repeat="try in exercise.list" class="btn btn-primary cta-button">{{try.weight}}/{{try.repeat}}
+                    <button ng-repeat="try in exercise.list" class="btn btn-primary cta-button">
+                        {{try.weight}}/{{try.repeat}}
                     </button>
                 </div>
             </div>

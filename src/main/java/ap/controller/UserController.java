@@ -100,6 +100,7 @@ public class UserController {
     public String acceptRegistration(HttpServletRequest request, Model model) {
         String token = request.getParameter("token");
         if(userServices.acceptRegistrationHTML(token)){
+            tokenService.deleteToken(token);
             return "acceptRegistration";
         }
         return "index";
@@ -112,17 +113,14 @@ public class UserController {
     @ResponseBody
     public void receivePass(@RequestBody UserChangeData UserChangeData, HttpServletResponse response) {
         //TODO обезапасится от многократного запроса пароля
-        System.err.println(UserChangeData.getEmail());
         String email = UserChangeData.getEmail();
-        System.out.println(email);
         User user = userServices.getByEmail(email);
-        System.err.println(user);
-        if (user != null) {
-            String login = user.getLogin();
-            String token = tokenService.createToken(login);
-            mailService.sendForgetPass(email, "token=" + token);
-            response.setStatus(200);
-        } else response.setStatus(404);
+        if(user.isActive()  ) {
+                String login = user.getLogin();
+                String token = tokenService.createToken(login);
+                mailService.sendForgetPass(email, "token=" + token);
+                response.setStatus(200);
+            } else response.setStatus(404);
     }
 
     @RequestMapping(value = "/api/v.1/user/acceptRememberPass", method = RequestMethod.GET, params = {"token"})

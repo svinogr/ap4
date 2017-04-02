@@ -1,6 +1,6 @@
-var upump = angular.module("UPump", ["ngRoute", "ngAnimate", "ui.bootstrap"]);
+var upump = angular.module("UPump", ["ngRoute", "ui.bootstrap"]);
 upump.config(function ($routeProvider, $locationProvider) {
-    $routeProvider.when("/news", {templateUrl: "/static/news.html",controller: "NewsCTRL"});
+    $routeProvider.when("/news", {templateUrl: "/static/news.html", controller: "NewsCTRL"});
     $routeProvider.when("/myworkouts", {
         templateUrl: "/static/myWorkout.html",
         controller: "MyWorkoutCtrl"
@@ -12,7 +12,7 @@ upump.config(function ($routeProvider, $locationProvider) {
         templateUrl: "/static/best.html",
         controller: "BestCtrl"
     });
-    $routeProvider.when("/all", {templateUrl: "/static/all.html",controller: "AllCTRL"});
+    $routeProvider.when("/all", {templateUrl: "/static/all.html", controller: "AllCTRL"});
     $routeProvider.when("/userInfo", {
         templateUrl: "/static/authorPage.html",
         controller: "InfoCTRL"
@@ -68,7 +68,7 @@ upump.controller("NewsCTRL", function ($scope, $http) {
                 $scope.totalPages = Math.ceil(response.data);
 
             }, function () {
-                $scope.totalPages=0;
+                $scope.totalPages = 0;
             });
     };
     getTotalPage();
@@ -105,6 +105,8 @@ upump.controller("NewsCTRL", function ($scope, $http) {
 upump.controller("MailToCTRL", function ($scope, $http) {
     $scope.resultSend = null;
     $scope.send = function (item) {
+        $scope.resultSend = "отправка...";
+        $scope.progressbar = true;
         var req = {
             method: 'POST',
             url: '/api/v.1/mailto',
@@ -114,11 +116,21 @@ upump.controller("MailToCTRL", function ($scope, $http) {
             }
         };
         $http(req)
-            .then(function (response) {
+            .then(function (data) {
+                $scope.progressbar = false;
                 $scope.resultSend = "сообщение отправлено";
+
+                $scope.mail.from = null;
+                $scope.mail.body = null;
+
+                $scope.mailToForm.$setPristine();
+
+
             }, function (error) {
                 if (error.status == 400) {
-                    $scope.resultSend = "сообщение не отправлено";
+                    $scope.progressbar = false;
+                    $scope.resultSend  = "сообщение не отправлено";
+                   
                 }
             });
 
@@ -202,7 +214,7 @@ upump.controller("AdminCTRL", function ($scope, $http, $location) {
                 }
                 $scope.createOrEditStatus = false;
             }, function () {
-                $scope.resultPost="пост не создан";
+                $scope.resultPost = "пост не создан";
             });
     }
 
@@ -256,7 +268,7 @@ upump.controller("AdminCTRL", function ($scope, $http, $location) {
                 $scope.totalPages = Math.ceil(response.data);
 
             }, function () {
-                $scope.totalPages=0;
+                $scope.totalPages = 0;
             });
     };
     getTotalPage();
@@ -358,7 +370,7 @@ upump.controller("AllCTRL", function ($scope, $http, $location) {
                 $scope.totalPages = Math.ceil(response.data);
 
             }, function () {
-                $scope.totalPages=0;
+                $scope.totalPages = 0;
             });
     };
     getTotalPage();
@@ -413,7 +425,7 @@ upump.controller("InfoCTRL", function ($scope, $http, $location) {
 });
 
 upump.controller("LoginCTRL", function ($scope, $http, $location) {
-       $scope.login = function (user) {
+    $scope.login = function (user) {
         var getUserInfo = function () {
             var req = {
                 method: 'GET',
@@ -464,16 +476,17 @@ upump.controller("LoginCTRL", function ($scope, $http, $location) {
 
 
     $scope.rememberPass = function () {
-        $scope.rememberPassStatus= true;
-       
+        $scope.rememberPassStatus = true;
+
     };
     $scope.cancel = function () {
-        $scope.rememberPassStatus= false;
+        $scope.rememberPassStatus = false;
     };
-    
-    
-    $scope.sendRequestRememberPass = function (item) {
 
+
+    $scope.sendRequestRememberPass = function (item) {
+        $scope.progressbar=true;
+        $scope.resultSend = "идет поиск...";
         var req = {
             method: 'POST',
             url: '/api/v.1/user/rememberPass',
@@ -484,9 +497,11 @@ upump.controller("LoginCTRL", function ($scope, $http, $location) {
         };
         $http(req)
             .then(function () {
+                $scope.progressbar=false;
                 $scope.rememberPassResult = "на Ваш емейл будет отправлено письмо с инструкцией";
             }, function () {
-                $scope.rememberPassResult = "пользователя с таким емейл не существует";
+                $scope.progressbar=false;
+                $scope.rememberPassResult = "пользователя с таким емейл не существует или не закончена регистрация";
             });
     };
 
@@ -543,6 +558,8 @@ upump.controller("WorkoutsCTRL", function ($scope, $http, $location) {
 
 upump.controller("ExercisesCTRL", function ($scope, $http, $location) {
     $scope.copy = function (item) {
+        $scope.progressbar = true;
+        $scope.resultSend = "копирование...";
         if ($scope.value.status) {
             var req = {
                 method: 'POST',
@@ -561,12 +578,22 @@ upump.controller("ExercisesCTRL", function ($scope, $http, $location) {
                         "name": data.name,
                         "rate": data.rate
                     };
-                    $scope.controllerValue.myWorkouts.push(newWorkout);// добавление в скоп моих тренировок
-                    $scope.controllerValue.authorWorkouts.workoutXML.push(newWorkout);
-                    if ($scope.controllerValue.myUserInfo.userId == newWorkout.userId) {
-                        $scope.controllerValue.authorWorkouts.workoutXML.push(newWorkout);
+                    if (angular.isDefined($scope.controllerValue.myWorkouts)) {
+                        $scope.controllerValue.myWorkouts.workoutXML.push(newWorkout);// добавление в скоп моих тренировок
                     }
+                    if (angular.isDefined($scope.controllerValue.authorWorkouts)) {
+                        $scope.controllerValue.authorWorkouts.workoutXML.push(newWorkout);
+                        if (angular.isDefined($scope.controllerValue.myUserInfo)) {
+                            if ($scope.controllerValue.myUserInfo.userId == newWorkout.userId) {
+                                $scope.controllerValue.authorWorkouts.workoutXML.push(newWorkout);
+                            }
+                        }
+                    }
+                    $scope.progressbar = false;
+                    $scope.resultSend = "скопировано";
                 }, function () {
+                    $scope.progressbar = false;
+                    $scope.resultSend = "нескопировано";
                 });
 
 
@@ -694,8 +721,7 @@ upump.controller("MyTryCTRL", function ($scope, $http) {
     };
 
 
-})
-;
+});
 
 upump.controller("MyExerciseCTRL", function ($scope, $http, $location) {
     $scope.createOrEditExercise = function (item) {
@@ -832,7 +858,7 @@ upump.controller("MyExerciseCTRL", function ($scope, $http, $location) {
     }
 });
 
-upump.controller("AboutMeCTRL", function ($scope, $http) {
+upump.controller("AboutMeCTRL", function ($scope, $http, $location) {
     $scope.cancel = function () {
         $scope.changeInfo = false;
     };
@@ -859,6 +885,8 @@ upump.controller("AboutMeCTRL", function ($scope, $http) {
         getUserInfo();
     }
     $scope.saveMyUserInfo = function (item) {
+        $scope.progressbar=true;
+        $scope.resultSend="внесение изменений";
         var req = {
             method: 'PUT',
             url: '/api/v.1/user/auth/userInfo',
@@ -880,15 +908,21 @@ upump.controller("AboutMeCTRL", function ($scope, $http) {
 
         $http(req)
             .then(function () {
+                $scope.progressbar=false;
                 $scope.changeInfo = false;
                 $scope.controllerValue.myUserInfo = item;
+                
 
-            }, function () {
+            }, function (error) {
+                if (error.status == 401) {
+                    $location.path("login");
+                }
             });
     };
 });
 
 upump.controller("UrlCtrl", function ($scope, $http, $route, $routeParams, $location) {
+
         $scope.controllerValue = {};
         var adminStatus = function () {
             var req = {
@@ -948,13 +982,12 @@ upump.controller("UrlCtrl", function ($scope, $http, $route, $routeParams, $loca
             console.log("path" + $location.path());
 
         };
-        $scope.openPage("news");
 
 
         $scope.url = {
             header: "/static/header.html",
             footer: "/static/footer.html",
-            url: "/static/template/news.html"
+            url: ""
         };
         var status = function () {
             var promise = $http.get("/loginstatus");
@@ -1031,6 +1064,14 @@ upump.controller("UrlCtrl", function ($scope, $http, $route, $routeParams, $loca
 
     }
 );
+upump.controller("LoadCTRL", function ($scope) {
+    $scope.$on("load", function () {
+        $scope.load = true;
+
+    });
+
+});
+
 
 upump.controller("MyWorkoutCtrl", function ($scope, $http, $route, $routeParams, $location) {
     if ($scope.value.status) {
@@ -1168,6 +1209,9 @@ upump.controller("MyWorkoutCtrl", function ($scope, $http, $route, $routeParams,
 });
 upump.controller("RegistrationCTRL", function ($scope, $http) {
     $scope.registrationUser = function (item) {
+        $scope.progressbar=true;
+        $scope.resultSend="регистрация...";
+        
         var req = {
             method: 'POST',
             url: '/api/v.1/user/',
@@ -1182,15 +1226,16 @@ upump.controller("RegistrationCTRL", function ($scope, $http) {
         };
         $http(req)
             .then(function (response) {
+                $scope.progressbar=false;
                 $scope.result = "для завершения регистрации на Ваш email отправлено письмо";
 
             }, function () {
-                $scope.result = "пользователь с таким именем или email уже существует";
+                $scope.progressbar=false;
+                $scope.result="пользователь с таким именем или email уже существует";
             });
 
 
     };
-
 
 });
 

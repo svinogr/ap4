@@ -1,7 +1,7 @@
 var upump = angular.module("UPump", []);
 upump.controller("UrlCtrl", function ($scope, $http) {
     $scope.redirect = function redirect() {
-        window.location.href = "http://localhost:8080/";
+        window.location.href = "http://www.upump.info";
     };
     
     $scope.item = {};

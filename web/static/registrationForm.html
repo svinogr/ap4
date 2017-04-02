@@ -1,8 +1,9 @@
 <div class="container" ng-controller="RegistrationCTRL">
     <div class=" bs-calltoaction bs-calltoaction-primary">
     <div class="row">
-
-
+        <div id="progressbar" ng-show="progressbar" class="progress-bar  progress-bar-striped active"
+             style="width: 100%">{{resultSend}}
+        </div>
             <span class="alert">{{result}}</span> <br/>
             <div class="">
                 <form class="form-signin" name="registration"

@@ -11,3 +11,4 @@ web/WEB-INF/views/angular/app/
 web/static/fonts/
 /src/main/resources/mail.properties
 /src/main/resources/hibernate.properties
+/web/static/images/

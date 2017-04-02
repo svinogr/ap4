@@ -31,6 +31,9 @@
 <div class="container" ng-show="rememberPassStatus">
     <div class="bs-calltoaction bs-calltoaction-primary">
         <div class="row">
+            <div id="progressbar" ng-show="progressbar" class="progress-bar  progress-bar-striped active"
+                 style="width: 100%">{{resultSend}}
+            </div>
             <span class="alert">{{rememberPassResult}}</span> <br/>
             <form name="forgetPass" ng-submit="sendRequestRememberPass(email)">
                 <p class="field">
