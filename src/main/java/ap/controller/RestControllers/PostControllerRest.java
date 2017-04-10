@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -64,8 +63,6 @@ public class PostControllerRest {
             response.setStatus(404);
             return postXML;
         }
-
-
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -87,7 +84,6 @@ public class PostControllerRest {
             response.setStatus(200);
         } else response.setStatus(404);
     }
-
 
     @RequestMapping(value = "/from/{id}", method = RequestMethod.GET)
     @Transactional
@@ -115,5 +111,4 @@ public class PostControllerRest {
     int getQuantityPostUser(HttpServletResponse response) {
         return postService.getQuantityRow();
     }
-
 }
