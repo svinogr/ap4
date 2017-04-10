@@ -79,13 +79,10 @@ public class UserInfoControllerRest {
     UserInfoXML changeUserInfo(@RequestBody @Valid UserInfoXML userInfoXML, BindingResult bindingResult, HttpServletResponse response)  {
        try {
            int userIdForChangeInfo = userInfoXML.getUserId();
-
            if (userServices.allow(userIdForChangeInfo)) {
-
                if (bindingResult.hasErrors()) {
                    response.setStatus(400);
                    return  infoUserService.validUserInfoXML(userInfoXML, bindingResult);
-
                }
                infoUserService.updateUserInfo(userInfoXML);
                response.setStatus(200);
@@ -98,5 +95,4 @@ public class UserInfoControllerRest {
        }
         return null;
     }
-
 }
