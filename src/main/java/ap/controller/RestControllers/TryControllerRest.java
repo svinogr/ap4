@@ -7,7 +7,6 @@ import ap.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
@@ -57,7 +56,6 @@ public class TryControllerRest {
         } else response.setStatus(404);
     }
 
-
     /**
      * @param tryXML tryXML. fields (weight and repeat are not be empty). if fild has value -1, field wont changed
      * @param id  id of try in BD
@@ -89,6 +87,7 @@ public class TryControllerRest {
         response.setStatus(404);
         return tryXML;
     }
+    
     @RequestMapping(value = "/{id}/do", method = RequestMethod.PUT)
     @Transactional
     public
@@ -111,6 +110,5 @@ public class TryControllerRest {
         }
         response.setStatus(404);
         return tryXML;
-
     }
 }
