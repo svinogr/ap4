@@ -12,8 +12,6 @@
         <error-code>404</error-code>
         <location>/static/index.html</location>
     </error-page>
-
-
     <context-param>
         <param-name>contextClass</param-name>
         <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
@@ -23,5 +21,4 @@
             org.springframework.security.web.session.HttpSessionEventPublisher
         </listener-class>
     </listener>
-
 </web-app>
