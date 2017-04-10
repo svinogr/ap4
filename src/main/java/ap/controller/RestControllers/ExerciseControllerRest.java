@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -23,7 +22,6 @@ public class ExerciseControllerRest {
     UserServices userServices;
     @Autowired
     TryService tryService;
-
 
     /**
      * @param id       id exercise in BD
@@ -102,7 +100,6 @@ public class ExerciseControllerRest {
             } else response.setStatus(404);
     }
 
-
     /**
      * @param exerciseXML   with data for change(name)
      * @param bindingResult
@@ -135,8 +132,4 @@ public class ExerciseControllerRest {
             return exerciseXML;
         }
     }
-
-
-
-
 }
