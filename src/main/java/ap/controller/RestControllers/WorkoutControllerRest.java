@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -86,7 +85,6 @@ public class WorkoutControllerRest {
         response.setHeader("Location", "/api/v.1/exercise/" + exerciseXML.getExerciseId());
         return exerciseXML;
     }
-
 
     /**
      * @param id       id of workout in BD
@@ -207,7 +205,6 @@ public class WorkoutControllerRest {
         }
     }
 
-
     /**
      * @param request
      * @param response
@@ -224,13 +221,10 @@ public class WorkoutControllerRest {
         return userXML;
     }
 
-
     @RequestMapping(value = "/quantity", method = RequestMethod.GET)
     @Transactional
     public int getQuantity() {
         System.err.println("dwdwdwd  " + workoutService.getQuantityWorkout());
         return workoutService.getQuantityWorkout();
     }
-
-
 }
