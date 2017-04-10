@@ -224,7 +224,6 @@ public class WorkoutControllerRest {
     @RequestMapping(value = "/quantity", method = RequestMethod.GET)
     @Transactional
     public int getQuantity() {
-        System.err.println("dwdwdwd  " + workoutService.getQuantityWorkout());
-        return workoutService.getQuantityWorkout();
+               return workoutService.getQuantityWorkout();
     }
 }
