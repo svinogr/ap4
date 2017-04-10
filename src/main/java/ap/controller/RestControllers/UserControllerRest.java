@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -41,7 +40,6 @@ public class UserControllerRest {
 
     @Autowired
     UserDetailsService userDetailsService;
-
 
     /**
      * @param response 401 if user is not authenticated
@@ -115,7 +113,6 @@ public class UserControllerRest {
         return userXML;
     }
 
-
     @RequestMapping(value = "/auth/workout", method = RequestMethod.GET)
     @Transactional
     public
@@ -160,7 +157,6 @@ public class UserControllerRest {
         response.setHeader("Location", "/api/v.1/workout/" + workoutXML.getWorkoutId());
         return workoutXML;
     }
-
 
     /**
      * @param id       id  of user in DB
@@ -280,9 +276,6 @@ public class UserControllerRest {
         return userXML;
     }
 
-
-
-
     /**
      * @param id       id of user in Db
      * @param response 404 no one posts are not found in DB for this user
@@ -305,6 +298,4 @@ public class UserControllerRest {
         response.setStatus(404);
         return null;
     }
-
-
 }
